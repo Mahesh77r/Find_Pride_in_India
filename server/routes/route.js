@@ -1,10 +1,10 @@
 const router = require('express').Router();
-const {register ,login, wlcom } = require("../controllers/adminAuthController");
+const {placeAdminRegister, placeAdminlogin, wlcom } = require("../controllers/adminAuthController");
 
 const auth = require("../middelweares/Authentication");
 
-router.post("/register",register)
-router.post("/login",login);
+router.post("/register",placeAdminRegister)
+router.post("/login",placeAdminlogin);
 router.get("/",auth,wlcom);
 
 
