@@ -128,6 +128,12 @@ function Table() {
         name: 'Ganesh',
         email: 'ganesh@gmail.com',
         age: '21'
+    },
+    {
+        id:19,
+        name: 'Ganesh',
+        email: 'ganesh@gmail.com',
+        age: '21'
     }
   ]
   const [records, setRecords] = useState(data);
