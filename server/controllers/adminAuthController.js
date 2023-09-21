@@ -1,23 +1,31 @@
-const User = require("../models/userModal");
+const User = require("../models/placeAdminModal");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const path = require("path");
 
 
-
 //  Register function to register user
 const placeAdminRegister = async (req, res) => {
-  const { full_name, email, password, role } = req.body;
+  const { admin_name, email, password, role, phone_number,place_name} = req.body;
+  const { filename, path } = req.file;
+
   // Validate user input
-  if (!(email && password && full_name)) {
+  if (!(email && password && admin_name && phone_number && place_name)) {
     return res.status(400).send("All input is required");
   }
   // find old user exit or not if not exit then create new user
   const oldUser = await User.findOne({ email: email });
+  const placeName = await User.findOne({ place_name: place_name });
   if (oldUser) {
     res.status(400).json({
       success: false,
-      message: "User Allready Exist",
+      message: "Email Already Exist",
+    });
+  }
+  else if (placeName) {
+    res.status(400).json({
+      success: false,
+      message: "Place Name Already Exist",
     });
   }
 
@@ -26,14 +34,19 @@ const placeAdminRegister = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     encryptedPassword = await bcrypt.hash(password, salt);
     const user = await User.create({
-      full_name: full_name,
+      admin_name: admin_name,
       role: role,
       email: email.toLowerCase(), // sanitize: convert email to lowercase
       password: encryptedPassword,
+      phone_number:phone_number,
+      place_name:place_name,
+      filename,
+      path
+
     });
     return res
       .status(201)
-      .json({ user: user, message: "you are register successfull" });
+      .json({ user: user, message: "Registration successfull" });
   } catch (error) {
     console.log(error);
     return res.status(400).json({ message: "Registration failed" });

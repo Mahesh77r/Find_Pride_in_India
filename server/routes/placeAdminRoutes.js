@@ -3,6 +3,7 @@ const {placeAdminRegister, placeAdminlogin, wlcom } = require("../controllers/ad
 
 const auth = require("../middelweares/Authentication");
 
+
 router.post("/register",placeAdminRegister)
 router.post("/login",placeAdminlogin);
 router.get("/",auth,wlcom);

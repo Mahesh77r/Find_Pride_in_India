@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 
 const placeAdminSchema = new mongoose.Schema({
+    // form data
     admin_name: { type: String, default: null },
     email: { type: String, unique: true },
     password: { type: String },
     role : {type : String, default : "placeadmin"},
     phone_number:{type:String},
-    place_name:{type:String},
-    // place_image:{type:String},
+    place_name:{type:String , unique:true},
     location:{
         type: {
           type: String, // Don't do `{ location: { type: String } }`
@@ -19,6 +19,10 @@ const placeAdminSchema = new mongoose.Schema({
           required: true
         }
       },
+    //   image data
+    filename:{type:String},
+    path :{type:String},
+
     // 
     verified :{type:Boolean , default:false},
     token: { type: String },
