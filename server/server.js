@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(cors());
 
 // Routing
-app.use("/placeadmin", placeAdminRouter);
+app.use("/dom", placeAdminRouter);
 app.use("/tourist", Tourist);
 
 app.listen(process.env.PORT ,() =>{

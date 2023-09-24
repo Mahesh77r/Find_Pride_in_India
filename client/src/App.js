@@ -1,15 +1,19 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from './pages/loginPage';
-import Table from './components/Table/Table';
+import HomePage from './pages/homePage';
+import AllDOM from './pages/allDOM';
+import Navbar from './components/navbar/navbar';
 
 function App() {
   return (
     <>
     <BrowserRouter>
+    <Navbar/>
     <Routes>
-      <Route path="/" element={<Login />} />
-      <Route path="/table" element={<Table/>} />
+      <Route path="/" element={<HomePage/>} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/checkpoints" element={<AllDOM/>} />
     </Routes>
     </BrowserRouter>
     </>

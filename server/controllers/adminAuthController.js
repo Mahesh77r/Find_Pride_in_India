@@ -1,21 +1,22 @@
 const User = require("../models/placeAdminModal");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const path = require("path");
 
 
 //  Register function to register user
 const placeAdminRegister = async (req, res) => {
-  const { admin_name, email, password, role, phone_number,place_name} = req.body;
+  const formData = JSON.parse(req.body.data);
+
+  const { adminName, email, password, mobileNumber,destinationName} = formData;
   const { filename, path } = req.file;
 
   // Validate user input
-  if (!(email && password && admin_name && phone_number && place_name)) {
+  if (!( adminName && email && password && mobileNumber && destinationName)) {
     return res.status(400).send("All input is required");
   }
   // find old user exit or not if not exit then create new user
   const oldUser = await User.findOne({ email: email });
-  const placeName = await User.findOne({ place_name: place_name });
+  const placeName = await User.findOne({ destinationName: destinationName });
   if (oldUser) {
     res.status(400).json({
       success: false,
@@ -33,20 +34,21 @@ const placeAdminRegister = async (req, res) => {
     // bcrypt the password and creating user
     const salt = await bcrypt.genSalt(10);
     encryptedPassword = await bcrypt.hash(password, salt);
-    const user = await User.create({
-      admin_name: admin_name,
-      role: role,
+    const newUser = new User({
+      adminName: adminName,
       email: email.toLowerCase(), // sanitize: convert email to lowercase
       password: encryptedPassword,
-      phone_number:phone_number,
-      place_name:place_name,
+      mobileNumber:mobileNumber,
+      destinationName:destinationName,
       filename,
       path
 
     });
+    await newUser.save();
+
     return res
       .status(201)
-      .json({ user: user, message: "Registration successfull" });
+      .json({ data: newUser, message: "Registration successfull" });
   } catch (error) {
     console.log(error);
     return res.status(400).json({ message: "Registration failed" });
