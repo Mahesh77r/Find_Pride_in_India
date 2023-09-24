@@ -25,11 +25,11 @@ export default function Login() {
   
 const loginHandler = async(e) =>{
   e.preventDefault();
-  const res = loginDOM(loginData);
+  const res = await loginDOM(loginData);
   if(res.status === 200){
     Navigate('/');
   }
-  else{
+  else if(res.status === 202){
     setShowalert(true);
   }
 // console.log(loginData);

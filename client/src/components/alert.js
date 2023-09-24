@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Alert = ({ bgcolor, title, desc, bool,onClose }) => {// Change the initial state to true
+export const Alert = ({ bgcolor, title, desc, bool, onClose }) => {// Change the initial state to true
 
 
   return (
@@ -9,7 +9,7 @@ export const Alert = ({ bgcolor, title, desc, bool,onClose }) => {// Change the 
         <div className="flex items-center justify-center ">
           <div
             className={
-              "md:w-[70%] w-full px-4 py-2 border-0 rounded relative my-4 bg-" +
+              "md:w-[70%] w-full  px-4 py-2 border-0 rounded relative my-4 bg-" +
               bgcolor +
               "-500 bg-gradient-to-r from-" +
               bgcolor +
