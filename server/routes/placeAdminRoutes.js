@@ -2,9 +2,9 @@ const router = require('express').Router();
 const {placeAdminRegister, placeAdminlogin, wlcom } = require("../controllers/adminAuthController");
 
 const auth = require("../middelweares/Authentication");
+const upload = require("../middelweares/fileupload");
 
-
-router.post("/register",placeAdminRegister)
+router.post("/register",upload.array('file'),placeAdminRegister);
 router.post("/login",placeAdminlogin);
 router.get("/",auth,wlcom);
 
