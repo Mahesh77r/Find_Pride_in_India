@@ -4,17 +4,13 @@ import {Link} from 'react-router-dom';
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
-const navigation = [
-  { name: 'Dashboard', to: '/', current: true },
-  { name: 'Checkpoints', to: '/checkpoints', current: false },
-  { name: 'Products', to: '/products', current: false },
-]
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Navbar() {
+export default function Navbar({navigation}) {
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
