@@ -8,7 +8,7 @@ const placeAdminRegister = async (req, res) => {
   const formData = JSON.parse(req.body.data);
 
   const { adminName, email, password, mobileNumber,destinationName} = formData;
-  const { filename, path } = req.file;
+  const { name, path } = req.file;
 
   // Validate user input
   if (!( adminName && email && password && mobileNumber && destinationName)) {
