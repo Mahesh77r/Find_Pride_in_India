@@ -1,0 +1,18 @@
+.scroll-container {
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .scroll-content {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-bottom: -17px; /* Adjust this value to hide the scrollbar */
+    padding-bottom: 17px; /* This is to compensate for the hidden scrollbar */
+    overflow-x: auto;
+  }
+  
+  .scroll-content::-webkit-scrollbar {
+    width: 0; /* Hide the scrollbar in WebKit browsers (e.g., Chrome, Safari) */
+  }
+  

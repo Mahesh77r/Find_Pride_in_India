@@ -57,7 +57,7 @@ function Table() {
       selector: (row) => row.Tdata,
       sortable: true,
     },
-    ,
+    
     {
       name: "Images",
       selector: (row) => row.imgno,
@@ -91,7 +91,7 @@ function Table() {
             Delete
           </button>
         </div>
-      ),
+      )
     },
     
   ];

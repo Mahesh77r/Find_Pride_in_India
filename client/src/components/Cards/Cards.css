@@ -1,0 +1,13 @@
+/* Hide the text by default */
+button .text {
+    opacity: 0;
+    width: 0;
+    transition: opacity 0.3s ease-in-out, width 2ms ease-in-out;
+  }
+  
+  /* Show the text when hovering over the button */
+  button:hover .text {
+    opacity: 1;
+    width: 100%;
+  }
+  
