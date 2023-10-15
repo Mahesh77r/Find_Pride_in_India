@@ -10,6 +10,10 @@ export default function Login() {
     password: '',
   });
   const [showalert, setShowalert] = useState(false)
+  
+  const handleCloseAlert = () => {
+    setShowalert(false);
+  };
   const Navigate = useNavigate();
 
   const handleInputChange = (event) => {
@@ -19,9 +23,7 @@ export default function Login() {
       [name]: value,
     });
   };
-  const handleCloseAlert = () => {
-    setShowalert(false);
-  };
+  
 
   const loginHandler = async (e) => {
     e.preventDefault();
