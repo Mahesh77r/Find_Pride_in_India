@@ -18,9 +18,24 @@ function HomePage() {
     <>
       <div className="container m-auto my-6">
         {/* About Place */}
+        <p className="ms-3 text-4xl font-serif pt-3">Bapu Kuti</p>
         <div className="my-4">
-          <div>
+          <div className="flex flex-row">
             <img className="h-50 w-50" src={Img} alt="Place" />
+            <p className="h-50 w-50 mx-4 mt-3">Bapu Kuti, also known as Bapu's Cottage, is a historic and iconic thatched-roof hut
+             situated in the village of Sewagram, located in the Wardha district of Maharashtra, India. This unassuming dwelling 
+             holds profound significance in the annals of Indian history as it was the primary residence of Mahatma Gandhi, 
+             the revered leader of the Indian independence movement against British colonial rule.<br/> <br/>
+
+            The name "Bapu" was an endearing term used to address Mahatma Gandhi, signifying his status as the 
+            "Father of the Nation" in India. Bapu Kutir served as more than just a shelter; it was a living testament to 
+            Gandhi's principles of simplicity, self-sufficiency, and non-violence. The cottage was a physical manifestation 
+            of his commitment to a Spartan lifestyle, emphasizing the use of indigenous materials and sustainable practices.<br/><br/>
+            
+            Bapu Kuti remains a significant historical and cultural landmark, preserving the legacy of Mahatma Gandhi's struggle 
+            for India's independence and his commitment to the ideals of truth, non-violence, and simplicity. It stands as a 
+            living museum, providing insights into the life and work of this remarkable leader and his enduring impact on India's
+             history and the global pursuit of peace and justice.</p>
           </div>
           <div></div>
         </div>
