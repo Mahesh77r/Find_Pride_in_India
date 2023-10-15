@@ -1,9 +1,20 @@
 import Guide1 from "../images/Guide1.jpg";
 import Guide2 from "../images/Guide2.jpg";
+import Guide3 from "../images/guides/guide3.jpeg";
+import Guide4 from "../images/guides/guide2.jpeg";
+
 import PlaceImg from "../images/BapuKuti.webp";
-import PlaceImg2 from "../images/Bapu2.webp";
+import PlaceImg2 from "../images/Events/Bajajwadi.jpg";
+import PlaceImg3 from "../images/Events/vishwa-shanti-stupa.jpg";
+import PlaceImg4 from "../images/Events/Magan-Sangrahalaya.jpg";
+import PlaceImg5 from "../images/Events/gitai_mandir.jpeg";
 import Prod1 from "../images/Prod1.jpg";
 import Prod2 from "../images/Prod2.jpg";
+import Prod3 from "../images/products/pottery.jpeg";
+import Prod4 from "../images/products/soap.jpg";
+import Prod5 from "../images/products/spices.jpeg";
+
+import facility1 from "../images/facilities/police-station.jpeg"
 
 export const GuideData = [
     {
@@ -19,8 +30,8 @@ export const GuideData = [
       contact_number: 1234567890,
     },
     {
-      guidename: "Jane Smith",
-      img_url: Guide1,
+      guidename: "Will Smith",
+      img_url: Guide3,
       fees: 1500,
       contact_number: 9876543210,
     },
@@ -32,7 +43,7 @@ export const GuideData = [
     },
     {
       guidename: "Alice Johnson",
-      img_url: Guide1,
+      img_url: Guide4,
       fees: 900,
       contact_number: 5551234567,
     },
@@ -52,19 +63,19 @@ export const GuideData = [
         "The ancestral home of the Bajaj family, a prominent industrialist family in India.",
     },
     {
-      imgURL: PlaceImg,
+      imgURL: PlaceImg3,
       eventName: "Vishwa Shanti Stupa",
       descrip:
         "A Buddhist stupa dedicated to world peace and non-violence, offering serene surroundings and panoramic views.",
     },
     {
-      imgURL: PlaceImg2,
+      imgURL: PlaceImg4,
       eventName: "Magan Sangrahalaya",
       descrip:
         "A museum exhibiting the life and work of Maganlal Gandhi, a close associate of Mahatma Gandhi.",
     },
     {
-      imgURL: PlaceImg,
+      imgURL: PlaceImg5,
       eventName: "Gitai Mandir",
       descrip:
         "A temple dedicated to Lord Krishna, known for its beautiful architecture and serene ambiance.",
@@ -93,7 +104,7 @@ export const GuideData = [
       product_price: 800,
       product_descp:
         "A set of beautifully crafted pottery items, including mugs, bowls, and vases.",
-      prod_img_url: Prod1,
+      prod_img_url: Prod3,
       quantity_available: 20,
     },
     {
@@ -101,7 +112,7 @@ export const GuideData = [
       product_price: 50,
       product_descp:
         "Handmade herbal soap with natural ingredients, perfect for skin care.",
-      prod_img_url: Prod1,
+      prod_img_url: Prod4,
       quantity_available: 200,
     },
     {
@@ -109,7 +120,7 @@ export const GuideData = [
       product_price: 300,
       product_descp:
         "A collection of locally sourced spices, including chili powder, turmeric, and cumin.",
-      prod_img_url: Prod1,
+      prod_img_url: Prod5,
       quantity_available: 75,
     },
   ];
@@ -118,7 +129,7 @@ export const GuideData = [
     {
       facility_name: "Parking",
       contact_detail: "123-456-7890",
-      img_url: "https://example.com/parking.jpg",
+      img_url: facility1,
       location_url: "https://maps.google.com/?q=Parking"
     },
     {
