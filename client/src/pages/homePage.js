@@ -12,8 +12,6 @@ import Img from "../images/BapuProfile.jpeg";
 import { FamousPlaces, GuideData, WardhaProducts , Facilities} from '../components/DemoData'
 function HomePage() {
 
-
-
   return (
     <>
       <div className="container m-auto my-6">
