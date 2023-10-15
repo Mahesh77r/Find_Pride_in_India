@@ -2,7 +2,6 @@ import React from "react";
 
 export const Alert = ({ bgcolor, title, desc, bool, onClose }) => {// Change the initial state to true
 
-
   return (
     <>
       {bool && ( // Render the alert only if showAlert is true
