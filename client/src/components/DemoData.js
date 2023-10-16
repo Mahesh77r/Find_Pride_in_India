@@ -14,7 +14,9 @@ import Prod3 from "../images/products/pottery.jpeg";
 import Prod4 from "../images/products/soap.jpg";
 import Prod5 from "../images/products/spices.jpeg";
 
-import facility1 from "../images/facilities/police-station.jpeg"
+import facility1 from "../images/facilities/parking.jpeg"
+import facility2 from "../images/facilities/hospital.jpeg"
+import facility4 from "../images/facilities/police-station.jpeg"
 
 export const GuideData = [
     {
