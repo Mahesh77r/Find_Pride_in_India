@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const FormTouristGuide = () => {
+export const FormTouristGuide = ({img_url,guide_name,fees,contact_detail,}) => {
     return (
         <>
             <div className="mt-4">
@@ -25,6 +25,7 @@ export const FormTouristGuide = () => {
                 <input
                     type="text"
                     id="guideName"
+                    value={guide_name}
                     name="guideName"
                     className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
                 />
@@ -37,6 +38,7 @@ export const FormTouristGuide = () => {
                 <input
                     type="text"
                     id="fees"
+                    value={fees}
                     name="fees"
                     className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
                 />
@@ -49,6 +51,7 @@ export const FormTouristGuide = () => {
                 <input
                     type="text"
                     id="contactDetail"
+                    value={contact_detail}
                     name="contactDetail"
                     className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
                 />
@@ -57,7 +60,7 @@ export const FormTouristGuide = () => {
     )
 }
 
-export const FormEvents = () => {
+export const FormEvents = ({img_url,event_name, event_date, event_descp}) => {
     return (
         <>
             <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
@@ -78,19 +81,19 @@ export const FormEvents = () => {
                 {/* <!-- Event Name Input --> */}
                 <div className="mb-4">
                     <label for="event-name" className="block text-gray-700 text-sm font-bold mb-2">Name of Event</label>
-                    <input type="text" id="event-name" name="event-name" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter the event name" required />
+                    <input type="text" id="event-name" value={event_name} name="event-name" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter the event name" required />
                 </div>
 
                 {/* <!-- Event Date Input --> */}
                 <div className="mb-4">
                     <label for="event-date" className="block text-gray-700 text-sm font-bold mb-2">Date of Event</label>
-                    <input type="date" id="event-date" name="event-date" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" required />
+                    <input type="date" id="event-date" value={event_date} name="event-date" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" required />
                 </div>
 
                 {/* <!-- Event Description Input --> */}
                 <div className="mb-4">
                     <label for="event-description" className="block text-gray-700 text-sm font-bold mb-2">Description of Event</label>
-                    <textarea id="event-description" name="event-description" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" rows="4" placeholder="Enter a description for the event" required></textarea>
+                    <textarea id="event-description" value={event_descp} name="event-description" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" rows="4" placeholder="Enter a description for the event" required></textarea>
                 </div>
 
 
@@ -101,7 +104,7 @@ export const FormEvents = () => {
 }
 
 
-export const FormProduct = () => {
+export const FormProduct = ({img_url, prod_name, prod_price, prod_quant, prod_desp}) => {
     return (
         <>
             <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
@@ -122,25 +125,25 @@ export const FormProduct = () => {
                 {/* <!-- product Name Input --> */}
                 <div className="mb-4">
                     <label for="product-name" className="block text-gray-700 text-sm font-bold mb-2">Name of Product</label>
-                    <input type="text" id="product-name" name="product-name" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter the product name" required />
+                    <input type="text" id="product-name" value={prod_name} name="product-name" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter the product name" required />
                 </div>
 
                 {/* <!-- product Price Input --> */}
                 <div className="mb-4">
-                    <label for="product-date" className="block text-gray-700 text-sm font-bold mb-2">Price of Product</label>
-                    <input type="number" id="product-price" name="product-price" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" required />
+                    <label for="product-price" className="block text-gray-700 text-sm font-bold mb-2">Price of Product</label>
+                    <input type="number" id="product-price" value={prod_price} name="product-price" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" required />
                 </div>
 
                 {/* <!-- product Quantity Input --> */}
                 <div className="mb-4">
                     <label for="product-quantity" className="block text-gray-700 text-sm font-bold mb-2">Price of Quantity</label>
-                    <input type="number" id="product-quantity" name="product-quantity" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" required />
+                    <input type="number" id="product-quantity" value={prod_quant} name="product-quantity" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" required />
                 </div>
 
                 {/* <!-- product Description Input --> */}
                 <div className="mb-4">
                     <label for="product-description" className="block text-gray-700 text-sm font-bold mb-2">Description of Product</label>
-                    <textarea id="product-description" name="product-description" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" rows="4" placeholder="Enter a description for the product" required></textarea>
+                    <textarea id="product-description" value={prod_desp} name="product-description" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" rows="4" placeholder="Enter a description for the product" required></textarea>
                 </div>
 
 
@@ -150,7 +153,7 @@ export const FormProduct = () => {
     );
 }
 
-export const FormFacility = () => {
+export const FormFacility = ({img_url, fact_name, fact_contact, fact_loca}) => {
     return (
         <>
             <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
@@ -171,19 +174,19 @@ export const FormFacility = () => {
                 {/* <!-- facility Name Input --> */}
                 <div className="mb-4">
                     <label for="facility-name" className="block text-gray-700 text-sm font-bold mb-2">Name of facility</label>
-                    <input type="text" id="facility-name" name="facility-name" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter the facility name" required />
+                    <input type="text" id="facility-name" value={fact_name} name="facility-name" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter the facility name" required />
                 </div>
 
                 {/* <!-- facility contact Input --> */}
                 <div className="mb-4">
                     <label for="facility-contact" className="block text-gray-700 text-sm font-bold mb-2">Contact of facility</label>
-                    <input type="tel" id="facility-contact" name="facility-contact" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" required />
+                    <input type="tel" id="facility-contact" value={fact_contact} name="facility-contact" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" required />
                 </div>
 
                 {/* <!-- facility Description Input --> */}
                 <div className="mb-4">
                     <label for="facility-location" className="block text-gray-700 text-sm font-bold mb-2">Location of facility</label>
-                    <input type="url" id="facility-location" name="facility-location" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" required />
+                    <input type="url" id="facility-location" value={fact_loca} name="facility-location" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" required />
                     <p className="text-sm text-red-400">Paste the URL</p>
                 </div>
 
