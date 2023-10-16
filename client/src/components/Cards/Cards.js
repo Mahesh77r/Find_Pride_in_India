@@ -12,9 +12,9 @@ export const GuideCards = ({ guidename, img_url, fees, contact_number }) => {
       <UpdateDeletebuttons Updateform={<FormTouristGuide  guide_name={guidename} contact_detail={contact_number} fees={fees}/>} update_delete_title={"Guide"} />
 
       {/*  */}
-      <div className="row w-full h-30">
+      <div className="row flex justify-center">
         <img
-          className="w-full h-full  border border-solid justify-self-center rounded-full"
+          className="w-20 h-20  border border-solid  rounded-full"
           alt="Guide"
           src={img_url}
         />
@@ -46,6 +46,11 @@ export const EventCard = ({ event_name, event_date,image_url, descp }) => {
         <div className="font-bold mt-3 text-center text-2xl mb-2">
           {event_name}
         </div>
+        {/* Place Name */}
+        <div className="font-bold mt-3 text-center text-2xl mb-2">
+          Upcoming on Date{event_date}
+        </div>
+
         {/* Descp */}
         <div className="px-2 text-left py-4">
           <p className="text-gray-700 text-base">{descp}</p>

@@ -69,6 +69,7 @@ function HomePage() {
                     event_name={eve.eventName}
                     descp={eve.descrip}
                     image_url={eve.imgURL}
+                    event_date={eve.date}
                   />
                 </div>
               ))}

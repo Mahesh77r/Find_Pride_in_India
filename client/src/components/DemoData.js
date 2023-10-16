@@ -66,28 +66,28 @@ export const GuideData = [
       eventName: "Bajajwadi",
       descrip:
         "The ancestral home of the Bajaj family, a prominent industrialist family in India.",
-        Date : "10 december 2007",
+        date : "10 december 2007",
     },
     {
       imgURL: PlaceImg3,
       eventName: "Vishwa Shanti Stupa",
       descrip:
         "A Buddhist stupa dedicated to world peace and non-violence, offering serene surroundings and panoramic views.",
-        Date : "12 january 2020",
+        date : "12 january 2020",
     },
     {
       imgURL: PlaceImg4,
       eventName: "Magan Sangrahalaya",
       descrip:
         "A museum exhibiting the life and work of Maganlal Gandhi, a close associate of Mahatma Gandhi.",
-        Date : "30 june 2000",
+        date : "30 june 2000",
     },
     {
       imgURL: PlaceImg5,
       eventName: "Gitai Mandir",
       descrip:
         "A temple dedicated to Lord Krishna, known for its beautiful architecture and serene ambiance.",
-        Date : "19 april 2012",
+        date : "19 april 2012",
     },
   ];
 
