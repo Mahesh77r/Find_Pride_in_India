@@ -1,7 +1,8 @@
 import Guide1 from "../images/Guide1.jpg";
 import Guide2 from "../images/Guide2.jpg";
-import Guide3 from "../images/guides/guide3.jpeg";
-import Guide4 from "../images/guides/guide2.jpeg";
+import Guide3 from "../images/guides/guide3.jpg";
+import Guide4 from "../images/guides/guide4.jpg";
+import Guide5 from "../images/guides/guide5.jpg";
 
 import PlaceImg from "../images/BapuKuti.webp";
 import PlaceImg2 from "../images/Events/Bajajwadi.jpg";
@@ -16,11 +17,12 @@ import Prod5 from "../images/products/spices.jpeg";
 
 import facility1 from "../images/facilities/parking.jpeg"
 import facility2 from "../images/facilities/hospital.jpeg"
+import facility3 from "../images/facilities/hotel.jpg"
 import facility4 from "../images/facilities/police-station.jpeg"
 
 export const GuideData = [
     {
-      guidename: "Ganesh Golhar",
+      guidename: "Mahesh Rohane",
       img_url: Guide1,
       fees: 1000,
       contact_number: 7556945211,
@@ -32,20 +34,20 @@ export const GuideData = [
       contact_number: 1234567890,
     },
     {
-      guidename: "Will Smith",
+      guidename: "Ashwini Ukhalkar",
       img_url: Guide3,
       fees: 1500,
       contact_number: 9876543210,
     },
     {
-      guidename: "Jane Smith",
-      img_url: Guide2,
+      guidename: "Ganesh Golhar",
+      img_url: Guide4,
       fees: 1500,
       contact_number: 9876543210,
     },
     {
       guidename: "Alice Johnson",
-      img_url: Guide4,
+      img_url: Guide5,
       fees: 900,
       contact_number: 5551234567,
     },
@@ -57,30 +59,35 @@ export const GuideData = [
       eventName: "Sevagram Ashram",
       descrip:
         "Founded by Mahatma Gandhi in 1936, this ashram played a vital role in India's struggle for independence.",
+      date : "2 october 2002",
     },
     {
       imgURL: PlaceImg2,
       eventName: "Bajajwadi",
       descrip:
         "The ancestral home of the Bajaj family, a prominent industrialist family in India.",
+        Date : "10 december 2007",
     },
     {
       imgURL: PlaceImg3,
       eventName: "Vishwa Shanti Stupa",
       descrip:
         "A Buddhist stupa dedicated to world peace and non-violence, offering serene surroundings and panoramic views.",
+        Date : "12 january 2020",
     },
     {
       imgURL: PlaceImg4,
       eventName: "Magan Sangrahalaya",
       descrip:
         "A museum exhibiting the life and work of Maganlal Gandhi, a close associate of Mahatma Gandhi.",
+        Date : "30 june 2000",
     },
     {
       imgURL: PlaceImg5,
       eventName: "Gitai Mandir",
       descrip:
         "A temple dedicated to Lord Krishna, known for its beautiful architecture and serene ambiance.",
+        Date : "19 april 2012",
     },
   ];
 
