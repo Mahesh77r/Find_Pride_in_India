@@ -1,7 +1,8 @@
 import Guide1 from "../images/Guide1.jpg";
 import Guide2 from "../images/Guide2.jpg";
-import Guide3 from "../images/guides/guide3.jpeg";
-import Guide4 from "../images/guides/guide2.jpeg";
+import Guide3 from "../images/guides/guide3.jpg";
+import Guide4 from "../images/guides/guide4.jpg";
+import Guide5 from "../images/guides/guide5.jpg";
 
 import PlaceImg from "../images/BapuKuti.webp";
 import PlaceImg2 from "../images/Events/Bajajwadi.jpg";
@@ -21,7 +22,7 @@ import facility4 from "../images/facilities/police-station.jpeg"
 
 export const GuideData = [
     {
-      guidename: "Ganesh Golhar",
+      guidename: "Mahesh Rohane",
       img_url: Guide1,
       fees: 1000,
       contact_number: 7556945211,
@@ -33,20 +34,20 @@ export const GuideData = [
       contact_number: 1234567890,
     },
     {
-      guidename: "Will Smith",
+      guidename: "Ashwini Ukhalkar",
       img_url: Guide3,
       fees: 1500,
       contact_number: 9876543210,
     },
     {
-      guidename: "Jane Smith",
-      img_url: Guide2,
+      guidename: "Ganesh Golhar",
+      img_url: Guide4,
       fees: 1500,
       contact_number: 9876543210,
     },
     {
       guidename: "Alice Johnson",
-      img_url: Guide4,
+      img_url: Guide5,
       fees: 900,
       contact_number: 5551234567,
     },
