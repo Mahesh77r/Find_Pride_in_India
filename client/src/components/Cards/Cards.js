@@ -15,7 +15,7 @@ export const GuideCards = ({ guidename, img_url, fees, contact_number }) => {
       {/*  */}
       <div className="row grid">
         <img
-          className="w-40 border border-solid justify-self-center rounded-full"
+          className="w-40 h-40 border border-solid justify-self-center rounded-full"
           alt="Guide"
           src={img_url}
         />
