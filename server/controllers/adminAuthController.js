@@ -5,10 +5,12 @@ const jwt = require("jsonwebtoken");
 
 //  Register function to register user
 const placeAdminRegister = async (req, res) => {
+  console.log(req.file)
   const formData = JSON.parse(req.body.data);
-
+  const { filename, path } = req.file;
   const { adminName, email, password, mobileNumber,destinationName} = formData;
-  const { name, path } = req.file;
+  console.log(filename);
+ 
 
   // Validate user input
   if (!( adminName && email && password && mobileNumber && destinationName)) {

@@ -1,9 +1,11 @@
 import React from 'react';
+import './App.css'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from './pages/loginPage';
 import HomePage from './pages/homePage';
 import AllDOM from './pages/allDOM';
 import Navbar from './components/navbar/navbar';
+import AddDOM from './components/Forms/addDOM';
 
 function App() {
   // const navForMinistry = [
@@ -26,6 +28,7 @@ function App() {
       <Route path="/" element={<HomePage/>} />
       <Route path="/login" element={<Login />} />
       <Route path="/checkpoints" element={<AllDOM/>} />
+      <Route path="/form" element={<AddDOM/>} />
     </Routes>
     </BrowserRouter>
     </>

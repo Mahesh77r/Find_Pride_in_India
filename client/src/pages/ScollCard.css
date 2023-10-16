@@ -16,3 +16,6 @@
     width: 0; /* Hide the scrollbar in WebKit browsers (e.g., Chrome, Safari) */
   }
   
+  .bgf{
+    background: #ECECFF;
+  }

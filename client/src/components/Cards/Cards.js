@@ -134,7 +134,7 @@ export const FacilityCard = ({ fac_name, fac_img_url, fac_cont, fac_loact }) => 
         {/* Buttons */}
         <UpdateDeletebuttons Updateform={<FormFacility fact_contact={fac_cont} fact_name={fac_name} fact_loca={fac_loact}/>} update_delete_title={"Facility"} />
         {/* Image */}
-        <div className="row w-full h-25">
+        <div className="row w-full h-21 overflow-hidden">
           <img className="w-full h-full py-2 px-5" alt="Events " src={fac_img_url} />
         </div>
         {/* Facility Title */}

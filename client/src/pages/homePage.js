@@ -7,7 +7,7 @@ import {
   ProductCard,
   FacilityCard
 } from "../components/Cards/Cards";
-import Img from "../images/BapuProfile.jpeg";
+import Img from "../images/sevagram.jpg";
 import {FormEvents,FormFacility,FormProduct,FormTouristGuide} from "../components/Forms/ManagementsForms"
 import { FamousPlaces, GuideData, WardhaProducts , Facilities} from '../components/DemoData'
 function HomePage() {
@@ -16,11 +16,11 @@ function HomePage() {
     <>
       <div className="container m-auto my-6">
         {/* About Place */}
-        <p className="ms-3 text-4xl font-serif pt-3">Bapu Kuti</p>
-        <div className="my-4">
+        <div className="my-4 p-4 bg-white rounded-2xl">
+        <p className="ms-3 text-4xl text-center font-bold my-3 font-serif">Place Summary</p>
           <div className="flex flex-row">
-            <img className="h-50 w-50" src={Img} alt="Place" />
-            <p className="h-50 w-50 mx-4 mt-3">Bapu Kuti, also known as Bapu's Cottage, is a historic and iconic thatched-roof hut
+            <img className="h-50 w-50 rounded-xl" src={Img} alt="Place" />
+            <p className="h-50 w-50 mx-4 mt-3"><span className="text-2xl font-semibold"> Bapu Kuti</span> , also known as Bapu's Cottage, is a historic and iconic thatched-roof hut
              situated in the village of Sewagram, located in the Wardha district of Maharashtra, India. This unassuming dwelling 
              holds profound significance in the annals of Indian history as it was the primary residence of Mahatma Gandhi, 
              the revered leader of the Indian independence movement against British colonial rule.<br/> <br/>
