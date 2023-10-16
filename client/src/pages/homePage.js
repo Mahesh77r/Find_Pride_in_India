@@ -8,7 +8,7 @@ import {
   FacilityCard
 } from "../components/Cards/Cards";
 import Img from "../images/BapuProfile.jpeg";
-
+import {FormEvents,FormFacility,FormProduct,FormTouristGuide} from "../components/Forms/ManagementsForms"
 import { FamousPlaces, GuideData, WardhaProducts , Facilities} from '../components/DemoData'
 function HomePage() {
 
@@ -53,7 +53,7 @@ function HomePage() {
                 </div>
               ))}
               <div className="min-w-[350px] flex items-center p-4">
-                <AddCards DataName="Tourist Guide" />
+                <AddCards DataName="Tourist Guide" add_form={<FormTouristGuide/>}/>
               </div>
             </div>
           </div>
@@ -62,7 +62,7 @@ function HomePage() {
         <div className="my-4">
           <p className="ms-3 text-4xl font-serif">Manage Events</p>
           <div className="scroll-container overflow-x-auto whitespace-no-wrap">
-            <div className="scroll-content flex">
+            <div className="scroll-content flex items-center">
               {FamousPlaces.map((eve, index) => (
                 <div key={index} className="min-w-[350px] p-4">
                   <EventCard
@@ -73,7 +73,7 @@ function HomePage() {
                 </div>
               ))}
               <div className="min-w-[350px] flex items-center p-4">
-                <AddCards DataName="Events" />
+                <AddCards DataName="Events" add_form={<FormEvents/>}/>
               </div>
             </div>
           </div>
@@ -98,7 +98,7 @@ function HomePage() {
                 ))
               }
               <div className="min-w-[350px] flex items-center p-4">
-                <AddCards DataName="Products" />
+                <AddCards DataName="Products" add_form={<FormProduct/>}/>
               </div>
             </div>
           </div>
@@ -122,7 +122,7 @@ function HomePage() {
                 ))
               }
               <div className="min-w-[350px] flex items-center p-4">
-                <AddCards DataName="Products" />
+                <AddCards DataName="Products" add_form={<FormFacility/>}/>
               </div>
             </div>
           </div>

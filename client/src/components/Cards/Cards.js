@@ -1,6 +1,5 @@
 import { React, useState } from "react";
 import "./Cards.css";
-import hosp from '../../images/hostp.jpeg'
 import { Link } from 'react-router-dom';
 import { DeleteModal, EditModal } from "../Modal/Modal";
 import { FormTouristGuide,FormEvents ,FormFacility,FormProduct} from "../Forms/ManagementsForms";
@@ -13,9 +12,9 @@ export const GuideCards = ({ guidename, img_url, fees, contact_number }) => {
       <UpdateDeletebuttons Updateform={<FormTouristGuide  guide_name={guidename} contact_detail={contact_number} fees={fees}/>} update_delete_title={"Guide"} />
 
       {/*  */}
-      <div className="row grid">
+      <div className="row w-full h-30">
         <img
-          className="w-40 h-40 border border-solid justify-self-center rounded-full"
+          className="w-full h-full  border border-solid justify-self-center rounded-full"
           alt="Guide"
           src={img_url}
         />
@@ -40,8 +39,8 @@ export const EventCard = ({ event_name, event_date,image_url, descp }) => {
         <UpdateDeletebuttons Updateform={<FormEvents event_name={event_name} event_date={event_date} event_descp={descp}/>} update_delete_title={"Event"} />
 
         {/* Image */}
-        <div className="row grid">
-          <img className="max-w-fit max-h-fit" alt="Events " src={image_url} />
+        <div className="row w-full h-40">
+          <img className="w-full h-full" alt="Events " src={image_url} />
         </div>
         {/* Place Name */}
         <div className="font-bold mt-3 text-center text-2xl mb-2">
@@ -56,11 +55,18 @@ export const EventCard = ({ event_name, event_date,image_url, descp }) => {
   );
 };
 
-export const AddCards = ({ DataName }) => {
-
+export const AddCards = ({ DataName, add_form}) => {
+  const [isOpenAdd, setIsOpenAdd] = useState(false)
+  function closeModalAdd() {
+    setIsOpenAdd(false)
+  }
+  function openModalAdd() {
+    setIsOpenAdd(true)
+  }
   return (
     <>
-      <div className="rounded bgf item-center overflow-hidden shadow-lg transform transition-transform hover:scale-105">
+    <EditModal isOpen={isOpenAdd} closeModal={closeModalAdd} title={"Addd"} Updateform={add_form}/>
+      <div className="rounded bgf item-center overflow-hidden shadow-lg transform transition-transform hover:scale-105" onClick={openModalAdd}>
         <div className="row justify-center mt-5">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -93,8 +99,8 @@ export const ProductCard = ({ img_url, prod_name, prod_price, prod_quant, prod_d
         <UpdateDeletebuttons Updateform={<FormProduct prod_name={prod_name} prod_desp={prod_descp} prod_price={prod_price} prod_quant={prod_quant}/>} update_delete_title={"Product"} />
 
         {/* Image */}
-        <div className="row rounded-lg">
-          <img className="w-100 h-30 py-2 px-5 rounded-md" alt="Events " src={img_url} />
+        <div className="row rounded-lg w-full h-40">
+          <img className="w-full h-full py-2 px-5 rounded-md" alt="Events " src={img_url} />
         </div>
         {/* product name */}
         <div className="text-2xl my-2 font-bold text-center">
@@ -119,12 +125,12 @@ export const ProductCard = ({ img_url, prod_name, prod_price, prod_quant, prod_d
 export const FacilityCard = ({ fac_name, fac_img_url, fac_cont, fac_loact }) => {
   return (
     <>
-      <div className="rounded bgf  border border-solid border-cyan-800 item-center overflow-hidden shadow-lg transition-transform hover:scale-105">
+      <div className="rounded bgf   item-center overflow-hidden shadow-lg transition-transform hover:scale-105">
         {/* Buttons */}
         <UpdateDeletebuttons Updateform={<FormFacility fact_contact={fac_cont} fact_name={fac_name} fact_loca={fac_loact}/>} update_delete_title={"Facility"} />
         {/* Image */}
-        <div className="row ">
-          <img className="w-100 h-30 py-2 px-5" alt="Events " src={fac_img_url} />
+        <div className="row w-full h-25">
+          <img className="w-full h-full py-2 px-5" alt="Events " src={fac_img_url} />
         </div>
         {/* Facility Title */}
         <div className="text-2xl my-2 font-bold text-center">

@@ -137,19 +137,19 @@ export const GuideData = [
     {
       facility_name: "Hospital",
       contact_detail: "987-654-3210",
-      img_url: "https://example.com/hospital.jpg",
+      img_url: facility2,
       location_url: "https://maps.google.com/?q=Hospital"
     },
     {
       facility_name: "Hotel",
       contact_detail: "456-789-0123",
-      img_url: "https://example.com/hotel.jpg",
+      img_url: facility4,
       location_url: "https://maps.google.com/?q=Hotel"
     },
     {
       facility_name: "Police Station",
       contact_detail: "555-123-4567",
-      img_url: "https://example.com/police_station.jpg",
+      img_url: facility4,
       location_url: "https://maps.google.com/?q=Police+Station"
     }
   ]
