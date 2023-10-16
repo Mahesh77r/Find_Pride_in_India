@@ -47,8 +47,8 @@ export const EventCard = ({ event_name, event_date,image_url, descp }) => {
           {event_name}
         </div>
         {/* Place Name */}
-        <div className="font-bold mt-3 text-center text-2xl mb-2">
-          Upcoming on Date{event_date}
+        <div className="text-gray-700 mt-3 ms-3 text-base ">
+          Upcoming on Date :{event_date}
         </div>
 
         {/* Descp */}

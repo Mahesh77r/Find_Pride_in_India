@@ -71,6 +71,7 @@ function HomePage() {
                     image_url={eve.imgURL}
                     event_date={eve.date}
                   />
+                  
                 </div>
               ))}
               <div className="min-w-[350px] flex items-center p-4">
