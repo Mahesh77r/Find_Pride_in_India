@@ -19,6 +19,7 @@ import facility1 from "../images/facilities/parking.jpeg"
 import facility2 from "../images/facilities/hospital.jpeg"
 import facility3 from "../images/facilities/hotel2.jpg"
 import facility4 from "../images/facilities/police-station.jpeg"
+import img from "../images/BapuProfile.jpeg"
 
 import Img from '../images/sevagram.jpg'
 
@@ -174,7 +175,11 @@ export const GuideData = [
       mobile_no: "123456789",
       email: "bupukuti@gmail.com",
       pass: "1234567",
+<<<<<<< HEAD
       image_url: Img
+=======
+      image_url: img
+>>>>>>> 2c8161f42a3ef7c17561fea4eb3d9a24d95383fb
 
   }
 ]
