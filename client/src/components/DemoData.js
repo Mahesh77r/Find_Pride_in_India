@@ -20,6 +20,8 @@ import facility2 from "../images/facilities/hospital.jpeg"
 import facility3 from "../images/facilities/hotel2.jpg"
 import facility4 from "../images/facilities/police-station.jpeg"
 
+import Img from '../images/sevagram.jpg'
+
 export const GuideData = [
     {
       guidename: "Mahesh Rohane",
@@ -160,3 +162,19 @@ export const GuideData = [
       location_url: "https://maps.google.com/?q=Police+Station"
     }
   ]
+
+  export const Summary =[
+    {
+      descp: "also known as Bapu's Cottage, is a historic and iconic thatched-roof hut situated at the village of Sewagram, located in the Wardha district of Maharashtra, India. This unassuming dwelling holds profound significance in the annals of Indian history as it was the primary residence of Mahatma Gandhi, the revered leader of the Indian independence movement against British colonial rule.",
+      destination_name: "Bapu Kuti",
+      admin_name: "Nathuram Godse",
+      state: "Maharashtra",
+      city: "Wardha",
+      address: "Sewagram, Wardha",
+      mobile_no: "123456789",
+      email: "bupukuti@gmail.com",
+      pass: "1234567",
+      image_url: Img
+
+  }
+]
