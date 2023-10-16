@@ -150,7 +150,7 @@ export const GuideData = [
     {
       facility_name: "Hotel",
       contact_detail: "456-789-0123",
-      img_url: facility4,
+      img_url: facility3,
       location_url: "https://maps.google.com/?q=Hotel"
     },
     {

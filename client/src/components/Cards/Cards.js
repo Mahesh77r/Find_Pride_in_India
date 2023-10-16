@@ -14,7 +14,7 @@ export const GuideCards = ({ guidename, img_url, fees, contact_number }) => {
       {/*  */}
       <div className="row flex justify-center">
         <img
-          className="w-20 h-20  border border-solid  rounded-full"
+          className="w-25 h-20  border border-solid  rounded-full"
           alt="Guide"
           src={img_url}
         />
