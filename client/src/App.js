@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css'
+// import './App.css'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from './pages/loginPage';
 import HomePage from './pages/homePage';
@@ -17,7 +17,7 @@ function App() {
   const navForDOM = [
     { name: 'Dashboard', to: '/', current: true },
     { name: 'Checkpoints', to: '/checkpoints', current: false },
-    { name: 'Products', to: '/products', current: false },
+    { name: 'Order', to: '/order', current: false },
   ]
   return (
     <>
