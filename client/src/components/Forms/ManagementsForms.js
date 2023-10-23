@@ -200,9 +200,11 @@ export const FormFacility = ({img_url, fact_name, fact_contact, fact_loca}) => {
 export const FormPlaceSummary = ({destination_name, admin_name, state, city, address, mobile_no, email, pass, image_url}) => {
     return(
         <>
-        <div>
+        
             <div className='flex'>
             {/* <!-- destination name Input --> */}
+            <div className='flex'>
+
             <div className="mb-4">
                     <label for="destination-name" className="block text-gray-700 text-sm font-bold mb-2">Name of destination</label>
                     <input type="text" id="destination-name" value={destination_name} name="destination-name" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter the destination name" required />

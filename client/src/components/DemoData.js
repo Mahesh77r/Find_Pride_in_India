@@ -3,6 +3,7 @@ import Guide2 from "../images/Guide2.jpg";
 import Guide3 from "../images/guides/guide3.jpg";
 import Guide4 from "../images/guides/guide4.jpg";
 import Guide5 from "../images/guides/guide5.jpg";
+import Guide6 from "../images/guides/guide6.jpg";
 
 import PlaceImg from "../images/BapuKuti.webp";
 import PlaceImg2 from "../images/Events/Bajajwadi.jpg";
@@ -35,6 +36,7 @@ export const GuideData = [
       fees: 1200,
       contact_number: 1234567890,
     },
+    
     {
       guidename: "Ashwini Ukhalkar",
       img_url: Guide3,
