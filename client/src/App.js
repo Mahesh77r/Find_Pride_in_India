@@ -18,6 +18,7 @@ function App() {
     { name: 'Dashboard', to: '/', current: true },
     { name: 'Checkpoints', to: '/checkpoints', current: false },
     { name: 'Order', to: '/order', current: false },
+    { name: 'Complaints', to: '/complaints', current: false },
   ]
   return (
     <>

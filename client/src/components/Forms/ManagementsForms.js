@@ -215,16 +215,60 @@ export const FormPlaceSummary = ({destination_name, admin_name, state, city, add
             </div>
             </div>
             {/* <!-- state name Input --> */}
-            <div className="mb-4">
+            {/* <div className="mb-4">
                     <label for="state-name" className="block text-gray-700 text-sm font-bold mb-2">State</label>
                     <input type="text" id="state-name" value={state} name="state-name" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter State" required />
-            </div>
+            </div> */}
+
+            {/* <!-- State dropdown --> */}
+        <div className="mb-4">
+          <label htmlFor="state-name" className="block text-gray-700 text-sm font-bold mb-2">
+            State
+          </label>
+          <select
+            id="state-name"
+            value={state}
+            name="state-name"
+            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+            required
+          >
+            <option value="">Select State</option>
+            <option value="state1">Gujarat</option>
+            <option value="state2">Goa</option>
+            <option value="state3">Kerala</option>
+            <option value="state4">Maharashtra</option>
+            <option value="state5">Tamil Nadu</option>
+            {/* Add more states as needed */}
+          </select>
+        </div>
 
             {/* <!-- city name Input --> */}
-            <div className="mb-4">
+            {/* <div className="mb-4">
                     <label for="city-name" className="block text-gray-700 text-sm font-bold mb-2">City</label>
                     <input type="text" id="city-name" value={city} name="state-name" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter City" required />
-            </div>
+            </div> */}
+
+             {/* <!-- City dropdown --> */}
+        <div className="mb-4">
+          <label htmlFor="city-name" className="block text-gray-700 text-sm font-bold mb-2">
+            City
+          </label>
+          <select
+            id="city-name"
+            value={city}
+            name="city-name"
+            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+            required
+          >
+            <option value="">Select City</option>
+            <option value="city1">Nagpur</option>
+            <option value="city2">Pune</option>
+            <option value="city3">Mumbai</option>
+            <option value="city4">Thane</option>
+            <option value="city5">Wardha</option>
+            {/* Add more cities as needed */}
+          </select>
+        </div>
 
             {/* <!-- address Input --> */}
             <div className="mb-4">
