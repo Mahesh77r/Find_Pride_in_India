@@ -57,7 +57,7 @@ function Table() {
       selector: (row) => row.Tdata,
       sortable: true,
     },
-    ,
+    
     {
       name: "Images",
       selector: (row) => row.imgno,
@@ -91,7 +91,7 @@ function Table() {
             Delete
           </button>
         </div>
-      ),
+      )
     },
     
   ];
@@ -248,7 +248,7 @@ function Table() {
       <div className="text-end" style={{display:"flex",justifyContent:"left",padding:"0.2% 0.2% "}}>
           <input
             type="text"
-            placeholder="Search Name"
+            placeholder="Search Point Name"
             className=" border-bottom border-success mb-3 bg-white custumShadow p-2 px-2 inputField text-center"
             onChange={handleFilter}
           />

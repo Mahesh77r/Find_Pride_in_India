@@ -26,12 +26,14 @@ export default function AddDOM() {
   };
   // file
   const handleFileChange = (event) => {
+    console.log(event.target.files);
     setFile(event.target.files[0]);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission here
+    // Handle form submission here  console.log(file ,formData)
+    console.log(file ,formData);
     await addDOM(file,formData);
     console.log(file ,formData);
   };
@@ -170,14 +172,13 @@ export default function AddDOM() {
             <label htmlFor="placeImages" className="block text-gray-600">Place Images</label>
             <input
               type="file"
-              multiple
               onChange={handleFileChange}
               className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
             />
           </div>
 
           <div className="mb-4">
-            <button type="submit" className="bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-600">
+            <button type="submit" className="bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-600"  >
               Register
             </button>
           </div>

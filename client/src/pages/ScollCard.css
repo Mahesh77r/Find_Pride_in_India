@@ -1,0 +1,33 @@
+.scroll-container {
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .scroll-content {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-bottom: -17px; /* Adjust this value to hide the scrollbar */
+    padding-bottom: 17px; /* This is to compensate for the hidden scrollbar */
+    overflow-x: auto;
+  }
+  
+  .scroll-content::-webkit-scrollbar {
+    width: 0; /* Hide the scrollbar in WebKit browsers (e.g., Chrome, Safari) */
+  }
+  
+  .bgf{
+    background: #ECECFF;
+  }
+
+  button .text {
+    opacity: 0;
+    width: 0;
+    transition: opacity 0.3s ease-in-out, width 2ms ease-in-out;
+  }
+  
+  /* Show the text when hovering over the button */
+  button:hover .text {
+    opacity: 1;
+    width: 100%;
+  }

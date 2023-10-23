@@ -4,7 +4,7 @@ const {placeAdminRegister, placeAdminlogin, wlcom } = require("../controllers/ad
 const auth = require("../middelweares/Authentication");
 const upload = require("../middelweares/fileupload");
 
-router.post("/register",upload.array('file'),placeAdminRegister);
+router.post("/register",upload.single('file'),placeAdminRegister);
 router.post("/login",placeAdminlogin);
 router.get("/",auth,wlcom);
 

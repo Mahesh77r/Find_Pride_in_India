@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const placeAdminSchema = new mongoose.Schema({
     // form data
     adminName: { type: String, default: null },
-    email: { type: String, unique: true },
+    email: { type: String},
     password: { type: String },
     role : {type : String, default : "placeadmin"},
     mobileNumber:{type:String},
-    destinationName:{type:String , unique:true},
+    destinationName:{type:String },
     // location:{
     //     type: {
     //       type: String, // Don't do `{ location: { type: String } }`
