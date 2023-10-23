@@ -6,6 +6,7 @@ import HomePage from './pages/homePage';
 import AllDOM from './pages/allDOM';
 import Navbar from './components/navbar/navbar';
 import AddDOM from './components/Forms/addDOM';
+import ResetPassword from './pages/ResetPass';
 
 function App() {
   // const navForMinistry = [
@@ -29,6 +30,7 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/checkpoints" element={<AllDOM/>} />
       <Route path="/form" element={<AddDOM/>} />
+      <Route path="/resetpassword/:token" element={<ResetPassword/>} />
     </Routes>
     </BrowserRouter>
     </>
