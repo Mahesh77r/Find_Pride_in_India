@@ -202,15 +202,18 @@ export const FormPlaceSummary = ({destination_name, admin_name, state, city, add
         <>
         <div>
             {/* <!-- destination name Input --> */}
+            <div className='flex'>
+
             <div className="mb-4">
                     <label for="destination-name" className="block text-gray-700 text-sm font-bold mb-2">Name of destination</label>
                     <input type="text" id="destination-name" value={destination_name} name="destination-name" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter the destination name" required />
             </div>
 
             {/* <!-- admin name Input --> */}
-            <div className="mb-4">
+            <div className="mb-4 ms-3">
                     <label for="admin-name" className="block text-gray-700 text-sm font-bold mb-2">Name of Admin</label>
                     <input type="text" id="admin-name" value={admin_name} name="admin-name" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter the Admin name" required />
+            </div>
             </div>
 
             {/* <!-- state name Input --> */}
