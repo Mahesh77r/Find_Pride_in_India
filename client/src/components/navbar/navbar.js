@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
 import {Link} from 'react-router-dom';
-
+import React, { useState } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 
@@ -10,7 +10,41 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
+function SearchBar({ onSearch }) {
+  const [searchValue, setSearchValue] = useState('');
+
+  const handleSearch = () => {
+    onSearch(searchValue);
+  };
+
+  return (
+    <div className="relative">
+      <input
+        type="text"
+        value={searchValue}
+        onChange={(e) => setSearchValue(e.target.value)}
+        placeholder="Search..."
+        className="w-60 px-3 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 mr-3"
+      />
+      <button
+        onClick={handleSearch}
+        className="absolute top-0 right-0 mt-2 mr-6 text-gray-500 hover:text-gray-700 "
+      >
+        
+        <span role="img" aria-label="Search Icon">
+          🔍
+        </span>
+      </button>
+    </div>
+  );
+}
+
 export default function Navbar({navigation}) {
+  const handleSearch = (query) => {
+    // Handle the search query, e.g., redirect to a search page or filter content.
+    console.log('Search query:', query);
+  };
+
   return (
     <Disclosure as="nav" className="bg-orange-300">
       {({ open }) => (
@@ -56,6 +90,9 @@ export default function Navbar({navigation}) {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+              
+              <SearchBar onSearch={handleSearch} />
+                
                 {/* <button
                   type="button"
                   className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"

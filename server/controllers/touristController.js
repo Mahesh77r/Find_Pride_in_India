@@ -6,7 +6,11 @@ const crypto = require("crypto");
 const OtpSchema = require("../models/touristOTPModal");
 require("dotenv").config();
 
-
+const getHello = async (req,res) =>{
+  res.json({
+    message: "User Already Exist. Please verify otp",
+  });
+}
 
 //  Register function 
 const touristRegister = async (req, res, next) => {
@@ -239,5 +243,6 @@ const forgotpassword = async (req, res, next) => {
     sendOtp,
     verifyOtp,
     touristLogin,
-    forgotpassword
+    forgotpassword,
+    getHello
   };

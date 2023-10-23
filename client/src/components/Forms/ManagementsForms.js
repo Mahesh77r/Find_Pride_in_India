@@ -131,13 +131,13 @@ export const FormProduct = ({img_url, prod_name, prod_price, prod_quant, prod_de
                 {/* <!-- product Price Input --> */}
                 <div className="mb-4">
                     <label for="product-price" className="block text-gray-700 text-sm font-bold mb-2">Price of Product</label>
-                    <input type="number" id="product-price" value={prod_price} name="product-price" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" required />
+                    <input type="number" id="product-price" value={prod_price} name="product-price" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" required inputMode="numeric"/>
                 </div>
 
                 {/* <!-- product Quantity Input --> */}
                 <div className="mb-4">
-                    <label for="product-quantity" className="block text-gray-700 text-sm font-bold mb-2">Price of Quantity</label>
-                    <input type="number" id="product-quantity" value={prod_quant} name="product-quantity" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" required />
+                    <label for="product-quantity" className="block text-gray-700 text-sm font-bold mb-2">Quantity of Product</label>
+                    <input type="number" id="product-quantity" value={prod_quant} name="product-quantity" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" required inputMode="numeric"/>
                 </div>
 
                 {/* <!-- product Description Input --> */}
@@ -200,7 +200,8 @@ export const FormFacility = ({img_url, fact_name, fact_contact, fact_loca}) => {
 export const FormPlaceSummary = ({destination_name, admin_name, state, city, address, mobile_no, email, pass, image_url}) => {
     return(
         <>
-        <div>
+        
+            <div className='flex'>
             {/* <!-- destination name Input --> */}
             <div className='flex'>
 
@@ -215,7 +216,6 @@ export const FormPlaceSummary = ({destination_name, admin_name, state, city, add
                     <input type="text" id="admin-name" value={admin_name} name="admin-name" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter the Admin name" required />
             </div>
             </div>
-
             {/* <!-- state name Input --> */}
             <div className="mb-4">
                     <label for="state-name" className="block text-gray-700 text-sm font-bold mb-2">State</label>
@@ -255,7 +255,7 @@ export const FormPlaceSummary = ({destination_name, admin_name, state, city, add
             {/* <!-- image Input --> */}
             <div className="mb-4">
                     <label for="image" className="block text-gray-700 text-sm font-bold mb-2">Image</label>
-                    <input type="text" id="image" value={image_url} name="image" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter image" required />
+                    <input type="file" id="image" name="image" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter image" required />
             </div>
 
         </div>

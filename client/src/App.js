@@ -17,7 +17,7 @@ function App() {
   const navForDOM = [
     { name: 'Dashboard', to: '/', current: true },
     { name: 'Checkpoints', to: '/checkpoints', current: false },
-    { name: 'Products', to: '/products', current: false },
+    { name: 'Order', to: '/order', current: false },
   ]
   return (
     <>
