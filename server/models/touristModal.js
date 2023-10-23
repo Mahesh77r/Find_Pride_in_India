@@ -5,6 +5,12 @@ const touristSchema = new mongoose.Schema({
     tourist_name: { type: String, default: null },
     tourist_email: { type: String, unique: true },
     tourist_password: { type: String },
+    tourist_country : { type: String },
+    tourist_state: { type: String },
+    tourist_age: { type: Number },
+    tourist_gender: { type: String},
+    tourist_work: { type: String },
+
     // 
     verified :{type:Boolean , default:false},
     token: { type: String },

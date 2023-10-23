@@ -15,10 +15,10 @@ const getHello = async (req,res) =>{
 //  Register function 
 const touristRegister = async (req, res, next) => {
     // Get user input
-    const { tourist_name, tourist_email, tourist_password } = req.body;
+    const { tourist_name, tourist_email, tourist_password, tourist_country, tourist_state, tourist_age, tourist_gender , tourist_work } = req.body;
   
     // Validate user input
-    if (!(tourist_email && tourist_password && tourist_name)) {
+    if (!(tourist_email && tourist_password && tourist_name && tourist_country && tourist_state && tourist_age && tourist_gender && tourist_work)) {
       return res.status(400).send("All input is required");
     }
   
@@ -53,6 +53,11 @@ const touristRegister = async (req, res, next) => {
         tourist_name,
         tourist_email: tourist_email.toLowerCase(), // sanitize: convert email to lowercase
         tourist_password: encryptedPassword,
+        tourist_age,
+        tourist_country,
+        tourist_gender,
+        tourist_state,
+        tourist_work
       });
   
       // Create token
