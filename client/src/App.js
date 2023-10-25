@@ -7,6 +7,7 @@ import AllDOM from './pages/allDOM';
 import Navbar from './components/navbar/navbar';
 import AddDOM from './components/Forms/addDOM';
 import ResetPassword from './pages/ResetPass';
+import { GraphPage } from './pages/GraphPage';
 
 function App() {
   // const navForMinistry = [
@@ -31,6 +32,7 @@ function App() {
       <Route path="/checkpoints" element={<AllDOM/>} />
       <Route path="/form" element={<AddDOM/>} />
       <Route path="/resetpassword/:token" element={<ResetPassword/>} />
+      <Route path="/order" element={<GraphPage/>} />
     </Routes>
     </BrowserRouter>
     </>
