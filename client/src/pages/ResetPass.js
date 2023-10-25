@@ -11,7 +11,7 @@ const ResetPassword = () => {
 
     try {
       // Use the token directly from useParams()
-      await axios.post(`https://find-in-pride.onrender.com/tourist/resetpassword/${token}`, {
+      await axios.post(`https://finding-pride-in-india.onrender.com/tourist/resetpassword/${token}`, {
         password,
       });
 
