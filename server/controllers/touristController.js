@@ -276,7 +276,7 @@ const forgotpassword = async (req, res, next) => {
       Hello from Finding Pride in India!<br/>
       You recently requested to reset your password for your account with us. <br/>
       <b>To reset your password, please click on the link below within the next 5 minutes:</b><br/>
-      <a href="${process.env.SERVER_URI}/${resetToken}">Click here</a><br/>
+      <a href="${process.env.CLIENT_URI}/resetpassword/${resetToken}">Click here</a><br/>
       This link will expire after 5 minutes, so please act promptly. If you did not make this request, you can safely ignore this message.<br/>
     
      Thank you for using Finding Pride in India. We're here to help you explore and rediscover the pride of India.<br/>
