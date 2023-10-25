@@ -11,7 +11,7 @@ const ResetPassword = () => {
 
     try {
       // Use the token directly from useParams()
-      await axios.post(`http://localhost:8080/tourist/resetpassword/${token}`, {
+      await axios.post(`https://find-pride-in-india-mqtp.vercel.app/tourist/resetpassword/${token}`, {
         password,
       });
 
