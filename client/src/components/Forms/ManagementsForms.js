@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-export const FormTouristGuide = ({img_url,guide_name,fees,contact_detail,}) => {
+export const FormTouristGuide = ({ img_url, guide_name, fees, contact_detail, }) => {
     return (
         <>
             <div className="mt-4">
@@ -60,7 +60,7 @@ export const FormTouristGuide = ({img_url,guide_name,fees,contact_detail,}) => {
     )
 }
 
-export const FormEvents = ({img_url,event_name, event_date, event_descp}) => {
+export const FormEvents = ({ img_url, event_name, event_date, event_descp }) => {
     return (
         <>
             <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
@@ -103,8 +103,7 @@ export const FormEvents = ({img_url,event_name, event_date, event_descp}) => {
     );
 }
 
-
-export const FormProduct = ({img_url, prod_name, prod_price, prod_quant, prod_desp}) => {
+export const FormProduct = ({ img_url, prod_name, prod_price, prod_quant, prod_desp }) => {
     return (
         <>
             <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
@@ -131,13 +130,13 @@ export const FormProduct = ({img_url, prod_name, prod_price, prod_quant, prod_de
                 {/* <!-- product Price Input --> */}
                 <div className="mb-4">
                     <label for="product-price" className="block text-gray-700 text-sm font-bold mb-2">Price of Product</label>
-                    <input type="number" id="product-price" value={prod_price} name="product-price" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" required inputMode="numeric"/>
+                    <input type="number" id="product-price" value={prod_price} name="product-price" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" required inputMode="numeric" />
                 </div>
 
                 {/* <!-- product Quantity Input --> */}
                 <div className="mb-4">
                     <label for="product-quantity" className="block text-gray-700 text-sm font-bold mb-2">Quantity of Product</label>
-                    <input type="number" id="product-quantity" value={prod_quant} name="product-quantity" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" required inputMode="numeric"/>
+                    <input type="number" id="product-quantity" value={prod_quant} name="product-quantity" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" required inputMode="numeric" />
                 </div>
 
                 {/* <!-- product Description Input --> */}
@@ -153,7 +152,7 @@ export const FormProduct = ({img_url, prod_name, prod_price, prod_quant, prod_de
     );
 }
 
-export const FormFacility = ({img_url, fact_name, fact_contact, fact_loca}) => {
+export const FormFacility = ({ img_url, fact_name, fact_contact, fact_loca }) => {
     return (
         <>
             <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
@@ -197,117 +196,123 @@ export const FormFacility = ({img_url, fact_name, fact_contact, fact_loca}) => {
     );
 }
 
-export const FormPlaceSummary = ({destination_name, admin_name, address, mobile_no, email, pass, image_url}) => {
-    const [state, setState] = useState('');
-  const [city, setCity] = useState('');
+export const FormPlaceSummary = ({ destination_name, admin_name, state, city, address, mobile_no, email, pass, image_url }) => {
 
-    return(
+    return (
         <>
-        <div>
+
+            <ImageInput image_url={image_url}/>
             <div className='flex'>
-            {/* <!-- destination name Input --> */}
-            <div className="mb-4">
+                {/* <!-- destination name Input --> */}
+                <div className="mb-4">
+
                     <label for="destination-name" className="block text-gray-700 text-sm font-bold mb-2">Name of destination</label>
                     <input type="text" id="destination-name" value={destination_name} name="destination-name" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter the destination name" required />
-            </div>
+                </div>
 
-            {/* <!-- admin name Input --> */}
-            <div className="mb-4 ms-3">
+                {/* <!-- admin name Input --> */}
+                <div className="mb-4 ms-3">
                     <label for="admin-name" className="block text-gray-700 text-sm font-bold mb-2">Name of Admin</label>
                     <input type="text" id="admin-name" value={admin_name} name="admin-name" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter the Admin name" required />
+                </div>
             </div>
-            </div>
-            {/* <!-- state name Input --> */}
-            {/* <div className="mb-4">
+
+            <div className='flex'>
+
+                {/* <!-- state name Input --> */}
+                <div className="mb-4">
                     <label for="state-name" className="block text-gray-700 text-sm font-bold mb-2">State</label>
                     <input type="text" id="state-name" value={state} name="state-name" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter State" required />
-            </div> */}
+                </div>
 
-            {/* <!-- State dropdown --> */}
-        <div className="mb-4">
-          <label for="state-name" className="block text-gray-700 text-sm font-bold mb-2">
-            State
-          </label>
-          <select
-            id="state-name"
-            value={state}
-            name="state-name"
-            onChange={(e) => setState(e.target.value)}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
-            required
-          >
-            <option value="">Select State</option>
-            <option value="state1">Gujarat</option>
-            <option value="state2">Goa</option>
-            <option value="state3">Kerala</option>
-            <option value="state4">Maharashtra</option>
-            <option value="state5">Tamil Nadu</option>
-            {/* Add more states as needed */}
-          </select>
-        </div>
-
-            {/* <!-- city name Input --> */}
-            {/* <div className="mb-4">
+                {/* <!-- city name Input --> */}
+                <div className="mb-4">
                     <label for="city-name" className="block text-gray-700 text-sm font-bold mb-2">City</label>
                     <input type="text" id="city-name" value={city} name="state-name" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter City" required />
-            </div> */}
+                </div>
+            </div>
 
-             {/* <!-- City dropdown --> */}
-        <div className="mb-4">
-          <label for="city-name" className="block text-gray-700 text-sm font-bold mb-2">
-            City
-          </label>
-          <select
-            id="city-name"
-            value={city}
-            name="city-name"
-            onChange={(e) => setCity(e.target.value)}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
-            required
-          >
-            <option value="">Select City</option>
-            <option value="city1">Nagpur</option>
-            <option value="city2">Pune</option>
-            <option value="city3">Mumbai</option>
-            <option value="city4">Thane</option>
-            <option value="city5">Wardha</option>
-            {/* Add more cities as needed */}
-          </select>
-        </div>
 
             {/* <!-- address Input --> */}
             <div className="mb-4">
-                    <label for="address" className="block text-gray-700 text-sm font-bold mb-2">Address</label>
-                    <input type="text" id="address" value={address} name="address" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter Address" required />
+                <label for="address" className="block text-gray-700 text-sm font-bold mb-2">Address</label>
+                <input type="text" id="address" value={address} name="address" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter Address" required />
             </div>
+            <div className='flex'>
 
-            {/* <!-- mobile number Input --> */}
-            <div className="mb-4">
+                {/* <!-- mobile number Input --> */}
+                <div className="mb-4">
                     <label for="mobile" className="block text-gray-700 text-sm font-bold mb-2">Mobile_no</label>
                     <input type="text" id="mobile" value={mobile_no} name="mobile" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter mobile number" required />
-            </div>
+                </div>
 
-            {/* <!-- email Input --> */}
-            <div className="mb-4">
+                {/* <!-- email Input --> */}
+                <div className="mb-4">
                     <label for="email" className="block text-gray-700 text-sm font-bold mb-2">Email</label>
                     <input type="text" id="email" value={email} name="state-name" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter Email" required />
+                </div>
             </div>
 
             {/* <!-- pass Input --> */}
             <div className="mb-4">
-                    <label for="password" className="block text-gray-700 text-sm font-bold mb-2">Password</label>
-                    <input type="text" id="password" value={pass} name="password" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter password" required />
+                <label for="password" className="block text-gray-700 text-sm font-bold mb-2">Password</label>
+                <input type="text" id="password" value={pass} name="password" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter password" required />
             </div>
 
             {/* <!-- image Input --> */}
-            <div className="mb-4">
-                    <label for="image" className="block text-gray-700 text-sm font-bold mb-2">Image</label>
-                    <input type="file" id="image" name="image" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter image" required />
-            </div>
 
-        </div>
+
+
         </>
     )
 }
 
 
+const ImageInput = ({ image_url}) => {
+    const [selectedFile, setSelectedFile] = useState(null);
+
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setSelectedFile(file);
+        }
+    };
+    return (
+        <>
+            <div className="my-3">
+                {/* Hidden file input */}
+                <input
+                    type="file"
+                    id="fileInput"
+                    className="hidden"
+                    onChange={handleFileChange}
+                />
+
+                {/* Image that acts as a file input */}
+                <label
+                    htmlFor="fileInput"
+                    className="cursor-pointer bg-gray-300 p-4 rounded-md hover:bg-gray-400"
+                >
+                    {selectedFile ? (
+                        <img
+                            src={URL.createObjectURL(selectedFile)}
+                            alt="Selected Image"
+                            className="w-100 h-50 object-cover"
+                        />
+                    ) : (
+
+                        <img
+                            src={image_url}
+                            alt="Selected Image"
+                            className="w-100 h-50 object-cover"
+                        />
+                    )}
+                </label>
+
+                {selectedFile && (
+                    <p className="my-2">Selected file: {selectedFile.name}</p>
+                )}
+            </div>
+        </>
+    );
+}

@@ -11,7 +11,7 @@ const ResetPassword = () => {
 
     try {
       // Use the token directly from useParams()
-      await axios.post(`https://find-pride-in-india-mqtp.vercel.app/tourist/resetpassword/${token}`, {
+      await axios.post(`https://finding-pride-in-india.onrender.com/tourist/resetpassword/${token}`, {
         password,
       });
 
@@ -24,13 +24,13 @@ const ResetPassword = () => {
       // Example: props.history.push('/login');
     } catch (error) {
       console.error("Error resetting password:", error.response.data.error);
-      alert("Failed to reset password. Please try again later.");
+      alert("Failed to reset password. Please try again later.",error.response.data.error);
       window.location.assign("/login");
     }
   };
 
   return (
-    <div>
+    <div className="container items-center mt-5">
       <form onSubmit={handleResetPassword}>
         <label>New Password:</label>
         <input
