@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 export const FormTouristGuide = ({img_url,guide_name,fees,contact_detail,}) => {
     return (
@@ -197,7 +197,10 @@ export const FormFacility = ({img_url, fact_name, fact_contact, fact_loca}) => {
     );
 }
 
-export const FormPlaceSummary = ({destination_name, admin_name, state, city, address, mobile_no, email, pass, image_url}) => {
+export const FormPlaceSummary = ({destination_name, admin_name, address, mobile_no, email, pass, image_url}) => {
+    const [state, setState] = useState('');
+  const [city, setCity] = useState('');
+
     return(
         <>
         <div>
@@ -222,13 +225,14 @@ export const FormPlaceSummary = ({destination_name, admin_name, state, city, add
 
             {/* <!-- State dropdown --> */}
         <div className="mb-4">
-          <label htmlFor="state-name" className="block text-gray-700 text-sm font-bold mb-2">
+          <label for="state-name" className="block text-gray-700 text-sm font-bold mb-2">
             State
           </label>
           <select
             id="state-name"
             value={state}
             name="state-name"
+            onChange={(e) => setState(e.target.value)}
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
             required
           >
@@ -250,13 +254,14 @@ export const FormPlaceSummary = ({destination_name, admin_name, state, city, add
 
              {/* <!-- City dropdown --> */}
         <div className="mb-4">
-          <label htmlFor="city-name" className="block text-gray-700 text-sm font-bold mb-2">
+          <label for="city-name" className="block text-gray-700 text-sm font-bold mb-2">
             City
           </label>
           <select
             id="city-name"
             value={city}
             name="city-name"
+            onChange={(e) => setCity(e.target.value)}
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
             required
           >
