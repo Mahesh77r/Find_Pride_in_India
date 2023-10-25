@@ -180,3 +180,157 @@ export const GuideData = [
 
   }
 ]
+
+
+export const GraphData = [
+  {
+    name:"John Doe",
+    email: "john.doe@example.com",
+    password: "secret123",
+    country: "United States",
+    state: "California",
+    age: 30,
+    gender: "Male",
+    work: "Software Engineer"
+  },
+  {
+    name:"Jane Smith",
+    email: "jane.smith@example.com",
+    password: "secure456",
+    country: "Canada",
+    state: "Ontario",
+    age: 28,
+    gender: "Female",
+    work: "Student"
+  },
+  {
+    name:"David Johnson",
+    email: "david.j@example.com",
+    password: "mypass789",
+    country: "United Kingdom",
+    state: "London",
+    age: 35,
+    gender: "Male",
+    work: "Traveler"
+  },
+  {
+    name:"Sarah Williams",
+    email: "sarah.w@example.com",
+    password: "pass1234",
+    country: "Australia",
+    state: "New South Wales",
+    age: 29,
+    gender: "Female",
+    work: "Vlogger"
+  },
+  {
+    name:"Michael Brown",
+    email: "michael.b@example.com",
+    password: "pwd5678",
+    country: "Germany",
+    state: "Bavaria",
+    age: 32,
+    gender: "Male",
+    work: "Professor"
+  },
+  {
+    name:"Emily Davis",
+    email: "emily.d@example.com",
+    password: "securepass",
+    country: "France",
+    state: "Île-de-France",
+    age: 27,
+    gender: "Female",
+    work: "Traveler"
+  },
+  {
+    name:"Robert Wilson",
+    email: "robert.w@example.com",
+    password: "password123",
+    country: "Canada",
+    state: "Alberta",
+    age: 31,
+    gender: "Male",
+    work: "Engineer"
+  },
+  {
+    name:"Linda Davis",
+    email: "linda.d@example.com",
+    password: "12345678",
+    country: "United States",
+    state: "New York",
+    age: 26,
+    gender: "Female",
+    work: "Teacher"
+  },
+  {
+    name:"Chris Evans",
+    email: "chris.e@example.com",
+    password: "pass123",
+    country: "United Kingdom",
+    state: "Manchester",
+    age: 34,
+    gender: "Male",
+    work: "Doctor"
+  },
+  {
+    name:"Amy Johnson",
+    email: "amy.j@example.com",
+    password: "amy12345",
+    country: "Australia",
+    state: "Victoria",
+    age: 29,
+    gender: "Female",
+    work: "Artist"
+  },
+  {
+    name:"Richard Brown",
+    email: "richard.b@example.com",
+    password: "brown789",
+    country: "Canada",
+    state: "Ontario",
+    age: 30,
+    gender: "Male",
+    work: "Designer"
+  },
+  {
+    name:"Catherine Lee",
+    email: "catherine.l@example.com",
+    password: "cathy123",
+    country: "United States",
+    state: "Texas",
+    age: 27,
+    gender: "Female",
+    work: "Student"
+  },
+  {
+    name:"Daniel Lee",
+    email: "daniel.l@example.com",
+    password: "daniel123",
+    country: "Canada",
+    state: "British Columbia",
+    age: 32,
+    gender: "Male",
+    work: "Architect"
+  },
+  {
+    name:"Olivia Johnson",
+    email: "olivia.j@example.com",
+    password: "olivia456",
+    country: "Australia",
+    state: "New South Wales",
+    age: 28,
+    gender: "Female",
+    work: "Researcher"
+  },
+  {
+    name:"Sophia Smith",
+    email: "sophia.s@example.com",
+    password: "sophia789",
+    country: "United Kingdom",
+    state: "London",
+    age: 33,
+    gender: "Female",
+    work: "Consultant"
+  }
+]
