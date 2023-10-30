@@ -8,6 +8,8 @@ import Navbar from './components/navbar/navbar';
 import AddDOM from './components/Forms/addDOM';
 import ResetPassword from './pages/ResetPass';
 import { GraphPage } from './pages/GraphPage';
+import { Chart } from './components/Charts/Chart';
+
 
 function App() {
   // const navForMinistry = [
@@ -34,6 +36,7 @@ function App() {
       <Route path="/form" element={<AddDOM/>} />
       <Route path="/resetpassword/:token" element={<ResetPassword/>} />
       <Route path="/order" element={<GraphPage/>} />
+      <Route path="/graph" element={<Chart/>} />
     </Routes>
     </BrowserRouter>
     </>
