@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const URL = 'https://find-in-pride.onrender.com';
+const URL = 'http://localhost:8080';
 
 export const loginDOM = async(data) => {
     try{
