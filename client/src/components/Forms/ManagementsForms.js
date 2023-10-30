@@ -157,7 +157,7 @@ export const FormFacility = ({ img_url, fact_name, fact_contact, fact_loca }) =>
         <>
             <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
                 {/* <!-- facility Image Input --> */}
-                <div className="mb-4 relative">
+                {/* <div className="mb-4 relative">
                     <label for="facility-image" className="block text-gray-700 text-sm font-bold mb-2">facility Image</label>
                     <div className="bg-gray-200 h-40 w-full rounded-md flex items-center justify-center">
                         <input type="file" id="facility-image" name="facility-image" accept="image/*" className="opacity-0 absolute z-10 w-full h-full cursor-pointer" />
@@ -168,7 +168,8 @@ export const FormFacility = ({ img_url, fact_name, fact_contact, fact_loca }) =>
                             </svg>
                         </div>
                     </div>
-                </div>
+                </div> */}
+                <ImageInput image_url={img_url}/>
 
                 {/* <!-- facility Name Input --> */}
                 <div className="mb-4">
