@@ -28,8 +28,8 @@ function HomePage() {
       <div className="container m-auto my-6">
         {/* About Place */}
         {Summary.map((data, index) => (
-          <>
-            <div className="my-4 p-4 bg-white rounded-2xl">
+          
+            <div key={index} className="my-4 p-4 bg-white rounded-2xl">
               <div className="flex items-center justify-center">
                 <p className="ms-3 text-4xl text-center font-bold my-3 font-serif me-5">
                   Place Summary
@@ -103,7 +103,7 @@ function HomePage() {
               </div>
               <div></div>
             </div>
-          </>
+         
         ))}
 
         {/* Manage Tourist Guide*/}

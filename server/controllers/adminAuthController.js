@@ -94,7 +94,7 @@ const placeAdminlogin = async (req, res, next) => {
    else {
     return res.status(202).json({
       success: false,
-      message: "login failed",
+      message: "Login failed",
     });
   }
 
