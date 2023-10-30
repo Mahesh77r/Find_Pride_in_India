@@ -25,7 +25,7 @@ import { EditModal } from "../components/Modal/Modal";
 function HomePage() {
   return (
     <>
-      <div className="container m-auto my-6">
+      <div className="container m-auto my-2">
         {/* About Place */}
         {Summary.map((data, index) => (
           
