@@ -9,7 +9,7 @@ export const GuideCards = ({ guidename, img_url, fees, contact_number }) => {
   return (
     <div className="rounded bgf overflow-hidden shadow-lg transform transition-transform hover:scale-105">
       {/* Buttons */}
-      <UpdateDeletebuttons Updateform={<FormTouristGuide  guide_name={guidename} contact_detail={contact_number} fees={fees}/>} update_delete_title={"Guide"} />
+      <UpdateDeletebuttons Updateform={<FormTouristGuide img_url={img_url} guide_name={guidename} contact_detail={contact_number} fees={fees}/>} update_delete_title={"Guide"} />
 
       {/*  */}
       <div className="row flex justify-center">
@@ -36,7 +36,7 @@ export const EventCard = ({ event_name, event_date,image_url, descp }) => {
     <>
       <div className="rounded bgf item-center overflow-hidden shadow-lg transform transition-transform hover:scale-105">
         {/* Buttons */}
-        <UpdateDeletebuttons Updateform={<FormEvents event_name={event_name} event_date={event_date} event_descp={descp}/>} update_delete_title={"Event"} />
+        <UpdateDeletebuttons Updateform={<FormEvents event_name={event_name} img_url={image_url} event_date={event_date} event_descp={descp}/>} update_delete_title={"Event"} />
 
         {/* Image */}
         <div className="row w-full h-40">
@@ -101,7 +101,7 @@ export const ProductCard = ({ img_url, prod_name, prod_price, prod_quant, prod_d
     <>
       <div className="rounded bgf item-center overflow-hidden shadow-lg transition-transform hover:scale-105">
         {/* Buttons */}
-        <UpdateDeletebuttons Updateform={<FormProduct prod_name={prod_name} prod_desp={prod_descp} prod_price={prod_price} prod_quant={prod_quant}/>} update_delete_title={"Product"} />
+        <UpdateDeletebuttons Updateform={<FormProduct prod_name={prod_name} img_url={img_url} prod_desp={prod_descp} prod_price={prod_price} prod_quant={prod_quant}/>} update_delete_title={"Product"} />
 
         {/* Image */}
         <div className="row rounded-lg w-full h-40">
@@ -132,7 +132,7 @@ export const FacilityCard = ({ fac_name, fac_img_url, fac_cont, fac_loact }) => 
     <>
       <div className="rounded bgf   item-center overflow-hidden shadow-lg transition-transform hover:scale-105">
         {/* Buttons */}
-        <UpdateDeletebuttons Updateform={<FormFacility fact_contact={fac_cont} fact_name={fac_name} fact_loca={fac_loact}/>} update_delete_title={"Facility"} />
+        <UpdateDeletebuttons Updateform={<FormFacility fact_contact={fac_cont} img_url={fac_img_url} fact_name={fac_name} fact_loca={fac_loact}/>} update_delete_title={"Facility"} />
         {/* Image */}
         <div className="row w-full h-21 overflow-hidden">
           <img className="w-full h-full py-2 px-5" alt="Events " src={fac_img_url} />
@@ -151,8 +151,8 @@ export const FacilityCard = ({ fac_name, fac_img_url, fac_cont, fac_loact }) => 
           <div className="me-3" >
             <Link to={fac_loact}>
               <button className="bg-blue-500 hover:bg-blue-600 flex p-2 rounded-xl text-white relative w-20" >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
                 </svg>
                 <span className="ms-1">Visit</span>
               </button>

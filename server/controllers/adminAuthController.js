@@ -1,19 +1,18 @@
 const User = require("../models/placeAdminModal");
+const Product = require("../models/addProduct");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-
 //  Register function to register user
 const placeAdminRegister = async (req, res) => {
-  console.log(req.file)
-  const formData = JSON.parse(req.body.data);
+  console.log(req.file);
+  const proData = JSON.parse(req.body.data);
   const { filename, path } = req.file;
-  const { adminName, email, password, mobileNumber,destinationName} = formData;
+  const { adminName, email, password, mobileNumber, destinationName } = proData;
   console.log(filename);
- 
 
   // Validate user input
-  if (!( adminName && email && password && mobileNumber && destinationName)) {
+  if (!(adminName && email && password && mobileNumber && destinationName)) {
     return res.status(400).send("All input is required");
   }
   // find old user exit or not if not exit then create new user
@@ -24,8 +23,7 @@ const placeAdminRegister = async (req, res) => {
       success: false,
       message: "Email Already Exist",
     });
-  }
-  else if (placeName) {
+  } else if (placeName) {
     res.status(400).json({
       success: false,
       message: "Place Name Already Exist",
@@ -40,11 +38,10 @@ const placeAdminRegister = async (req, res) => {
       adminName: adminName,
       email: email.toLowerCase(), // sanitize: convert email to lowercase
       password: encryptedPassword,
-      mobileNumber:mobileNumber,
-      destinationName:destinationName,
+      mobileNumber: mobileNumber,
+      destinationName: destinationName,
       filename,
-      path
-
+      path,
     });
     await newUser.save();
 
@@ -90,14 +87,12 @@ const placeAdminlogin = async (req, res, next) => {
       success: true,
       message: "login Successfull",
     });
-  }
-   else {
+  } else {
     return res.status(202).json({
       success: false,
-      message: "login failed",
+      message: "Login failed",
     });
   }
-
 };
 
 const wlcom = async (req, res, next) => {
@@ -111,5 +106,58 @@ const wlcom = async (req, res, next) => {
   // res.send(req.user);
   return;
 };
+const addProduct = async (req, res) => {
+  try {
+    // Ensure the incoming data is correctly formatted JSON
+    let data;
+    try {
+      data = JSON.parse(req.body.data);
+    } catch (error) {
+      return res.status(400).json({ success: false, error: `Invalid JSON data ${error}` });
+    }
 
-module.exports = { placeAdminRegister, placeAdminlogin, wlcom}
+    const { filename, path } = req.file;
+
+    // Create a new product object
+    const newProduct = new Product({
+      product_name: data.product_name,
+      product_price: data.product_price,
+      product_descp: data.product_descp,
+      quantity_available: data.quantity_available,
+      filename: filename,
+      path: path,
+    });
+
+    // Save the product to the database
+    await newProduct.save();
+
+    return res.status(201).json({
+      success: true,
+      data: newProduct,
+      message: "File uploaded successfully",
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ success: false, error: "Error uploading file" });
+  }
+};
+ 
+
+const getProducts = async (req, res) => {
+  try {
+    // Fetch all products from the database
+    const products = await Product.find();
+
+    res.status(200).json({
+      success: true,
+      data: products,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, error: "Error fetching products" });
+  }
+};
+
+module.exports = { getProducts };
+
+module.exports = { placeAdminRegister, placeAdminlogin, wlcom, addProduct,getProducts };

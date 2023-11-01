@@ -6,18 +6,7 @@ export const FormTouristGuide = ({ img_url, guide_name, fees, contact_detail, })
             <div className="mt-4">
 
                 {/* <!-- product Image Input --> */}
-                <div className="mb-4 relative">
-                    <label for="product-image" className="block text-gray-700 text-sm font-bold mb-2">product Image</label>
-                    <div className="bg-gray-200 h-40 w-full rounded-md flex items-center justify-center">
-                        <input type="file" id="product-image" name="product-image" accept="image/*" className="opacity-0 absolute z-10 w-full h-full cursor-pointer" />
-                        <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center" >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 20 20" fill="currentColor" className="text-gray-600">
-                                <path d="M17,2H3C2.447,2,2,2.447,2,3v14c0,0.553,0.447,1,1,1h14c0.553,0,1-0.447,1-1V3C18,2.447,17.553,2,17,2zM16,15h-3.207 l-2.293-2.293c-0.195-0.195-0.451-0.293-0.707-0.293s-0.512,0.098-0.707,0.293L7.207,15H4v-1l2.793-2.793c0.781-0.781,2.047-0.781,2.828,0 L12,14v1H4.999c-0.553,0-1-0.447-1-1V4c0-0.553,0.447-1,1-1H16c0.553,0,1,0.447,1,1V14H16z" />
-                                <path d="M10,4h1v3h3v1h-3v3H10v-3H7v-1h3V4z" />
-                            </svg>
-                        </div>
-                    </div>
-                </div>
+            <ImageInput image_url={img_url}/>
 
                 <label htmlFor="guideName" className="block text-sm font-medium text-gray-700">
                     Guide Name
@@ -63,20 +52,9 @@ export const FormTouristGuide = ({ img_url, guide_name, fees, contact_detail, })
 export const FormEvents = ({ img_url, event_name, event_date, event_descp }) => {
     return (
         <>
-            <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
+            {/* <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md"> */}
                 {/* <!-- Event Image Input --> */}
-                <div className="mb-4 relative">
-                    <label for="event-image" className="block text-gray-700 text-sm font-bold mb-2">Event Image</label>
-                    <div className="bg-gray-200 h-40 w-full rounded-md flex items-center justify-center">
-                        <input type="file" id="event-image" name="event-image" accept="image/*" className="opacity-0 absolute z-10 w-full h-full cursor-pointer" />
-                        <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center" >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 20 20" fill="currentColor" className="text-gray-600">
-                                <path d="M17,2H3C2.447,2,2,2.447,2,3v14c0,0.553,0.447,1,1,1h14c0.553,0,1-0.447,1-1V3C18,2.447,17.553,2,17,2zM16,15h-3.207 l-2.293-2.293c-0.195-0.195-0.451-0.293-0.707-0.293s-0.512,0.098-0.707,0.293L7.207,15H4v-1l2.793-2.793c0.781-0.781,2.047-0.781,2.828,0 L12,14v1H4.999c-0.553,0-1-0.447-1-1V4c0-0.553,0.447-1,1-1H16c0.553,0,1,0.447,1,1V14H16z" />
-                                <path d="M10,4h1v3h3v1h-3v3H10v-3H7v-1h3V4z" />
-                            </svg>
-                        </div>
-                    </div>
-                </div>
+                <ImageInput image_url={img_url}/>
 
                 {/* <!-- Event Name Input --> */}
                 <div className="mb-4">
@@ -97,7 +75,7 @@ export const FormEvents = ({ img_url, event_name, event_date, event_descp }) => 
                 </div>
 
 
-            </div>
+            {/* </div> */}
 
         </>
     );
@@ -106,20 +84,9 @@ export const FormEvents = ({ img_url, event_name, event_date, event_descp }) => 
 export const FormProduct = ({ img_url, prod_name, prod_price, prod_quant, prod_desp }) => {
     return (
         <>
-            <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
+            {/* <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md"> */}
                 {/* <!-- product Image Input --> */}
-                <div className="mb-4 relative">
-                    <label for="product-image" className="block text-gray-700 text-sm font-bold mb-2">Product Image</label>
-                    <div className="bg-gray-200 h-40 w-full rounded-md flex items-center justify-center">
-                        <input type="file" id="product-image" name="product-image" accept="image/*" className="opacity-0 absolute z-10 w-full h-full cursor-pointer" />
-                        <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center" >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 20 20" fill="currentColor" className="text-gray-600">
-                                <path d="M17,2H3C2.447,2,2,2.447,2,3v14c0,0.553,0.447,1,1,1h14c0.553,0,1-0.447,1-1V3C18,2.447,17.553,2,17,2zM16,15h-3.207 l-2.293-2.293c-0.195-0.195-0.451-0.293-0.707-0.293s-0.512,0.098-0.707,0.293L7.207,15H4v-1l2.793-2.793c0.781-0.781,2.047-0.781,2.828,0 L12,14v1H4.999c-0.553,0-1-0.447-1-1V4c0-0.553,0.447-1,1-1H16c0.553,0,1,0.447,1,1V14H16z" />
-                                <path d="M10,4h1v3h3v1h-3v3H10v-3H7v-1h3V4z" />
-                            </svg>
-                        </div>
-                    </div>
-                </div>
+                <ImageInput image_url={img_url} />
 
                 {/* <!-- product Name Input --> */}
                 <div className="mb-4">
@@ -146,7 +113,7 @@ export const FormProduct = ({ img_url, prod_name, prod_price, prod_quant, prod_d
                 </div>
 
 
-            </div>
+            {/* </div> */}
 
         </>
     );
@@ -155,20 +122,9 @@ export const FormProduct = ({ img_url, prod_name, prod_price, prod_quant, prod_d
 export const FormFacility = ({ img_url, fact_name, fact_contact, fact_loca }) => {
     return (
         <>
-            <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
+            {/* <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md"> */}
                 {/* <!-- facility Image Input --> */}
-                <div className="mb-4 relative">
-                    <label for="facility-image" className="block text-gray-700 text-sm font-bold mb-2">facility Image</label>
-                    <div className="bg-gray-200 h-40 w-full rounded-md flex items-center justify-center">
-                        <input type="file" id="facility-image" name="facility-image" accept="image/*" className="opacity-0 absolute z-10 w-full h-full cursor-pointer" />
-                        <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center" >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 20 20" fill="currentColor" className="text-gray-600">
-                                <path d="M17,2H3C2.447,2,2,2.447,2,3v14c0,0.553,0.447,1,1,1h14c0.553,0,1-0.447,1-1V3C18,2.447,17.553,2,17,2zM16,15h-3.207 l-2.293-2.293c-0.195-0.195-0.451-0.293-0.707-0.293s-0.512,0.098-0.707,0.293L7.207,15H4v-1l2.793-2.793c0.781-0.781,2.047-0.781,2.828,0 L12,14v1H4.999c-0.553,0-1-0.447-1-1V4c0-0.553,0.447-1,1-1H16c0.553,0,1,0.447,1,1V14H16z" />
-                                <path d="M10,4h1v3h3v1h-3v3H10v-3H7v-1h3V4z" />
-                            </svg>
-                        </div>
-                    </div>
-                </div>
+                <ImageInput image_url={img_url}/>
 
                 {/* <!-- facility Name Input --> */}
                 <div className="mb-4">
@@ -190,7 +146,7 @@ export const FormFacility = ({ img_url, fact_name, fact_contact, fact_loca }) =>
                 </div>
 
 
-            </div>
+            {/* </div> */}
 
         </>
     );
@@ -204,14 +160,14 @@ export const FormPlaceSummary = ({ destination_name, admin_name, state, city, ad
             <ImageInput image_url={image_url}/>
             <div className='flex'>
                 {/* <!-- destination name Input --> */}
-                <div className="mb-4">
+                <div className="mb-4 w-50">
 
                     <label for="destination-name" className="block text-gray-700 text-sm font-bold mb-2">Name of destination</label>
                     <input type="text" id="destination-name" value={destination_name} name="destination-name" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter the destination name" required />
                 </div>
 
                 {/* <!-- admin name Input --> */}
-                <div className="mb-4 ms-3">
+                <div className="mb-4 ms-3 w-50">
                     <label for="admin-name" className="block text-gray-700 text-sm font-bold mb-2">Name of Admin</label>
                     <input type="text" id="admin-name" value={admin_name} name="admin-name" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter the Admin name" required />
                 </div>
@@ -220,13 +176,13 @@ export const FormPlaceSummary = ({ destination_name, admin_name, state, city, ad
             <div className='flex'>
 
                 {/* <!-- state name Input --> */}
-                <div className="mb-4">
+                <div className="mb-4 w-50">
                     <label for="state-name" className="block text-gray-700 text-sm font-bold mb-2">State</label>
                     <input type="text" id="state-name" value={state} name="state-name" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter State" required />
                 </div>
 
                 {/* <!-- city name Input --> */}
-                <div className="mb-4">
+                <div className="mb-4 ms-3 w-50">
                     <label for="city-name" className="block text-gray-700 text-sm font-bold mb-2">City</label>
                     <input type="text" id="city-name" value={city} name="state-name" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter City" required />
                 </div>
@@ -241,13 +197,13 @@ export const FormPlaceSummary = ({ destination_name, admin_name, state, city, ad
             <div className='flex'>
 
                 {/* <!-- mobile number Input --> */}
-                <div className="mb-4">
+                <div className="mb-4 w-50">
                     <label for="mobile" className="block text-gray-700 text-sm font-bold mb-2">Mobile_no</label>
                     <input type="text" id="mobile" value={mobile_no} name="mobile" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter mobile number" required />
                 </div>
 
                 {/* <!-- email Input --> */}
-                <div className="mb-4">
+                <div className="mb-4 ms-3 w-50">
                     <label for="email" className="block text-gray-700 text-sm font-bold mb-2">Email</label>
                     <input type="text" id="email" value={email} name="state-name" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter Email" required />
                 </div>
@@ -279,7 +235,7 @@ const ImageInput = ({ image_url}) => {
     };
     return (
         <>
-            <div className="my-3">
+            <div className="my-3 justify-center ">
                 {/* Hidden file input */}
                 <input
                     type="file"
