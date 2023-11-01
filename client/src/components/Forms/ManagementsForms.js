@@ -52,7 +52,7 @@ export const FormTouristGuide = ({ img_url, guide_name, fees, contact_detail, })
 export const FormEvents = ({ img_url, event_name, event_date, event_descp }) => {
     return (
         <>
-            <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
+            {/* <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md"> */}
                 {/* <!-- Event Image Input --> */}
                 <ImageInput image_url={img_url}/>
 
@@ -75,7 +75,7 @@ export const FormEvents = ({ img_url, event_name, event_date, event_descp }) => 
                 </div>
 
 
-            </div>
+            {/* </div> */}
 
         </>
     );
@@ -84,7 +84,7 @@ export const FormEvents = ({ img_url, event_name, event_date, event_descp }) => 
 export const FormProduct = ({ img_url, prod_name, prod_price, prod_quant, prod_desp }) => {
     return (
         <>
-            <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
+            {/* <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md"> */}
                 {/* <!-- product Image Input --> */}
                 <ImageInput image_url={img_url} />
 
@@ -113,7 +113,7 @@ export const FormProduct = ({ img_url, prod_name, prod_price, prod_quant, prod_d
                 </div>
 
 
-            </div>
+            {/* </div> */}
 
         </>
     );
@@ -122,7 +122,7 @@ export const FormProduct = ({ img_url, prod_name, prod_price, prod_quant, prod_d
 export const FormFacility = ({ img_url, fact_name, fact_contact, fact_loca }) => {
     return (
         <>
-            <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md">
+            {/* <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md"> */}
                 {/* <!-- facility Image Input --> */}
                 <ImageInput image_url={img_url}/>
 
@@ -146,7 +146,7 @@ export const FormFacility = ({ img_url, fact_name, fact_contact, fact_loca }) =>
                 </div>
 
 
-            </div>
+            {/* </div> */}
 
         </>
     );
@@ -160,14 +160,14 @@ export const FormPlaceSummary = ({ destination_name, admin_name, state, city, ad
             <ImageInput image_url={image_url}/>
             <div className='flex'>
                 {/* <!-- destination name Input --> */}
-                <div className="mb-4">
+                <div className="mb-4 w-50">
 
                     <label for="destination-name" className="block text-gray-700 text-sm font-bold mb-2">Name of destination</label>
                     <input type="text" id="destination-name" value={destination_name} name="destination-name" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter the destination name" required />
                 </div>
 
                 {/* <!-- admin name Input --> */}
-                <div className="mb-4 ms-3">
+                <div className="mb-4 ms-3 w-50">
                     <label for="admin-name" className="block text-gray-700 text-sm font-bold mb-2">Name of Admin</label>
                     <input type="text" id="admin-name" value={admin_name} name="admin-name" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter the Admin name" required />
                 </div>
@@ -176,13 +176,13 @@ export const FormPlaceSummary = ({ destination_name, admin_name, state, city, ad
             <div className='flex'>
 
                 {/* <!-- state name Input --> */}
-                <div className="mb-4">
+                <div className="mb-4 w-50">
                     <label for="state-name" className="block text-gray-700 text-sm font-bold mb-2">State</label>
                     <input type="text" id="state-name" value={state} name="state-name" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter State" required />
                 </div>
 
                 {/* <!-- city name Input --> */}
-                <div className="mb-4">
+                <div className="mb-4 ms-3 w-50">
                     <label for="city-name" className="block text-gray-700 text-sm font-bold mb-2">City</label>
                     <input type="text" id="city-name" value={city} name="state-name" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter City" required />
                 </div>
@@ -197,13 +197,13 @@ export const FormPlaceSummary = ({ destination_name, admin_name, state, city, ad
             <div className='flex'>
 
                 {/* <!-- mobile number Input --> */}
-                <div className="mb-4">
+                <div className="mb-4 w-50">
                     <label for="mobile" className="block text-gray-700 text-sm font-bold mb-2">Mobile_no</label>
                     <input type="text" id="mobile" value={mobile_no} name="mobile" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter mobile number" required />
                 </div>
 
                 {/* <!-- email Input --> */}
-                <div className="mb-4">
+                <div className="mb-4 ms-3 w-50">
                     <label for="email" className="block text-gray-700 text-sm font-bold mb-2">Email</label>
                     <input type="text" id="email" value={email} name="state-name" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter Email" required />
                 </div>
@@ -235,7 +235,7 @@ const ImageInput = ({ image_url}) => {
     };
     return (
         <>
-            <div className="my-3 justify-center">
+            <div className="my-3 justify-center ">
                 {/* Hidden file input */}
                 <input
                     type="file"
