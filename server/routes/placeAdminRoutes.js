@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const {placeAdminRegister, placeAdminlogin, wlcom,addProduct,getProducts } = require("../controllers/adminAuthController");
+const {placeAdminRegister, placeAdminlogin, wlcom } = require("../controllers/adminAuthController");
+const {addProduct,getProducts} = require("../controllers/ProductCrud")
 
 const auth = require("../middelweares/Authentication");
 const upload = require("../middelweares/fileupload");
