@@ -103,6 +103,10 @@ export const GuideData = [
         "A traditional handwoven saree, known for its intricate designs and vibrant colors.",
       prod_img_url: Prod1,
       quantity_available: 50,
+      city: "Wardha",
+      state: "Maharashtra",
+      admin_name: "Ashwini Ukhalkar",
+      category:"Clothes"
     },
     {
       product_name: "Wardha Goras Pak",
@@ -111,6 +115,10 @@ export const GuideData = [
         "Delicious Goras Pak made from locally Wardha Ghee Cookies.",
       prod_img_url: Prod2,
       quantity_available: 100,
+      city: "Wardha",
+      state: "Maharashtra",
+      admin_name: "Yash Wadatkar",
+      category:"Food"
     },
     {
       product_name: "Wardha Pottery Set",
@@ -119,6 +127,10 @@ export const GuideData = [
         "A set of beautifully crafted pottery items, including mugs, bowls, and vases.",
       prod_img_url: Prod3,
       quantity_available: 20,
+      city: "Wardha",
+      state: "Maharashtra",
+      admin_name: "Purva Dhopade",
+      category:"Articals"
     },
     {
       product_name: "Wardha Herbal Soap",
@@ -127,6 +139,10 @@ export const GuideData = [
         "Handmade herbal soap with natural ingredients, perfect for skin care.",
       prod_img_url: Prod4,
       quantity_available: 200,
+      city: "Wardha",
+      state: "Maharashtra",
+      admin_name: "Vishnu Mate",
+      category:"Beauty"
     },
     {
       product_name: "Wardha Spices Collection",
@@ -135,6 +151,10 @@ export const GuideData = [
         "A collection of locally sourced spices, including chili powder, turmeric, and cumin.",
       prod_img_url: Prod5,
       quantity_available: 75,
+      city: "Wardha",
+      state: "Maharashtra",
+      admin_name: "Mahesh Rohane",
+      category: "Food"
     },
   ];
 
