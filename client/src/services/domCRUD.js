@@ -18,3 +18,15 @@ export const addDOM = async(file,inputformData) => {
       console.error("Error uploading file:", error);
     }
 };
+
+export const fetchProduct = async(name) =>{
+
+    // id can be null if we need to view all user
+    name = name || '';
+    try{
+       return await axios.get(`https://finding-pride-in-india.onrender.com/dom/getproducts/${name}`);
+    }
+    catch(err){
+        console.log("Error occurs while running getUser function",err);
+    }
+};

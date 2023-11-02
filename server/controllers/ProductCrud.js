@@ -1,4 +1,4 @@
-const Product = require("../models/addProduct");
+const Product = require("../models/Product");
 
 
 const addProduct = async (req, res) => {
@@ -19,6 +19,10 @@ const addProduct = async (req, res) => {
         product_price: data.product_price,
         product_descp: data.product_descp,
         quantity_available: data.quantity_available,
+        category:data.category,
+        state:data.state,
+        city:data.city,
+        admin_name:data.admin_name,
         filename: filename,
         path: path,
       });
