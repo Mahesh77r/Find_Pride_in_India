@@ -42,15 +42,28 @@ const addProduct = async (req, res) => {
   };   
   
   const getProducts = async (req, res) => {
-    console.log(req.params.admin_name);
+    const admin_name=req.params.admin_name;
+    
     try {
-      // Fetch all products from the database
-      const products = await Product.find({admin_name:req.params.admin_name});
-  
-      res.status(200).json({
-        success: true,
-        data: products,
-      });
+      // Fetch all products from the 
+      // for filter data
+      if(admin_name){
+        const products = await Product.find({admin_name:req.params.admin_name})
+
+        res.status(200).json({
+          success: true,
+          data: products,
+        });
+      }
+      // unfilter data
+      else{
+        const products = await Product.find()
+
+        res.status(200).json({
+          success: true,
+          data: products,
+        });
+      }
     } catch (error) {
       console.error(error);
       res.status(500).json({ success: false, error: "Error fetching products" });
