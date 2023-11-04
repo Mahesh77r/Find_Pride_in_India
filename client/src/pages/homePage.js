@@ -47,9 +47,9 @@ function HomePage() {
   }, []);
 
   const { user } = useUser()
-  var name = user.adminName;
   const getProducts = async () => {
-    let res = await fetchProduct();
+    const res = await fetchProduct(user.adminName);
+    console.log(res.data.data)
     setProduct(res.data.data);
   };
 
@@ -187,7 +187,7 @@ function HomePage() {
           <div className="scroll-container overflow-x-auto whitespace-no-wrap">
             <div className="scroll-content flex items-center">
               {product.map((prod) => (
-                <div key={prod._id} className="min-w-[380px] p-4">
+                <div key={prod._id} className="min-w-[380px] h-auto p-4">
                   
                     <ProductCard
                       filename={prod.filename}
