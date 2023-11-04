@@ -4,7 +4,7 @@ import AllDOM from './pages/allDOM';
 import AddDOM from './components/Forms/addDOM';
 import ResetPassword from './pages/ResetPass';
 import { GraphPage } from './pages/GraphPage';
-import HomePage from './pages/HomePage';
+import HomePage from './pages/homePage';
 import LoginPage from './pages/loginPage';
 import { SideNavbar } from './components/navbar/SideNavbar';
 import { navForDOM } from './components/navbar/NavLink';
