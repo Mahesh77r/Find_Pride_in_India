@@ -3,8 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import AllDOM from './pages/allDOM';
 import AddDOM from './components/Forms/addDOM';
-import ResetPassword from './pages/ResetPass';
-import { GraphPage } from './pages/GraphPage';
+
 import HomePage from './pages/homePage';
 import LoginPage from './pages/loginPage';
 import ResetPassword from './pages/ResetPass';
