@@ -42,9 +42,10 @@ const addProduct = async (req, res) => {
   };   
   
   const getProducts = async (req, res) => {
+    console.log(req.params.admin_name);
     try {
       // Fetch all products from the database
-      const products = await Product.find();
+      const products = await Product.find({admin_name:req.params.admin_name});
   
       res.status(200).json({
         success: true,

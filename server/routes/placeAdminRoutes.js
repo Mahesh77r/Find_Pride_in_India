@@ -7,7 +7,7 @@ const upload = require("../middelweares/fileupload");
 
 router.post("/register",upload.single('file'),placeAdminRegister);
 router.post("/addproducts",upload.single('file'),addProduct);
-router.get("/getproducts",getProducts);
+router.get("/getproducts/:admin_name",getProducts);
 router.post("/login",placeAdminlogin);
 router.get("/",auth,wlcom);
 
