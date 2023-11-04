@@ -12,6 +12,8 @@ export const loginDOM = async(data) => {
     }
 };
 
+
+
 export const resetPassword = async(data) => {
     try{
         // console.log(data);

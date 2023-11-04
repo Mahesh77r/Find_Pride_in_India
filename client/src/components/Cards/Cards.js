@@ -96,7 +96,8 @@ export const AddCards = ({ DataName, add_form}) => {
   );
 };
 
-export const ProductCard = ({ img_url, prod_name, prod_price, prod_quant, prod_descp }) => {
+export const ProductCard = ({ filename, prod_name, prod_price, prod_quant, prod_descp }) => {
+  const img_url = `https://finding-pride-in-india.onrender.com/${filename}`
   return (
     <>
       <div className="rounded bgf item-center overflow-hidden shadow-lg transition-transform hover:scale-105">

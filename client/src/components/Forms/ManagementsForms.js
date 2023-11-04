@@ -58,20 +58,20 @@ export const FormEvents = ({ img_url, event_name, event_date, event_descp }) => 
 
                 {/* <!-- Event Name Input --> */}
                 <div className="mb-4">
-                    <label for="event-name" className="block text-gray-700 text-sm font-bold mb-2">Name of Event</label>
+                    <label htmlFor="event-name" className="block text-gray-700 text-sm font-bold mb-2">Name of Event</label>
                     <input type="text" id="event-name" value={event_name} name="event-name" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter the event name" required />
                 </div>
 
                 {/* <!-- Event Date Input --> */}
                 <div className="mb-4">
-                    <label for="event-date" className="block text-gray-700 text-sm font-bold mb-2">Date of Event</label>
+                    <label htmlFor="event-date" className="block text-gray-700 text-sm font-bold mb-2">Date of Event</label>
                     <input type="date" id="event-date" value={event_date} name="event-date" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" required />
                 </div>
 
                 {/* <!-- Event Description Input --> */}
                 <div className="mb-4">
-                    <label for="event-description" className="block text-gray-700 text-sm font-bold mb-2">Description of Event</label>
-                    <textarea id="event-description" value={event_descp} name="event-description" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" rows="4" placeholder="Enter a description for the event" required></textarea>
+                    <label htmlFor="event-description" className="block text-gray-700 text-sm font-bold mb-2">Description of Event</label>
+                    <textarea id="event-description" value={event_descp} name="event-description" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" rows="4" placeholder="Enter a description htmlFor the event" required></textarea>
                 </div>
 
 
@@ -90,26 +90,26 @@ export const FormProduct = ({ img_url, prod_name, prod_price, prod_quant, prod_d
 
                 {/* <!-- product Name Input --> */}
                 <div className="mb-4">
-                    <label for="product-name" className="block text-gray-700 text-sm font-bold mb-2">Name of Product</label>
+                    <label htmlFor="product-name" className="block text-gray-700 text-sm font-bold mb-2">Name of Product</label>
                     <input type="text" id="product-name" value={prod_name} name="product-name" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter the product name" required />
                 </div>
 
                 {/* <!-- product Price Input --> */}
                 <div className="mb-4">
-                    <label for="product-price" className="block text-gray-700 text-sm font-bold mb-2">Price of Product</label>
+                    <label htmlFor="product-price" className="block text-gray-700 text-sm font-bold mb-2">Price of Product</label>
                     <input type="number" id="product-price" value={prod_price} name="product-price" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" required inputMode="numeric" />
                 </div>
 
                 {/* <!-- product Quantity Input --> */}
                 <div className="mb-4">
-                    <label for="product-quantity" className="block text-gray-700 text-sm font-bold mb-2">Quantity of Product</label>
+                    <label htmlFor="product-quantity" className="block text-gray-700 text-sm font-bold mb-2">Quantity of Product</label>
                     <input type="number" id="product-quantity" value={prod_quant} name="product-quantity" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" required inputMode="numeric" />
                 </div>
 
                 {/* <!-- product Description Input --> */}
                 <div className="mb-4">
-                    <label for="product-description" className="block text-gray-700 text-sm font-bold mb-2">Description of Product</label>
-                    <textarea id="product-description" value={prod_desp} name="product-description" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" rows="4" placeholder="Enter a description for the product" required></textarea>
+                    <label htmlFor="product-description" className="block text-gray-700 text-sm font-bold mb-2">Description of Product</label>
+                    <textarea id="product-description" value={prod_desp} name="product-description" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" rows="4" placeholder="Enter a description htmlFor the product" required></textarea>
                 </div>
 
 
@@ -128,19 +128,19 @@ export const FormFacility = ({ img_url, fact_name, fact_contact, fact_loca }) =>
 
                 {/* <!-- facility Name Input --> */}
                 <div className="mb-4">
-                    <label for="facility-name" className="block text-gray-700 text-sm font-bold mb-2">Name of facility</label>
+                    <label htmlFor="facility-name" className="block text-gray-700 text-sm font-bold mb-2">Name of facility</label>
                     <input type="text" id="facility-name" value={fact_name} name="facility-name" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter the facility name" required />
                 </div>
 
                 {/* <!-- facility contact Input --> */}
                 <div className="mb-4">
-                    <label for="facility-contact" className="block text-gray-700 text-sm font-bold mb-2">Contact of facility</label>
+                    <label htmlFor="facility-contact" className="block text-gray-700 text-sm font-bold mb-2">Contact of facility</label>
                     <input type="tel" id="facility-contact" value={fact_contact} name="facility-contact" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" required />
                 </div>
 
                 {/* <!-- facility Description Input --> */}
                 <div className="mb-4">
-                    <label for="facility-location" className="block text-gray-700 text-sm font-bold mb-2">Location of facility</label>
+                    <label htmlFor="facility-location" className="block text-gray-700 text-sm font-bold mb-2">Location of facility</label>
                     <input type="url" id="facility-location" value={fact_loca} name="facility-location" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" required />
                     <p className="text-sm text-red-400">Paste the URL</p>
                 </div>
@@ -162,13 +162,13 @@ export const FormPlaceSummary = ({ destination_name, admin_name, state, city, ad
                 {/* <!-- destination name Input --> */}
                 <div className="mb-4 w-50">
 
-                    <label for="destination-name" className="block text-gray-700 text-sm font-bold mb-2">Name of destination</label>
+                    <label htmlFor="destination-name" className="block text-gray-700 text-sm font-bold mb-2">Name of destination</label>
                     <input type="text" id="destination-name" value={destination_name} name="destination-name" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter the destination name" required />
                 </div>
 
                 {/* <!-- admin name Input --> */}
                 <div className="mb-4 ms-3 w-50">
-                    <label for="admin-name" className="block text-gray-700 text-sm font-bold mb-2">Name of Admin</label>
+                    <label htmlFor="admin-name" className="block text-gray-700 text-sm font-bold mb-2">Name of Admin</label>
                     <input type="text" id="admin-name" value={admin_name} name="admin-name" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter the Admin name" required />
                 </div>
             </div>
@@ -177,13 +177,13 @@ export const FormPlaceSummary = ({ destination_name, admin_name, state, city, ad
 
                 {/* <!-- state name Input --> */}
                 <div className="mb-4 w-50">
-                    <label for="state-name" className="block text-gray-700 text-sm font-bold mb-2">State</label>
+                    <label htmlFor="state-name" className="block text-gray-700 text-sm font-bold mb-2">State</label>
                     <input type="text" id="state-name" value={state} name="state-name" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter State" required />
                 </div>
 
                 {/* <!-- city name Input --> */}
                 <div className="mb-4 ms-3 w-50">
-                    <label for="city-name" className="block text-gray-700 text-sm font-bold mb-2">City</label>
+                    <label htmlFor="city-name" className="block text-gray-700 text-sm font-bold mb-2">City</label>
                     <input type="text" id="city-name" value={city} name="state-name" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter City" required />
                 </div>
             </div>
@@ -191,27 +191,27 @@ export const FormPlaceSummary = ({ destination_name, admin_name, state, city, ad
 
             {/* <!-- address Input --> */}
             <div className="mb-4">
-                <label for="address" className="block text-gray-700 text-sm font-bold mb-2">Address</label>
+                <label htmlFor="address" className="block text-gray-700 text-sm font-bold mb-2">Address</label>
                 <input type="text" id="address" value={address} name="address" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter Address" required />
             </div>
             <div className='flex'>
 
                 {/* <!-- mobile number Input --> */}
                 <div className="mb-4 w-50">
-                    <label for="mobile" className="block text-gray-700 text-sm font-bold mb-2">Mobile_no</label>
+                    <label htmlFor="mobile" className="block text-gray-700 text-sm font-bold mb-2">Mobile_no</label>
                     <input type="text" id="mobile" value={mobile_no} name="mobile" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter mobile number" required />
                 </div>
 
                 {/* <!-- email Input --> */}
                 <div className="mb-4 ms-3 w-50">
-                    <label for="email" className="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                    <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">Email</label>
                     <input type="text" id="email" value={email} name="state-name" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter Email" required />
                 </div>
             </div>
 
             {/* <!-- pass Input --> */}
             <div className="mb-4">
-                <label for="password" className="block text-gray-700 text-sm font-bold mb-2">Password</label>
+                <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">Password</label>
                 <input type="text" id="password" value={pass} name="password" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500" placeholder="Enter password" required />
             </div>
 

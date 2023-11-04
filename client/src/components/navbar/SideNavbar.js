@@ -1,79 +1,73 @@
-import React, { useState } from "react";
+import React from "react";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { Link } from "react-router-dom";
+import { useUser } from "../../context/UserContext";
 
 export const SideNavbar = ({ navigation, isSideNavbarOpen, toggleSideNavbar }) => {
-  const logout = <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
-</svg>
+ 
+    const {user} = useUser();
+    console.log(user)
+
+  
+  const handleLogout = () => {
+    // Clear the access_token from localStorage when logging out
+    localStorage.removeItem("user");
+    // Redirect the user to the login page or home page after logout
+    // You can add your own redirect logic based on your routes
+    window.location.assign("/");
+  };
   return (
+
     <div
-      className={`bg-[#040430] min-h-screen ${
-        isSideNavbarOpen ? "w-72" : "w-16"
-      }  duration-500 text-gray-100 px-4`}
+      className={`bg-[#000D27] min-h-screen ${isSideNavbarOpen ? "w-64" : "w-16"
+        } duration-700 text-gray-100 px-4`}
       style={{ position: "fixed" }}
     >
-      <div className="py-3 flex justify-end">
-        <HiMenuAlt3
+      <div className="pt-2 flex justify-start gap-7">
+        <div><HiMenuAlt3
           size={26}
           className="cursor-pointer"
           onClick={toggleSideNavbar}
-        />
+        /></div>
+        {/* {isSideNavbarOpen ?  */}
+        <div className={`whitespace-pre duration-500 ${!isSideNavbarOpen && "opacity-0 translate-x-28 overflow-hidden"}`}> {user.adminName}</div> 
+        {/* : null} */}
+        
       </div>
-      <div className="mt-4 flex flex-col gap-4 relative">
+      <div className="mt-4 flex flex-col gap-4 relative" >
         {navigation.map((nav, i) => (
+          // only for logout to use onClick function
+          nav.name =="Logout" ?
+          <Link
+            
+            key={i}
+            onClick={handleLogout}
+            className={
+              "group flex items-center text-base gap-7 font-medium p-1 rounded-md hover:bg-white  hover:text-[#040430]"
+            }
+          >
+            <div className="justify-start p-0 m-0">{nav.icon}</div>
+            <h2 className={`whitespace-pre duration-500 ${!isSideNavbarOpen && "opacity-0 translate-x-28 overflow-hidden"}`}>
+              {nav.name}
+            </h2>
+          </Link>
+          :
+          // 
           <Link
             to={nav.link}
             key={i}
             className={
-              "group flex items-center text-base gap-3.5 font-medium p-2 hover:bg-[#4c4ca6] rounded-md"
+              "group flex items-center text-base gap-7 font-medium p-1 rounded-md hover:bg-white  hover:text-[#040430]"
             }
           >
-            <div className="">{React.createElement(nav.icon, { size: "20" })}</div>
-            <h2
-              style={{
-                transitionDelay: `${i + 3}00ms`,
-              }}
-              className={`whitespace-pre duration-500 ${
-                !isSideNavbarOpen && "opacity-0 translate-x-28 overflow-hidden"
-              }`}
-            >
-              {nav.name}
-            </h2>
-            <h2
-              className={`${isSideNavbarOpen && "hidden"} absolute left-48 bg-[#040430] font-semibold whitespace-pre text-white rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-11 group-hover:py-3 group-hover:left-14 group-hover:duration-300 group-hover:w-fit `}
-            >
+            <div className="justify-start p-0 m-0">{nav.icon}</div>
+            <h2 className={`whitespace-pre duration-500 ${!isSideNavbarOpen && "opacity-0 translate-x-28 overflow-hidden"}`}>
               {nav.name}
             </h2>
           </Link>
         ))}
       </div>
-      <div>
-      <Link
-           
-            className={
-              "group flex items-center text-base gap-3.5 font-medium p-2 hover:bg-[#4c4ca6] rounded-md"
-            }
-          >
-            {/* <div>{React.createElement(logout, { size: "20" })}</div> */}
-            
-            <h2
-              style={{
-                transitionDelay: `900ms`,
-              }}
-              className={`whitespace-pre duration-500 ${
-                !isSideNavbarOpen && "opacity-0 translate-x-28 overflow-hidden"
-              }`}
-            >
-              Logout
-            </h2>
-            <h2
-              className={`${isSideNavbarOpen && "hidden"} absolute left-48 bg-[#040430] font-semibold whitespace-pre text-white rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-11 group-hover:py-3 group-hover:left-14 group-hover:duration-300 group-hover:w-fit `}
-            >
-              Logout
-            </h2>
-          </Link>
-      </div>
     </div>
+
   );
 };

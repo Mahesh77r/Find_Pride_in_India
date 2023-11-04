@@ -27,6 +27,6 @@ export const fetchProduct = async(name) =>{
        return await axios.get(`https://finding-pride-in-india.onrender.com/dom/getproducts/${name}`);
     }
     catch(err){
-        console.log("Error occurs while running getUser function",err);
+        console.log("Error occurs while running fetching Products function",err);
     }
 };
