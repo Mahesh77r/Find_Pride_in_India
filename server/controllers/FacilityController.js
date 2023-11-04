@@ -39,13 +39,10 @@ const addFacility = async (req, res) => {
   };
    
   
-  const getFacility = async (req, res) => {
+const getFacility = async (req, res) => {
      const dest_name = req.params.dest_name
         
-    res.status(200).json({
-      success: true,
-      data: Events,
-    });
+    
     try {
       // Fetch all facility from the database
       if(dest_name){
