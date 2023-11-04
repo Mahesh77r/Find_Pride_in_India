@@ -40,14 +40,28 @@ const addTouristGuide = async (req, res) => {
    
   
   const getTouristGuide = async (req, res) => {
+    const dest_name = req.params.dest_name
+
     try {
       // Fetch all products from the database
-      const Guide = await GuideSchema.find({dest_name:req.params.dest_name});
-  
-      res.status(200).json({
-        success: true,
-        data: Guide,
-      });
+      if(dest_name){
+
+        const Guide = await GuideSchema.find({dest_name:req.params.dest_name});
+    
+        res.status(200).json({
+          success: true,
+          data: Guide,
+        });
+      }
+      else{
+        const Guide = await GuideSchema.find();
+    
+        res.status(200).json({
+          success: true,
+          data: Guide,
+        });
+      }
+      
     } catch (error) {
       console.error(error);
       res.status(500).json({ success: false, error: "Error fetching Guide" });

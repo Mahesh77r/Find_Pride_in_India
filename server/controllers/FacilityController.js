@@ -40,14 +40,31 @@ const addFacility = async (req, res) => {
    
   
   const getFacility = async (req, res) => {
+     const dest_name = req.params.dest_name
+        
+    res.status(200).json({
+      success: true,
+      data: Events,
+    });
     try {
       // Fetch all facility from the database
-      const Facility = await FacilitySchema.find({dest_name:req.params.dest_name});
-  
-      res.status(200).json({
-        success: true,
-        data: Facility,
-      });
+      if(dest_name){
+
+        const Facility = await FacilitySchema.find({dest_name:req.params.dest_name});
+    
+        res.status(200).json({
+          success: true,
+          data: Facility,
+        });
+      }
+      else{
+        const Facility = await FacilitySchema.find();
+    
+        res.status(200).json({
+          success: true,
+          data: Facility,
+        });
+      }
     } catch (error) {
       console.error(error);
       res.status(500).json({ success: false, error: ` error fetching file ${error}` });

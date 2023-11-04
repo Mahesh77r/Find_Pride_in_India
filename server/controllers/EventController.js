@@ -40,14 +40,25 @@ const addEvent = async (req, res) => {
    
   
   const getEvent = async (req, res) => {
+    const dest_name = req.params.dest_name;
     try {
       // Fetch all products from the database
-      const Events = await Event.find({dest_name:req.params.dest_name});
-  
-      res.status(200).json({
-        success: true,
-        data: Events,
-      });
+      if(dest_name){
+        const Events = await Event.find({dest_name:req.params.dest_name});
+        
+        res.status(200).json({
+          success: true,
+          data: Events,
+        });
+      }
+      else{
+        const Events = await Event.find();
+        
+        res.status(200).json({
+          success: true,
+          data: Events,
+        });
+      }
     } catch (error) {
       console.error(error);
       res.status(500).json({ success: false, error: "Error fetching Guide" });
