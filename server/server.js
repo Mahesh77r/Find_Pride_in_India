@@ -21,7 +21,7 @@ app.use(cors());
 
 //for using upload folder
 
-app.use(express.static('uploads'));
+app.use('/',express.static('uploads'));
 
 // Routing
 app.use("/dom", placeAdminRouter);
