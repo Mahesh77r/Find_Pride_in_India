@@ -107,5 +107,19 @@ const addProduct = async (req, res) => {
       return res.status(500).json({ success: false, error: `Error Updating Product ${error}` });
     }
   }
- 
+  const deleteProduct = async(req,res) =>{
+    try{
+      console.log(req.params.id);
+      // deleteData = await ProductSchema.deleteOne({_id:req.params.id})
+
+      // res.status(200).json({
+      //   success: true,
+      //   data:deleteData
+      // });
+    }
+    catch(error){
+      console.error(error);
+      res.status(500).json({ success: false, error: `Error deleting  products ${error}` });
+    }
+  }
   module.exports = { addProduct,getProducts, updateProduct ,deleteProduct};
