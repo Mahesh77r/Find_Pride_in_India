@@ -1,4 +1,4 @@
-const Product = require("../models/Product");
+const ProductSchema = require("../models/Product");
 
 
 const addProduct = async (req, res) => {
@@ -14,7 +14,7 @@ const addProduct = async (req, res) => {
       const { filename, path } = req.file;
   
       // Create a new product object
-      const newProduct = new Product({
+      const newProduct = new ProductSchema({
         product_name: data.product_name,
         product_price: data.product_price,
         product_descp: data.product_descp,
@@ -37,7 +37,7 @@ const addProduct = async (req, res) => {
       });
     } catch (error) {
       console.error(error);
-      return res.status(500).json({ success: false, error: "Error uploading file" });
+      return res.status(500).json({ success: false, error: `Error Adding Product ${error}` });
     }
   };   
   
@@ -48,7 +48,7 @@ const addProduct = async (req, res) => {
       // Fetch all products from the 
       // for filter data
       if(admin_name){
-        const products = await Product.find({admin_name:req.params.admin_name})
+        const products = await ProductSchema.find({admin_name:req.params.admin_name})
 
         res.status(200).json({
           success: true,
@@ -57,7 +57,7 @@ const addProduct = async (req, res) => {
       }
       // unfilter data
       else{
-        const products = await Product.find()
+        const products = await ProductSchema.find()
 
         res.status(200).json({
           success: true,
@@ -66,8 +66,46 @@ const addProduct = async (req, res) => {
       }
     } catch (error) {
       console.error(error);
-      res.status(500).json({ success: false, error: "Error fetching products" });
+      res.status(500).json({ success: false, error: `Error fetching  products ${error}` });
     }
   };
   
-  module.exports = { addProduct,getProducts };
+  const updateProduct = async(req,res) => {
+    try{
+
+       let data;
+       try {
+         data = JSON.parse(req.body.data);
+       } catch (error) {
+         return res.status(400).json({ success: false, error: `Invalid JSON data ${error}` });
+       }
+      //  
+      const { filename, path } = req.file;
+      //  
+      const updatedData = new ProductSchema({
+        id: data.id,
+        product_name: data.product_name,
+        product_price: data.product_price,
+        product_descp: data.product_descp,
+        quantity_available: data.quantity_available,
+        category:data.category,
+        state:data.state,
+        city:data.city,
+        admin_name:data.admin_name,
+        filename: filename,
+        path: path,
+      });
+      // 
+      await ProductSchema.updateOne({_id:req.params.id},updatedData)
+      res.status(200).json({
+        success: true,
+        data: updatedData,
+      });
+    }
+    catch (error) {
+      console.error(error);
+      return res.status(500).json({ success: false, error: `Error Updating Product ${error}` });
+    }
+  }
+ 
+  module.exports = { addProduct,getProducts, updateProduct ,deleteProduct};
