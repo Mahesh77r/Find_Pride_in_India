@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const {placeAdminRegister, placeAdminlogin, wlcom } = require("../controllers/adminAuthController");
-const {addProduct,getProducts, updateProduct, deleteProduct} = require("../controllers/ProductCrud")
+const {getProducts, updateProduct, deleteProduct, addProductWithFirebase} = require("../controllers/ProductCrud")
 const {addTouristGuide, getTouristGuide} = require("../controllers/TouristGuideCrud")
 const {addEvent,getEvent} = require("../controllers/EventController")
 const { getFacility, addFacility } = require('../controllers/FacilityController');
@@ -8,10 +8,16 @@ const { getFacility, addFacility } = require('../controllers/FacilityController'
 const auth = require("../middelweares/Authentication");
 const upload = require("../middelweares/fileupload");
 
+
+
+
 router.post("/register",upload.single('file'),placeAdminRegister);
 // CRUD products
-router.post("/addproducts",upload.single('file'),addProduct);
-router.get("/getproducts/:admin_name",getProducts);
+// router.post("/addproducts",upload.single('file'),addProduct);
+// 
+router.post("/addfireproducts",addProductWithFirebase);
+// 
+router.get("/getproducts/:dest_name",getProducts);
 router.get("/getproducts/",getProducts);
 router.put("/updateproducts/:id",upload.single('file'),updateProduct);
 router.delete("/deleteproducts/:id",deleteProduct);

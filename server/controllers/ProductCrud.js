@@ -1,45 +1,44 @@
 const ProductSchema = require("../models/Product");
 
-
-const addProduct = async (req, res) => {
-    try {
-      // Ensure the incoming data is correctly formatted JSON
-      let data;
-      try {
-        data = JSON.parse(req.body.data);
-      } catch (error) {
-        return res.status(400).json({ success: false, error: `Invalid JSON data ${error}` });
-      }
+// const addProduct = async (req, res) => {
+//     try {
+//       // Ensure the incoming data is correctly formatted JSON
+//       let data;
+//       try {
+//         data = JSON.parse(req.body.data);
+//       } catch (error) {
+//         return res.status(400).json({ success: false, error: `Invalid JSON data ${error}` });
+//       }
   
-      const { filename, path } = req.file;
+//       const { filename, path } = req.file;
   
-      // Create a new product object
-      const newProduct = new ProductSchema({
-        product_name: data.product_name,
-        product_price: data.product_price,
-        product_descp: data.product_descp,
-        quantity_available: data.quantity_available,
-        category:data.category,
-        state:data.state,
-        city:data.city,
-        admin_name:data.admin_name,
-        filename: filename,
-        path: path,
-      });
+//       // Create a new product object
+//       const newProduct = new ProductSchema({
+//         product_name: data.product_name,
+//         product_price: data.product_price,
+//         product_descp: data.product_descp,
+//         quantity_available: data.quantity_available,
+//         category:data.category,
+//         state:data.state,
+//         city:data.city,
+//         admin_name:data.admin_name,
+//         filename: filename,
+//         path: path,
+//       });
   
-      // Save the product to the database
-      await newProduct.save();
+//       // Save the product to the database
+//       await newProduct.save();
   
-      return res.status(201).json({
-        success: true,
-        data: newProduct,
-        message: "File uploaded successfully",
-      });
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({ success: false, error: `Error Adding Product ${error}` });
-    }
-  };   
+//       return res.status(201).json({
+//         success: true,
+//         data: newProduct,
+//         message: "File uploaded successfully",
+//       });
+//     } catch (error) {
+//       console.error(error);
+//       return res.status(500).json({ success: false, error: `Error Adding Product ${error}` });
+//     }
+//   };   
   
   const getProducts = async (req, res) => {
     const admin_name=req.params.admin_name;
@@ -122,4 +121,48 @@ const addProduct = async (req, res) => {
       res.status(500).json({ success: false, error: `Error deleting  products ${error}` });
     }
   }
-  module.exports = { addProduct,getProducts, updateProduct ,deleteProduct};
+
+  const addProductWithFirebase = async(req, res) => {
+    try {
+      // console.log(req.body)
+      // Ensure the incoming data is correctly formatted JSON
+      let data;
+      try {
+        data = req.body;
+      } catch (error) {
+        return res.status(400).json({ success: false, error: `Invalid JSON data ${error}` });
+      }
+  
+  
+      // Create a new product object
+      const newProduct = new ProductSchema({
+        product_name: data.product_name,
+        product_price: data.product_price,
+        product_descp: data.product_descp,
+        quantity_available: data.quantity_available,
+        category:data.category,
+        state:data.state,
+        city:data.city,
+        destination_name:data.destinationName,
+        path: data.imagePath,
+      });
+  
+      // Save the product to the database
+      await newProduct.save();
+  
+      return res.status(201).json({
+        success: true,
+        data: newProduct,
+        message: "Product added successfully",
+      });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ success: false, error: `Error Adding Product ${error}` });
+    }
+
+  };
+
+
+
+
+  module.exports = { getProducts, updateProduct ,deleteProduct,addProductWithFirebase};

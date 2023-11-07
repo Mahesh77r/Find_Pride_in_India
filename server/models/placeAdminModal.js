@@ -8,18 +8,8 @@ const placeAdminSchema = new mongoose.Schema({
     role : {type : String, default : "placeadmin"},
     mobileNumber:{type:String},
     destinationName:{type:String },
-    // location:{
-    //     type: {
-    //       type: String, // Don't do `{ location: { type: String } }`
-    //       enum: ['Point'], // 'location.type' must be 'Point'
-    //       required: true
-    //     },
-    //     coordinates: {
-    //       type: [Number],
-    //       required: true
-    //     }
-    //   },
-    //   image data
+    state:{type:String },
+    city:{type:String },
     filename:{type:String},
     path :{type:String},
 

@@ -4,54 +4,54 @@ const jwt = require("jsonwebtoken");
 
 //  Register function to register user
 const placeAdminRegister = async (req, res) => {
-  console.log(req.file);
-  const proData = JSON.parse(req.body.data);
-  const { filename, path } = req.file;
-  const { adminName, email, password, mobileNumber, destinationName } = proData;
-  console.log(filename);
-
-  // Validate user input
-  if (!(adminName && email && password && mobileNumber && destinationName)) {
-    return res.status(400).send("All input is required");
-  }
-  // find old user exit or not if not exit then create new user
-  const oldUser = await User.findOne({ email: email });
-  const placeName = await User.findOne({ destinationName: destinationName });
-  if (oldUser) {
-    res.status(400).json({
-      success: false,
-      message: "Email Already Exist",
-    });
-  } else if (placeName) {
-    res.status(400).json({
-      success: false,
-      message: "Place Name Already Exist",
-    });
-  }
-
   try {
-    // bcrypt the password and creating user
+    // Check if request body and file exist
+    if (!req.body || !req.file) {
+      return res.status(400).json({ success: false, message: "Missing request data" });
+    }
+
+    // Parse request data
+    const proData = JSON.parse(req.body.data);
+    const { adminName, email, password, mobileNumber, destinationName, state, city } = proData;
+
+    // Validate user input
+    if (!(adminName && email && password && mobileNumber && destinationName)) {
+      return res.status(400).json({ success: false, message: "All input fields are required" });
+    }
+
+    // Check if user with the same email or destination name already exists
+    const existingUser = await User.findOne({ $or: [{ email: email }, { destinationName: destinationName }] });
+    if (existingUser) {
+      return res.status(400).json({ success: false, message: "Email or Destination Name already exists" });
+    }
+
+    // Hash the password
     const salt = await bcrypt.genSalt(10);
-    encryptedPassword = await bcrypt.hash(password, salt);
+    const encryptedPassword = await bcrypt.hash(password, salt);
+
+    // Create a new user
     const newUser = new User({
       adminName: adminName,
-      email: email.toLowerCase(), // sanitize: convert email to lowercase
+      email: email.toLowerCase(), // Sanitize email to lowercase
       password: encryptedPassword,
       mobileNumber: mobileNumber,
       destinationName: destinationName,
-      filename,
-      path,
+      state: state,
+      city: city,
+      filename: req.file.filename,
+      path: req.file.path,
     });
+
+    // Save the new user
     await newUser.save();
 
-    return res
-      .status(201)
-      .json({ data: newUser, message: "Registration successfull" });
+    return res.status(201).json({ success: true, data: newUser, message: "Registration successful" });
   } catch (error) {
-    console.log(error);
-    return res.status(400).json({ message: "Registration failed" });
+    console.error("Error in placeAdminRegister:", error);
+    return res.status(500).json({ success: false, message: "Registration failed" });
   }
 };
+
 //login functonality to login user
 const placeAdminlogin = async (req, res, next) => {
   // take a value from user end

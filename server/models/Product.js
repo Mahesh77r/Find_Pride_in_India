@@ -8,9 +8,8 @@ const ProductSchema = new mongoose.Schema({
     quantity_available: { type: Number },
     city:{ type: String ,require:true},
     state: { type: String ,require:true},
-    admin_name: { type: String ,require:true},
+    destination_name: { type: String ,require:true},
     category:{ type: String ,require:true},
-    filename: { type: String },
     path: { type: String },
 })
 
