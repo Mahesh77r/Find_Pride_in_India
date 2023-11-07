@@ -81,7 +81,7 @@ export const DeleteModal = ({ isOpen, closeModal, title }) => {
 }
 
 
-export const EditModal = ({ isOpen, closeModal, title, Updateform}) => {
+export const EditModal = ({ isOpen, closeModal, title, Updateform }) => {
   return (
     <>
       {isOpen && (
@@ -119,11 +119,11 @@ export const EditModal = ({ isOpen, closeModal, title, Updateform}) => {
                     </Dialog.Title>
 
                     {/* Form with Guide Name, Fees, and Contact Detail */}
-                    <form>
-                      {Updateform}
-                      <UpdateClose closeModal={closeModal} />
-                    </form>
+                    <div>
 
+                      {Updateform}
+                      {/* <UpdateClose closeModal={closeModal}  /> */}
+                    </div>
 
                   </Dialog.Panel>
                 </Transition.Child>
@@ -137,13 +137,13 @@ export const EditModal = ({ isOpen, closeModal, title, Updateform}) => {
 };
 
 
-const UpdateClose = ({ closeModal }) => {
+export const UpdateClose = ({ closeModal ,onClick }) => {
   return (
     <>
       <div className="mt-4">
         <div className="flex justify-between">
           <div className="ms-2">
-            <button className="bg-purple-500 hover:bg-purple-600 flex p-2 rounded-xl text-white relative">
+            <button className="bg-purple-500 hover:bg-purple-600 flex p-2 rounded-xl text-white relative" onClick={onClick}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

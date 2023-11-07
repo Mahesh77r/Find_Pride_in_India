@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const URL = 'https://finding-pride-in-india.onrender.com/dom';
+const LOCALURL = 'http://localhost:8080/dom';
 
 export const addDOM = async(file,inputformData) => {
     const formData = new FormData();
@@ -30,3 +31,15 @@ export const fetchProduct = async(name) =>{
         console.log("Error occurs while running fetching Products function",err);
     }
 };
+
+export const addProduct = async(formdata) =>{
+  try{
+    console.log(formdata)
+
+    await axios.post(`${LOCALURL}/addfireproducts`,formdata)
+  }
+  catch(err){
+      console.log(formdata)
+    console.log(`Error occur during adding Prodcut ${err}`)
+  }
+}

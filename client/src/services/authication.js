@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const URL = 'https://finding-pride-in-india.onrender.com/dom';
+const URL = 'http://localhost:8080';
 
 
 export const loginDOM = async(data) => {

@@ -60,7 +60,7 @@ export const EventCard = ({ event_name, event_date,image_url, descp }) => {
   );
 };
 
-export const AddCards = ({ DataName, add_form}) => {
+export const AddCards = ({ DataName, add_form ,formSubmitfunction}) => {
   const [isOpenAdd, setIsOpenAdd] = useState(false)
   function closeModalAdd() {
     setIsOpenAdd(false)
@@ -70,7 +70,7 @@ export const AddCards = ({ DataName, add_form}) => {
   }
   return (
     <>
-    <EditModal isOpen={isOpenAdd} closeModal={closeModalAdd} title={"Addd"} Updateform={add_form}/>
+    <EditModal isOpen={isOpenAdd} closeModal={closeModalAdd} title={"Addd"} Updateform={add_form} formSubmitfunction={formSubmitfunction}/>
       <div className="rounded bgf item-center overflow-hidden shadow-lg transform transition-transform hover:scale-105" onClick={openModalAdd}>
         <div className="row justify-center mt-5">
           <svg
@@ -96,17 +96,16 @@ export const AddCards = ({ DataName, add_form}) => {
   );
 };
 
-export const ProductCard = ({ filename, prod_name, prod_price, prod_quant, prod_descp }) => {
-  const img_url = `https://finding-pride-in-india.onrender.com/${filename}`
+export const ProductCard = ({ path, prod_name, prod_price, prod_quant, prod_descp }) => {
   return (
     <>
       <div className="rounded bgf item-center overflow-hidden shadow-lg transition-transform hover:scale-105">
         {/* Buttons */}
-        <UpdateDeletebuttons Updateform={<FormProduct prod_name={prod_name} img_url={img_url} prod_desp={prod_descp} prod_price={prod_price} prod_quant={prod_quant}/>} update_delete_title={"Product"} />
+        <UpdateDeletebuttons Updateform={<FormProduct prod_name={prod_name} img_url={path} prod_desp={prod_descp} prod_price={prod_price} prod_quant={prod_quant}/>} update_delete_title={"Product"} />
 
         {/* Image */}
         <div className="row rounded-lg w-full h-40">
-          <img className="w-full h-full py-2 px-5 rounded-md" alt="Events " src={img_url} />
+          <img className="w-full h-full py-2 px-5 rounded-md" alt="Events " src={path} />
         </div>
         {/* product name */}
         <div className="text-2xl my-2 font-bold text-center">
@@ -171,7 +170,7 @@ export const FacilityCard = ({ fac_name, fac_img_url, fac_cont, fac_loact }) => 
   );
 };
 
-const UpdateDeletebuttons = ({ update_delete_title, Updateform }) => {
+const UpdateDeletebuttons = ({ update_delete_title, Updateform ,formSubmitfunction }) => {
   // Delete functions
   const [isOpenDelete, setIsOpenDelete] = useState(false)
   function closeModalDelete() {

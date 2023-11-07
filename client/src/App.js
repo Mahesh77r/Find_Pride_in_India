@@ -13,6 +13,7 @@ import { SideNavbar } from './components/navbar/SideNavbar';
 import { navForDOM } from './components/navbar/NavLink';
 import { useUser } from './context/UserContext';
 import { TopNavbar } from './components/navbar/TopNavbar';
+import { Practice } from './pages/Practice';
 
 function App() {
   const [isSideNavbarOpen, setIsSideNavbarOpen] = useState(true);
@@ -56,6 +57,7 @@ return (
             <Route path="/form" element={<AddDOM />} />
             <Route path="/resetpassword/:token" element={<ResetPassword />} />
             <Route path="/order" element={<GraphPage />} />
+            <Route path="/practice" element={<Practice />} />
           </Routes>
         </div>
       </div>

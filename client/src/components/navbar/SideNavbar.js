@@ -37,7 +37,7 @@ export const SideNavbar = ({ navigation, isSideNavbarOpen, toggleSideNavbar }) =
       <div className="mt-4 flex flex-col gap-4 relative" >
         {navigation.map((nav, i) => (
           // only for logout to use onClick function
-          nav.name =="Logout" ?
+          nav.name ==="Logout" ?
           <Link
             
             key={i}

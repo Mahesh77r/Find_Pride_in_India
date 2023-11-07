@@ -1,8 +1,6 @@
 import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useUser } from "../context/UserContext";
-
 import "./ScollCard.css";
 import {
   GuideCards,
@@ -21,7 +19,6 @@ import {
 import {
   FamousPlaces,
   GuideData,
-  WardhaProducts,
   Facilities,
   Summary,
 } from "../components/DemoData";
@@ -36,6 +33,7 @@ import { fetchProduct } from "../services/domCRUD";
 function HomePage() {
 
   const [product, setProduct] = useState([]);
+  // eslint-disable-next-line
   const Navigate = useNavigate();
 
   useEffect(() => {
@@ -44,11 +42,15 @@ function HomePage() {
     } else {
       Navigate('/login');
     }
+    // eslint-disable-next-line
   }, []);
 
-  const { user } = useUser()
   const getProducts = async () => {
-    const res = await fetchProduct(user.adminName);
+    // 
+    const storedUserJSON = localStorage.getItem('user');
+    const storedUser = JSON.parse(storedUserJSON);
+// 
+    const res = await fetchProduct(storedUser.destinationName);
     console.log(res.data.data)
     setProduct(res.data.data);
   };
@@ -190,7 +192,7 @@ function HomePage() {
                 <div key={prod._id} className="min-w-[380px] h-auto p-4">
                   
                     <ProductCard
-                      filename={prod.filename}
+                      path={prod.path}
                       prod_name={prod.product_name}
                       prod_price={prod.product_price}
                       prod_quant={prod.quantity_available}
