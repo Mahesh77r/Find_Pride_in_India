@@ -47,7 +47,7 @@ const ProductSchema = require("../models/Product");
       // Fetch all products from the 
       // for filter data
       if(admin_name){
-        const products = await ProductSchema.find({admin_name:req.params.admin_name})
+        const products = await ProductSchema.find({destination_name:req.params.dest_name})
 
         res.status(200).json({
           success: true,
@@ -129,6 +129,7 @@ const ProductSchema = require("../models/Product");
       let data;
       try {
         data = req.body;
+        console.log(data)
       } catch (error) {
         return res.status(400).json({ success: false, error: `Invalid JSON data ${error}` });
       }
@@ -143,7 +144,7 @@ const ProductSchema = require("../models/Product");
         category:data.category,
         state:data.state,
         city:data.city,
-        destination_name:data.destinationName,
+        destination_name:data.destination_name,
         path: data.imagePath,
       });
   
