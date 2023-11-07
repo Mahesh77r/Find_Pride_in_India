@@ -41,13 +41,13 @@ const ProductSchema = require("../models/Product");
 //   };   
   
   const getProducts = async (req, res) => {
-    const admin_name=req.params.admin_name;
+    const dest_name=req.params.dest_name;
     
     try {
       // Fetch all products from the 
       // for filter data
-      if(admin_name){
-        const products = await ProductSchema.find({destination_name:req.params.dest_name})
+      if(dest_name){
+        const products = await ProductSchema.find({destination_name:dest_name})
 
         res.status(200).json({
           success: true,
