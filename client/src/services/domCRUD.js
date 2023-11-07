@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const URL = 'http://localhost:8080/dom';
+const URL = 'https://finding-pride-in-india.onrender.com/dom';
 
 export const addDOM = async(file,inputformData) => {
     const formData = new FormData();
@@ -16,5 +16,17 @@ export const addDOM = async(file,inputformData) => {
       alert("Form uploaded successfully");
     } catch (error) {
       console.error("Error uploading file:", error);
+    }
+};
+
+export const fetchProduct = async(name) =>{
+
+    // id can be null if we need to view all user
+    name = name || '';
+    try{
+       return await axios.get(`${URL}/getproducts/${name}`);
+    }
+    catch(err){
+        console.log("Error occurs while running fetching Products function",err);
     }
 };

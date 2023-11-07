@@ -19,6 +19,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 
+//for using upload folder
+
+app.use('/uploads',express.static('uploads'));
+
 // Routing
 app.use("/dom", placeAdminRouter);
 app.use("/tourist", Tourist);
