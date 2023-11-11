@@ -10,7 +10,6 @@ const upload = require("../middelweares/fileupload");
 
 
 
-
 router.post("/register",upload.single('file'),placeAdminRegister);
 // CRUD products
 // router.post("/addproducts",upload.single('file'),addProduct);
@@ -24,22 +23,24 @@ router.delete("/deleteproducts/:id",deleteProduct);
 
 
 // CRUD Guide
-router.post("/addguides",upload.single('file'),addTouristGuide);
+router.post("/addguides",addTouristGuide);
 router.get("/getguides/:dest_name",getTouristGuide);
 router.get("/getguides/",getTouristGuide);
 
 // CRUD Event
-router.post("/addevents",upload.single('file'),addEvent);
+router.post("/addevents",addEvent);
 router.get("/getevents/:dest_name",getEvent);
 router.get("/getevents/",getEvent);
 
 // CRUD Facility
-router.post("/addfacilities",upload.single('file'),addFacility);
+router.post("/addfacilities",addFacility);
 router.get("/getfacilities/:dest_name",getFacility);
 router.get("/getfacilities/",getFacility);
 
 router.post("/login",placeAdminlogin);
 router.get("/",auth,wlcom);
+
+
 
 
 module.exports=router;
