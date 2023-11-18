@@ -5,6 +5,8 @@ const jwt = require("jsonwebtoken");
 //  Register function to register user
 const placeAdminRegister = async (req, res) => {
   try {
+    console.log(req.body)
+    console.log(req.file)
     // Check if request body and file exist
     if (!req.body || !req.file) {
       return res.status(400).json({ success: false, message: "Missing request data" });
@@ -106,5 +108,33 @@ const wlcom = async (req, res, next) => {
   return;
 };
 
+const getPlaces = async (req, res) => {
+  try {
+    // Specify the fields you want to fetch
+    const selectedFields = [
+      'adminName',
+      'email',
+      'mobileNumber',
+      'destinationName',
+      'state',
+      'city',
+      'path',
+    ];
 
-module.exports = { placeAdminRegister, placeAdminlogin, wlcom };
+    // Use the select method to fetch only the specified fields
+    const Places = await User.find().select(selectedFields);
+
+    res.status(200).json({
+      success: true,
+      data: Places,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      msg: `Error: ${error}`,
+    });
+  }
+};
+
+
+module.exports = { placeAdminRegister, placeAdminlogin, wlcom ,getPlaces};
