@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {placeAdminRegister, placeAdminlogin, wlcom } = require("../controllers/adminAuthController");
+const {placeAdminRegister, placeAdminlogin, wlcom ,getPlaces} = require("../controllers/adminAuthController");
 const {getProducts, updateProduct, deleteProduct, addProductWithFirebase} = require("../controllers/ProductCrud")
 const {addTouristGuide, getTouristGuide} = require("../controllers/TouristGuideCrud")
 const {addEvent,getEvent} = require("../controllers/EventController")
@@ -11,6 +11,8 @@ const upload = require("../middelweares/fileupload");
 
 
 router.post("/register",upload.single('file'),placeAdminRegister);
+router.get("/getplaces",getPlaces);
+
 // CRUD products
 // router.post("/addproducts",upload.single('file'),addProduct);
 // 
