@@ -14,10 +14,10 @@ const placeAdminRegister = async (req, res) => {
 
     // Parse request data
     const proData = JSON.parse(req.body.data);
-    const { adminName, email, password, mobileNumber, destinationName, state, city } = proData;
+    const { adminName, email, mobileNumber, destinationName, state, city ,summary } = proData;
 
     // Validate user input
-    if (!(adminName && email && password && mobileNumber && destinationName)) {
+    if (!(adminName && email && mobileNumber && destinationName)) {
       return res.status(400).json({ success: false, message: "All input fields are required" });
     }
 
@@ -28,18 +28,18 @@ const placeAdminRegister = async (req, res) => {
     }
 
     // Hash the password
-    const salt = await bcrypt.genSalt(10);
-    const encryptedPassword = await bcrypt.hash(password, salt);
+    // const salt = await bcrypt.genSalt(10);
+    // const encryptedPassword = await bcrypt.hash(password, salt);
 
     // Create a new user
     const newUser = new User({
       adminName: adminName,
       email: email.toLowerCase(), // Sanitize email to lowercase
-      password: encryptedPassword,
       mobileNumber: mobileNumber,
       destinationName: destinationName,
       state: state,
       city: city,
+      summary:summary,
       filename: req.file.filename,
       path: req.file.path,
     });
@@ -119,6 +119,8 @@ const getPlaces = async (req, res) => {
       'state',
       'city',
       'path',
+      'summary',
+      'numbercheckpoints'
     ];
 
     // Use the select method to fetch only the specified fields
