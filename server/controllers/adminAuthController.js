@@ -5,16 +5,28 @@ const jwt = require("jsonwebtoken");
 //  Register function to register user
 const placeAdminRegister = async (req, res) => {
   try {
-    console.log(req.body)
-    console.log(req.file)
-    // Check if request body and file exist
-    if (!req.body || !req.file) {
+    let parseData = await asyncParse(req)
+    let ImageInformation = parseData.files.image
+    let data = JSON.parse(parseData.fields.data)
+    if (!parseData) {
       return res.status(400).json({ success: false, message: "Missing request data" });
     }
-
-    // Parse request data
-    const proData = JSON.parse(req.body.data);
-    const { adminName, email, mobileNumber, destinationName, state, city ,summary } = proData;
+    try {
+      const existingProduct = await ProductSchema.findOne({ $and: [{ product_name: data.product_name }, { dest_name: data.dest_name }] });
+  
+        if(existingProduct){
+          return res.status(202).json({ success: false, error: `Product already exists` });
+  
+        }
+        //   uploading Images
+          await UploadMultipleFiles(ImageInformation,'doms').then((response) => { data.imagePath = response })
+        
+  
+      } catch (error) {
+        return res.status(400).json({ success: false, error: `Image not uploaded : ${error}` });
+      }
+   
+    const { adminName, email, mobileNumber, destinationName, state, city ,summary,imagePath } = data;
 
     // Validate user input
     if (!(adminName && email && mobileNumber && destinationName)) {
@@ -40,8 +52,7 @@ const placeAdminRegister = async (req, res) => {
       state: state,
       city: city,
       summary:summary,
-      filename: req.file.filename,
-      path: req.file.path,
+      path: imagePath,
     });
 
     // Save the new user
@@ -57,7 +68,7 @@ const placeAdminRegister = async (req, res) => {
 //login functonality to login user
 const placeAdminlogin = async (req, res, next) => {
   // take a value from user end
-  const { email, password } = req.body;
+  const { email, password,role } = req.body;
 
   // Validate user input
   if (!(email && password)) {

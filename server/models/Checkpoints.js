@@ -8,6 +8,7 @@ const Checkpoint = new mongoose.Schema({
     point_city:{ type: String },
     point_state: { type: String },
     dest_name: { type: String },
+    dest_id: { type: String },
 
     image_path: { type: Array },
     audio_path: { type: Array },

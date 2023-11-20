@@ -39,7 +39,7 @@ router.get("/getfacilities/",getFacility);
 // CRUD Checkpoints
 router.post("/addcheckpoints",addCheckpoint);
 router.get("/getcheckpoints",getCheckpoint);
-router.get("/getcheckpoints/:dest_name",getCheckpoint);
+router.get("/getcheckpoints/:dest_id",getCheckpoint);
 
 
 

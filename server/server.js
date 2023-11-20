@@ -2,6 +2,7 @@ const express  =require("express");
 const app = express();
 require("dotenv").config();
 const cors = require("cors");
+const AdminRouter = require('./routes/adminRoutes.js')
 const placeAdminRouter = require('./routes/placeAdminRoutes.js')
 const Tourist = require('./routes/touristRoutes.js')
 const Practice = require('./routes/practice.js')
@@ -26,6 +27,7 @@ app.use('/uploads',express.static('uploads'));
 
 // Routing
 app.use("/dom", placeAdminRouter);
+app.use("/admin", AdminRouter);
 app.use("/tourist", Tourist);
 app.use("/api",Practice)
 
