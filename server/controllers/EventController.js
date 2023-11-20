@@ -1,16 +1,19 @@
 const Event = require("../models/Event");
+const { asyncParse,  UploadMultipleFiles,uploadSingleFile} = require("./FileUpload")
+
 
 const addEvent = async (req, res) => {
     try {
-      // Ensure the incoming data is correctly formatted JSON
-      let data;
+    let parseData = await asyncParse(req)
+    let ImageInformation = parseData.files.file
+    let data = JSON.parse(parseData.fields.data)
       try {
-        data = JSON.parse(req.body.data);
+        
+      // Assuming you have data and file in the form data
+      await upload(ImageInformation,'events').then((response) => { data.imagePath = response })
       } catch (error) {
-        return res.status(400).json({ success: false, error: `Invalid JSON data ${error}` });
+        return res.status(400).json({ success: false, error: `Image not uploaded : ${error}` });
       }
-  
-      const { filename, path } = req.file;
   
       // Create a new product object
       const newEvent = new Event({
@@ -20,8 +23,7 @@ const addEvent = async (req, res) => {
         city: data.city,
         state: data.state,
         dest_name: data.dest_name,
-        filename: filename,
-        path: path,
+        path: data.imagePath,
       });
   
       // Save the product to the database

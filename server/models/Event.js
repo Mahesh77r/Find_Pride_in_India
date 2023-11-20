@@ -8,7 +8,7 @@ const Event = new mongoose.Schema({
     city:{ type: String },
     state: { type: String },
     dest_name: { type: String },
-    path: { type: String },
+    path: { type: Array },
 })
 
 module.exports = mongoose.model("events", Event)

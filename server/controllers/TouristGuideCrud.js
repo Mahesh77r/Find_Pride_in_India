@@ -5,13 +5,10 @@ const addTouristGuide = async (req, res) => {
       // Ensure the incoming data is correctly formatted JSON
       let data;
       try {
-        data = JSON.parse(req.body.data);
+        data = req.body;
       } catch (error) {
         return res.status(400).json({ success: false, error: `Invalid JSON data ${error}` });
       }
-  
-      const { filename, path } = req.file;
-  
       // Create a new product object
       const newGuide = new GuideSchema({
         guide_name: data.guide_name,
@@ -20,8 +17,7 @@ const addTouristGuide = async (req, res) => {
         city:data.city,
         state: data.state,
         dest_name: data.dest_name,
-        filename: filename,
-        path: path,
+        path: data.imagePath,
       });
   
       // Save the product to the database

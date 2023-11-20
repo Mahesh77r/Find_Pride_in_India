@@ -7,6 +7,7 @@ const { getFacility, addFacility } = require('../controllers/FacilityController'
 
 const auth = require("../middelweares/Authentication");
 const upload = require("../middelweares/fileupload");
+const { addCheckpoint, getCheckpoint } = require('../controllers/CheckPointsController');
 
 
 
@@ -14,13 +15,10 @@ router.post("/register",upload.single('file'),placeAdminRegister);
 router.get("/getplaces",getPlaces);
 
 // CRUD products
-// router.post("/addproducts",upload.single('file'),addProduct);
-// 
-router.post("/addfireproducts",addProductWithFirebase);
-// 
+router.post("/addproducts",addProductWithFirebase);
 router.get("/getproducts/:dest_name",getProducts);
 router.get("/getproducts/",getProducts);
-router.put("/updateproducts/:id",upload.single('file'),updateProduct);
+router.put("/updateproducts/:id",updateProduct);
 router.delete("/deleteproducts/:id",deleteProduct);
 
 
@@ -38,6 +36,12 @@ router.get("/getevents/",getEvent);
 router.post("/addfacilities",addFacility);
 router.get("/getfacilities/:dest_name",getFacility);
 router.get("/getfacilities/",getFacility);
+
+// CRUD Checkpoints
+router.post("/addcheckpoints",addCheckpoint);
+router.get("/getcheckpoints",getCheckpoint);
+
+
 
 router.post("/login",placeAdminlogin);
 router.get("/",auth,wlcom);

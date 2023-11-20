@@ -5,12 +5,11 @@ const addFacility = async (req, res) => {
       // Ensure the incoming data is correctly formatted JSON
       let data;
       try {
-        data = JSON.parse(req.body.data);
+        data = req.body;
       } catch (error) {
         return res.status(400).json({ success: false, error: `Invalid JSON data ${error}` });
       }
   
-      const { filename, path } = req.file;
   
       // Create a new facility 
       const newFacility = new FacilitySchema({
@@ -20,8 +19,8 @@ const addFacility = async (req, res) => {
         city: data.city,
         state: data.state,
         dest_name: data.dest_name,
-        filename: filename,
-        path: path,
+        path: data.imagePath,
+
       });
   
       // Save the facility to the database
@@ -30,11 +29,11 @@ const addFacility = async (req, res) => {
       return res.status(201).json({
         success: true,
         data: newFacility,
-        message: "File uploaded successfully",
+        message: "Facility uploaded successfully",
       });
     } catch (error) {
       console.error(error);
-      return res.status(500).json({ success: false, error: ` error uploading file ${error}` });
+      return res.status(500).json({ success: false, error: ` error creating facility ${error}` });
     }
   };
    
