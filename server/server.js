@@ -4,6 +4,7 @@ require("dotenv").config();
 const cors = require("cors");
 const placeAdminRouter = require('./routes/placeAdminRoutes.js')
 const Tourist = require('./routes/touristRoutes.js')
+const Practice = require('./routes/practice.js')
 const cookieParser = require("cookie-parser");
 const bodyParser=  require("body-parser")
 
@@ -26,6 +27,7 @@ app.use('/uploads',express.static('uploads'));
 // Routing
 app.use("/dom", placeAdminRouter);
 app.use("/tourist", Tourist);
+app.use("/api",Practice)
 
 app.listen(process.env.PORT ,() =>{
    console.log(`server is running on port ${process.env.PORT}`)
