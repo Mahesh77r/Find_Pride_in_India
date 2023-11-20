@@ -13,20 +13,20 @@ const placeAdminRegister = async (req, res) => {
     }
     try {
       const existingProduct = await ProductSchema.findOne({ $and: [{ product_name: data.product_name }, { dest_name: data.dest_name }] });
-  
-        if(existingProduct){
-          return res.status(202).json({ success: false, error: `Product already exists` });
-  
-        }
-        //   uploading Images
-          await UploadMultipleFiles(ImageInformation,'doms').then((response) => { data.imagePath = response })
-        
-  
-      } catch (error) {
-        return res.status(400).json({ success: false, error: `Image not uploaded : ${error}` });
+
+      if (existingProduct) {
+        return res.status(202).json({ success: false, error: `Product already exists` });
+
       }
-   
-    const { adminName, email, mobileNumber, destinationName, state, city ,summary,imagePath } = data;
+      //   uploading Images
+      await UploadMultipleFiles(ImageInformation, 'doms').then((response) => { data.imagePath = response })
+
+
+    } catch (error) {
+      return res.status(400).json({ success: false, error: `Image not uploaded : ${error}` });
+    }
+
+    const { adminName, email, mobileNumber, destinationName, state, city, summary, imagePath } = data;
 
     // Validate user input
     if (!(adminName && email && mobileNumber && destinationName)) {
@@ -51,7 +51,7 @@ const placeAdminRegister = async (req, res) => {
       destinationName: destinationName,
       state: state,
       city: city,
-      summary:summary,
+      summary: summary,
       path: imagePath,
     });
 
@@ -68,7 +68,7 @@ const placeAdminRegister = async (req, res) => {
 //login functonality to login user
 const placeAdminlogin = async (req, res, next) => {
   // take a value from user end
-  const { email, password,role } = req.body;
+  const { email, password, role } = req.body;
 
   // Validate user input
   if (!(email && password)) {
@@ -120,6 +120,7 @@ const wlcom = async (req, res, next) => {
 };
 
 const getPlaces = async (req, res) => {
+  const id = req.params.id
   try {
     // Specify the fields you want to fetch
     const selectedFields = [
@@ -135,12 +136,22 @@ const getPlaces = async (req, res) => {
     ];
 
     // Use the select method to fetch only the specified fields
-    const Places = await User.find().select(selectedFields);
+    if (id) {
+      const Places = await User.findById(id).select(selectedFields);
+      res.status(200).json({
+        success: true,
+        data: Places,
+      });
+    }
+    else {
+      const Places = await User.find().select(selectedFields);
+      res.status(200).json({
+        success: true,
+        data: Places,
+      });
+    }
 
-    res.status(200).json({
-      success: true,
-      data: Places,
-    });
+
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -150,4 +161,4 @@ const getPlaces = async (req, res) => {
 };
 
 
-module.exports = { placeAdminRegister, placeAdminlogin, wlcom ,getPlaces};
+module.exports = { placeAdminRegister, placeAdminlogin, wlcom, getPlaces };

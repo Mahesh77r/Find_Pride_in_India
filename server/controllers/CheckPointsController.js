@@ -62,6 +62,7 @@ const addCheckpoint = async (req, res) => {
     let ImageInformation = parseData.files.image
     let AudioInformation = parseData.files.audio
     let data = JSON.parse(parseData.fields.data)
+    console.log(data)
     try {
       const existingPlace = await CheckpointSchema.findOne({ $and: [{ point_name: data.point_name }, { dest_id: data.dest_id }] });
 
@@ -109,11 +110,9 @@ const addCheckpoint = async (req, res) => {
     }
 
 
-
     return res.status(201).json({
       success: true,
       data: newCheckpoint,
-      file: parseData.files,
       message: "Checkpoint added successfully",
     });
   } catch (error) {
