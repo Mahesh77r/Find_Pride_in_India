@@ -23,7 +23,7 @@ import {
   Summary,
 } from "../components/DemoData";
 import { EditModal } from "../components/Modal/Modal";
-import { fetchProduct } from "../services/domCRUD";
+import { fetchEvents, fetchFacility, fetchGuide, fetchProduct } from "../services/domCRUD";
 
 
 // 
@@ -33,12 +33,18 @@ import { fetchProduct } from "../services/domCRUD";
 function HomePage() {
 
   const [product, setProduct] = useState([]);
+  const [guide, setGuide] = useState([]);
+  const [facility, setFacility] = useState([]);
+  const [event, setEvent] = useState([]);
   // eslint-disable-next-line
   const Navigate = useNavigate();
 
   useEffect(() => {
     if (localStorage.getItem("user")) {
       getProducts();
+      getGuide();
+      getFacility();
+      getEvents();
     } else {
       Navigate('/login');
     }
@@ -51,13 +57,39 @@ function HomePage() {
     const storedUser = JSON.parse(storedUserJSON);
 // 
     const res = await fetchProduct(storedUser.destinationName);
-    console.log(res.data.data)
+    // console.log(res.data.data)
     setProduct(res.data.data);
   };
-
+  const getGuide = async () => {
+    // 
+    const storedUserJSON = localStorage.getItem('user');
+    const storedUser = JSON.parse(storedUserJSON);
+// 
+    const res = await fetchGuide(storedUser.destinationName);
+    // console.log(res.data.data)
+    setGuide(res.data.data);
+  };
+  const getFacility = async () => {
+    // 
+    const storedUserJSON = localStorage.getItem('user');
+    const storedUser = JSON.parse(storedUserJSON);
+// 
+    const res = await fetchFacility(storedUser.destinationName);
+    // console.log(res.data.data)
+    setFacility(res.data.data);
+  };
+  const getEvents = async () => {
+    // 
+    const storedUserJSON = localStorage.getItem('user');
+    const storedUser = JSON.parse(storedUserJSON);
+// 
+    const res = await fetchEvents(storedUser.destinationName);
+    console.log(res.data.data)
+    setEvent(res.data.data);
+  };
   return (
     <>
-      <div className="container m-auto my-2">
+      <div className="container m-auto my-2 ">
         {/* About Place */}
         {Summary.map((data, index) => (
 
@@ -135,7 +167,6 @@ function HomePage() {
             </div>
             <div></div>
           </div>
-
         ))}
 
         {/* Manage Tourist Guide*/}
@@ -143,13 +174,13 @@ function HomePage() {
           <p className="ms-3 text-4xl font-serif">Manage Tourist Guide</p>
           <div className="scroll-container">
             <div className="scroll-content items-center">
-              {GuideData.map((guide, index) => (
+              {guide.map((guide, index) => (
                 <div key={index} className="min-w-[380px] p-4 ">
                   <GuideCards
-                    guidename={guide.guidename}
-                    fees={guide.fees}
-                    contact_number={guide.contact_number}
-                    img_url={guide.img_url}
+                    guidename={guide.guide_name}
+                    fees={guide.guide_price}
+                    contact_number={guide.contact}
+                    img_url={guide.path}
                   />
                 </div>
               ))}
@@ -167,12 +198,12 @@ function HomePage() {
           <p className="ms-3 text-4xl font-serif">Manage Events</p>
           <div className="scroll-container overflow-x-auto whitespace-no-wrap">
             <div className="scroll-content flex items-center">
-              {FamousPlaces.map((eve, index) => (
+              {event.map((eve, index) => (
                 <div key={index} className="min-w-[350px] p-4">
                   <EventCard
-                    event_name={eve.eventName}
-                    descp={eve.descrip}
-                    image_url={eve.imgURL}
+                    event_name={eve.event_name}
+                    descp={eve.event_des}
+                    image_url={eve.path}
                     event_date={eve.date}
                   />
                 </div>
@@ -213,13 +244,13 @@ function HomePage() {
           <p className="ms-3 text-4xl font-serif">Manage Nearby Faclities</p>
           <div className="scroll-container overflow-x-auto whitespace-no-wrap">
             <div className="scroll-content flex items-center">
-              {Facilities.map((fac, index) => (
+              {facility.map((fac, index) => (
                 <div key={index} className="min-w-[550px]  p-4 ">
                   <FacilityCard
                     fac_name={fac.facility_name}
-                    fac_cont={fac.contact_detail}
-                    fac_img_url={fac.img_url}
-                    fac_loact={fac.location_url}
+                    fac_cont={fac.facility_number}
+                    fac_img_url={fac.path}
+                    fac_loact={fac.facility_location}
                   />
                 </div>
               ))}

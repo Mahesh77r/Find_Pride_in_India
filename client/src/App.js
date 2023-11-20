@@ -33,7 +33,7 @@ function App() {
   
   
   console.log(login)
-  const contentMargin = isSideNavbarOpen ? 'ml-72' : 'ml-16';
+  const contentMargin = isSideNavbarOpen ? 'ml-64' : 'ml-16';
 
 return (
   <>

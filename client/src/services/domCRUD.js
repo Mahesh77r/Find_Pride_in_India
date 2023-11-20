@@ -7,9 +7,8 @@ export const addDOM = async(file,inputformData) => {
     const formData = new FormData();
     formData.append("file", file);
     formData.append("data", JSON.stringify(inputformData));
-
     try {
-      await axios.post(`${URL}/register`, formData, {
+      await axios.post(`${LOCALURL}/register`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -32,6 +31,42 @@ export const fetchProduct = async(name) =>{
     }
 };
 
+export const fetchGuide = async(name) =>{
+
+  // id can be null if we need to view all user
+  name = name || '';
+  try{
+     return await axios.get(`${URL}/getguides/${name}`);
+  }
+  catch(err){
+      console.log("Error occurs while running fetching guides function",err);
+  }
+};
+
+export const fetchFacility = async(name) =>{
+
+  // id can be null if we need to view all user
+  name = name || '';
+  try{
+     return await axios.get(`${URL}/getfacilities/${name}`);
+  }
+  catch(err){
+      console.log("Error occurs while running fetching facility function",err);
+  }
+};
+
+export const fetchEvents = async(name) =>{
+
+  // id can be null if we need to view all user
+  name = name || '';
+  try{
+     return await axios.get(`${URL}/getevents/${name}`);
+  }
+  catch(err){
+      console.log("Error occurs while running fetching events function",err);
+  }
+};
+
 export const addProduct = async(formdata) =>{
   try{
     console.log(formdata)
@@ -41,5 +76,40 @@ export const addProduct = async(formdata) =>{
   catch(err){
       console.log(formdata)
     console.log(`Error occur during adding Prodcut ${err}`)
+  }
+}
+
+export const addGuide = async(formdata) =>{
+  try{
+    console.log(formdata)
+
+    await axios.post(`${LOCALURL}/addguides`,formdata)
+  }
+  catch(err){
+      console.log(formdata)
+    console.log(`Error occur during adding Prodcut ${err}`)
+  }
+}
+
+export const addFacility = async(formdata) =>{
+  try{
+    console.log(formdata)
+
+    await axios.post(`${LOCALURL}/addfacilities`,formdata)
+  }
+  catch(err){
+      console.log(formdata)
+    console.log(`Error occur during adding facility ${err}`)
+  }
+}
+export const addEvent = async(formdata) =>{
+  try{
+    console.log(formdata)
+
+    await axios.post(`${LOCALURL}/addevents`,formdata)
+  }
+  catch(err){
+      console.log(formdata)
+    console.log(`Error occur during adding events ${err}`)
   }
 }

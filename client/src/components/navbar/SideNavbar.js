@@ -21,7 +21,7 @@ export const SideNavbar = ({ navigation, isSideNavbarOpen, toggleSideNavbar }) =
     <div
       className={`bg-[#000D27] min-h-screen ${isSideNavbarOpen ? "w-64" : "w-16"
         } duration-700 text-gray-100 px-4`}
-      style={{ position: "fixed" }}
+      style={{ position: "fixed" , top: "81px"}}
     >
       <div className="pt-2 flex justify-start gap-7">
         <div><HiMenuAlt3

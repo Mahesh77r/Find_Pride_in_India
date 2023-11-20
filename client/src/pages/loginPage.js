@@ -55,6 +55,7 @@ export default function LoginPage() {
       Navigate("/");
     } else if (res.status === 202) {
       setShowalert(true);
+      console.log("first")
     }
   };
 

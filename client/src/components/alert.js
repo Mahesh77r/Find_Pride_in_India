@@ -8,7 +8,7 @@ export const Alert = ({ bgcolor, title, desc, bool, onClose }) => {
     if (bool) {
       setTimeout(() => {
         onClose();
-      }, 2000);
+      }, 2500);
     }
   }, [bool, onClose]);
 

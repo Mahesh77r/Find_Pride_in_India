@@ -6,9 +6,9 @@ export default function AddDOM() {
   const [formData, setFormData] = useState({
     adminName: '',
     email: '',
-    password: '',
     mobileNumber: '',
     destinationName: '',
+    summary:'',
     city: '',
     state: '',
     address: '',
@@ -139,18 +139,17 @@ export default function AddDOM() {
                   required
                 />
               </div>
-              {/* password */}
-              <div >
-                <label htmlFor="Address" className="block text-gray-600">Password</label>
-                <input
-                  type="password"
-                  name="password"
-                  value={formData.password}
+              
+            </div>
+            {/* summary */}
+            <div>
+            <label htmlFor="adminName" className="block text-gray-600">Summay about Destination</label>
+              <textarea type="text"
+                  name="summary"
+                  value={formData.summary}
                   onChange={handleChange}
                   className="mt-2 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-                  required
-                />
-              </div>
+                  required></textarea>
             </div>
           </div>
 
