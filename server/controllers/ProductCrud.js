@@ -8,7 +8,7 @@ const getProducts = async (req, res) => {
     // Fetch all products from the 
     // for filter data
     if (dest_name) {
-      const products = await ProductSchema.find({ destination_name: dest_name })
+      const products = await ProductSchema.find({ dest_name: dest_name })
 
       res.status(200).json({
         success: true,
