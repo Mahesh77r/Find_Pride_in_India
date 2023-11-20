@@ -27,7 +27,7 @@ const placeAdminRegister = async (req, res) => {
       return res.status(400).json({ success: false, error: `Image not uploaded : ${error}` });
     }
 
-    const { adminName, email, mobileNumber, destinationName, state, city, summary, imagePath } = data;
+    const { adminName, email, mobileNumber, destinationName, state, city, summary, imagePath , address } = data;
 
     // Validate user input
     if (!(adminName && email && mobileNumber && destinationName)) {
@@ -53,6 +53,7 @@ const placeAdminRegister = async (req, res) => {
       state: state,
       city: city,
       summary: summary,
+      address:address,
       path: imagePath,
     });
 
@@ -134,7 +135,8 @@ const getPlaces = async (req, res) => {
       'city',
       'path',
       'summary',
-      'numbercheckpoints'
+      'numbercheckpoints',
+      'address'
     ];
 
     // Use the select method to fetch only the specified fields
