@@ -2,10 +2,27 @@ const CheckpointSchema = require("../models/Checkpoints");
 const { asyncParse,UploadMultipleFiles } = require("./FileUpload")
 
 const getCheckpoint = async (req, res) => {
+  const dest_name = req.params.dest_name;
   
   try {
     
-     
+    if (dest_name) {
+      const checkpointsData = await CheckpointSchema.find({ dest_name: dest_name })
+
+      res.status(200).json({
+        success: true,
+        data: checkpointsData,
+      });
+    }
+    // unfilter data
+    else {
+      const checkpointsData = await CheckpointSchema.find()
+
+      res.status(200).json({
+        success: true,
+        data: checkpointsData,
+      });
+    }
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, error: `Error fetching  products ${error}` });

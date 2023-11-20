@@ -6,12 +6,11 @@ const {addEvent,getEvent} = require("../controllers/EventController")
 const { getFacility, addFacility } = require('../controllers/FacilityController');
 
 const auth = require("../middelweares/Authentication");
-const upload = require("../middelweares/fileupload");
 const { addCheckpoint, getCheckpoint } = require('../controllers/CheckPointsController');
+ 
 
 
-
-router.post("/register",upload.single('file'),placeAdminRegister);
+router.post("/register",placeAdminRegister);
 router.get("/getplaces",getPlaces);
 
 // CRUD products
@@ -40,6 +39,7 @@ router.get("/getfacilities/",getFacility);
 // CRUD Checkpoints
 router.post("/addcheckpoints",addCheckpoint);
 router.get("/getcheckpoints",getCheckpoint);
+router.get("/getcheckpoints/:dest_name",getCheckpoint);
 
 
 
