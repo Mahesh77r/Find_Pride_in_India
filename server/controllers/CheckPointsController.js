@@ -62,22 +62,25 @@ const addCheckpoint = async (req, res) => {
     let ImageInformation = parseData.files.image
     let AudioInformation = parseData.files.audio
     let data = JSON.parse(parseData.fields.data)
-    console.log(data)
+    
     try {
-      const existingPlace = await CheckpointSchema.findOne({ $and: [{ point_name: data.point_name }, { dest_id: data.dest_id }] });
+      const existingPointOnThePlace = await CheckpointSchema.findOne({ $and: [{ point_name: data.point_name }, { dest_id: data.dest_id }] });
+      const existingPointNumber = await CheckpointSchema.findOne({ $and: [{ point_number: data.point_number }, { dest_id: data.dest_id }] });
 
-      if (existingPlace) {
+      if (existingPointNumber || existingPointOnThePlace) {
         return res.status(202).json({ success: false, error: `Checkpoint already exists` });
       }
+
       //   uploading Images
-      await UploadMultipleFiles(ImageInformation, 'checkpoints/images').then((response) => { data.imagePath = response })
+      await UploadMultipleFiles(ImageInformation, 'checkpoints/images').then((response) => { data.imagePath = response });
 
       //   uploading audio
-      await UploadMultipleFiles(AudioInformation, 'checkpoints/audios').then((response) => { data.audioPath = response })
+      await UploadMultipleFiles(AudioInformation, 'checkpoints/audios').then((response) => { data.audioPath = response });
 
     } catch (error) {
-      return res.status(400).json({ success: false, error: `FIles are not uploaded : ${error}` });
+      return res.status(400).json({ success: false, error: `Files are not uploaded: ${error}` });
     }
+
     // Create a new product object
     const newCheckpoint = new CheckpointSchema({
       point_name: data.point_name,
@@ -95,20 +98,15 @@ const addCheckpoint = async (req, res) => {
     // Save the product to the database
     await newCheckpoint.save();
 
-    // updating number of checkpoints
-    try {
-      const selectedFields = [
-        'numbercheckpoints'
-      ];
-      const placeAdmin = await PlaceAdmin.findOne({ _id: data.dest_id }).select(selectedFields);
-      console.log(placeAdmin);
+    // Count the number of documents for the specific dest_id
+    const numberOfCheckpoints = await CheckpointSchema.countDocuments({ dest_id: data.dest_id });
 
-      const newNoOfCheckpoints = placeAdmin.numbercheckpoints + 1;
-      await PlaceAdmin.updateOne({ _id: data.dest_id }, { $set: { numbercheckpoints: newNoOfCheckpoints } });
+    // Update the number of checkpoints in PlaceAdmin
+    try {
+      await PlaceAdmin.updateOne({ _id: data.dest_id }, { $set: { numbercheckpoints: numberOfCheckpoints } });
     } catch (error) {
       return res.status(500).json({ success: false, error: `Error updating number of checkpoints ${error}` });
     }
-
 
     return res.status(201).json({
       success: true,
@@ -119,8 +117,8 @@ const addCheckpoint = async (req, res) => {
     console.error(error);
     return res.status(500).json({ success: false, error: `Error Adding new Checkpoint ${error}` });
   }
-
 };
+
 
 
 module.exports = { addCheckpoint, getCheckpoint, updateCheckpoint, deleteCheckpoint };

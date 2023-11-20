@@ -1,4 +1,5 @@
 const User = require("../models/placeAdminModal");
+const CheckpointSchema = require("../models/Checkpoints");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -122,6 +123,7 @@ const wlcom = async (req, res, next) => {
 const getPlaces = async (req, res) => {
   const id = req.params.id
   try {
+    
     // Specify the fields you want to fetch
     const selectedFields = [
       'adminName',
@@ -137,6 +139,18 @@ const getPlaces = async (req, res) => {
 
     // Use the select method to fetch only the specified fields
     if (id) {
+      // Count the number of documents for the specific dest_id
+    const numberOfCheckpoints = await CheckpointSchema.countDocuments({ dest_id: id });
+    console.log(numberOfCheckpoints)
+
+    // Update the number of checkpoints in PlaceAdmin
+    try {
+      await User.updateOne({ _id: id }, { $set: { numbercheckpoints: numberOfCheckpoints } });
+    } catch (error) {
+      return res.status(500).json({ success: false, error: `Error updating number of checkpoints ${error}` });
+    }
+
+
       const Places = await User.findById(id).select(selectedFields);
       res.status(200).json({
         success: true,
