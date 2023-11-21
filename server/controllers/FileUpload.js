@@ -32,7 +32,7 @@ const asyncParse = async (req) => {
 
 }
 // Function to Upload Image to storage
-async function uploadSingleFile( file) {
+async function uploadSingleFile( file,folderName) {
     return new Promise((resolve, reject) => {
         try {
             // Get a reference to the storage service, which is used to create references in your storage bucket
