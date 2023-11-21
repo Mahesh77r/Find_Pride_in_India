@@ -1,5 +1,7 @@
 const User = require("../models/placeAdminModal");
 const CheckpointSchema = require("../models/Checkpoints");
+const { asyncParse,  UploadMultipleFiles} = require("./FileUpload")
+
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -12,20 +14,7 @@ const placeAdminRegister = async (req, res) => {
     if (!parseData) {
       return res.status(400).json({ success: false, message: "Missing request data" });
     }
-    try {
-      const existingProduct = await ProductSchema.findOne({ $and: [{ product_name: data.product_name }, { dest_name: data.dest_name }] });
-
-      if (existingProduct) {
-        return res.status(202).json({ success: false, error: `Product already exists` });
-
-      }
-      //   uploading Images
-      await UploadMultipleFiles(ImageInformation, 'doms').then((response) => { data.imagePath = response })
-
-
-    } catch (error) {
-      return res.status(400).json({ success: false, error: `Image not uploaded : ${error}` });
-    }
+    
 
     const { adminName, email, mobileNumber, destinationName, state, city, summary, imagePath , address } = data;
 
@@ -34,27 +23,39 @@ const placeAdminRegister = async (req, res) => {
       return res.status(400).json({ success: false, message: "All input fields are required" });
     }
 
-    // Check if user with the same email or destination name already exists
+    
+    
+
+    try {
+      // Check if user with the same email or destination name already exists
     const existingUser = await User.findOne({ $or: [{ email: email }, { destinationName: destinationName }] });
     if (existingUser) {
       return res.status(400).json({ success: false, message: "Email or Destination Name already exists" });
     }
+      //   uploading Images
+      await UploadMultipleFiles(ImageInformation, 'doms').then((response) => { data.imagePath = response })
 
+
+    } catch (error) {
+      return res.status(400).json({ success: false, error: `Image not uploaded : ${error}` });
+    }
     // Hash the password
-    // const salt = await bcrypt.genSalt(10);
-    // const encryptedPassword = await bcrypt.hash(password, salt);
+    let password= "admin1234";
+    const salt = await bcrypt.genSalt(10);
+    const encryptedPassword = await bcrypt.hash(password, salt);
 
     // Create a new user
     const newUser = new User({
       adminName: adminName,
       email: email.toLowerCase(), // Sanitize email to lowercase
+      password:encryptedPassword,
       mobileNumber: mobileNumber,
       destinationName: destinationName,
       state: state,
       city: city,
       summary: summary,
       address:address,
-      path: imagePath,
+      path: data.imagePath,
     });
 
     // Save the new user
