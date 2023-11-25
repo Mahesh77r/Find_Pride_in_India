@@ -12,7 +12,7 @@ const placeAdminSchema = new mongoose.Schema({
     destinationName:{type:String },
     state:{type:String },
     city:{type:String },
-    filename:{type:String},
+    address:{type:String},
     path :{type:Array},
 
     // 

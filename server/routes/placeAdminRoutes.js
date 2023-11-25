@@ -12,6 +12,7 @@ const { addCheckpoint, getCheckpoint } = require('../controllers/CheckPointsCont
 
 router.post("/register",placeAdminRegister);
 router.get("/getplaces",getPlaces);
+router.get("/getplaces/:id",getPlaces);
 
 // CRUD products
 router.post("/addproducts",addProductWithFirebase);
@@ -39,7 +40,7 @@ router.get("/getfacilities/",getFacility);
 // CRUD Checkpoints
 router.post("/addcheckpoints",addCheckpoint);
 router.get("/getcheckpoints",getCheckpoint);
-router.get("/getcheckpoints/:dest_name",getCheckpoint);
+router.get("/getcheckpoints/:dest_id",getCheckpoint);
 
 
 

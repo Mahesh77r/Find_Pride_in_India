@@ -8,7 +8,6 @@ const addEvent = async (req, res) => {
     let ImageInformation = parseData.files.image
     let data = JSON.parse(parseData.fields.data)
       try {
-        
       // Assuming you have data and file in the form data
       await UploadMultipleFiles(ImageInformation,'events').then((response) => { data.imagePath = response })
       } catch (error) {

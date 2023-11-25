@@ -1,18 +1,14 @@
-const { initializeApp } = require("firebase/app");
-const { getDatabase } = require("firebase/database");
-const { getStorage } = require("firebase/storage");
+require("dotenv").config();
+
 const firebaseConfig = {
-  apiKey: "AIzaSyCUj5UdA4Bs6lpK1YfU4Z257BzpJD-Pm8M",
-  authDomain: "finding-pride-in-india-9035a.firebaseapp.com",
-  projectId: "finding-pride-in-india-9035a",
-  storageBucket: "finding-pride-in-india-9035a.appspot.com",
-  messagingSenderId: "627739821407",
-  appId: "1:627739821407:web:7f9c603b210660df6d62ea",
-  measurementId: "G-G7EKHXV3FL"
+  apiKey: process.env.apiKey,
+  authDomain: process.env.authDomain,
+  projectId: process.env.projectId,
+  storageBucket: process.env.storageBucket,
+  messagingSenderId: process.env.messagingSenderId,
+  appId: process.env.appId,
+  measurementId: process.env.measurementId
 };
 
-const app = initializeApp(firebaseConfig);
- const db = getDatabase(app);
- const imgDB = getStorage();
 
- module.exports = {db,imgDB};
+ module.exports = {firebaseConfig};

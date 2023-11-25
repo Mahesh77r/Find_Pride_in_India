@@ -1,47 +1,61 @@
 const User = require("../models/placeAdminModal");
+const CheckpointSchema = require("../models/Checkpoints");
+const { asyncParse,  UploadMultipleFiles} = require("./FileUpload")
+
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 //  Register function to register user
 const placeAdminRegister = async (req, res) => {
   try {
-    console.log(req.body)
-    console.log(req.file)
-    // Check if request body and file exist
-    if (!req.body || !req.file) {
+    let parseData = await asyncParse(req)
+    let ImageInformation = parseData.files.image
+    let data = JSON.parse(parseData.fields.data)
+    if (!parseData) {
       return res.status(400).json({ success: false, message: "Missing request data" });
     }
+    
 
-    // Parse request data
-    const proData = JSON.parse(req.body.data);
-    const { adminName, email, mobileNumber, destinationName, state, city ,summary } = proData;
+    const { adminName, email, mobileNumber, destinationName, state, city, summary, imagePath , address } = data;
 
     // Validate user input
     if (!(adminName && email && mobileNumber && destinationName)) {
       return res.status(400).json({ success: false, message: "All input fields are required" });
     }
 
-    // Check if user with the same email or destination name already exists
+    
+    
+
+    try {
+      // Check if user with the same email or destination name already exists
     const existingUser = await User.findOne({ $or: [{ email: email }, { destinationName: destinationName }] });
     if (existingUser) {
       return res.status(400).json({ success: false, message: "Email or Destination Name already exists" });
     }
+      //   uploading Images
+      await UploadMultipleFiles(ImageInformation, 'doms').then((response) => { data.imagePath = response })
 
+
+    } catch (error) {
+      return res.status(400).json({ success: false, error: `Image not uploaded : ${error}` });
+    }
     // Hash the password
-    // const salt = await bcrypt.genSalt(10);
-    // const encryptedPassword = await bcrypt.hash(password, salt);
+    let password= "admin1234";
+    const salt = await bcrypt.genSalt(10);
+    const encryptedPassword = await bcrypt.hash(password, salt);
 
     // Create a new user
     const newUser = new User({
       adminName: adminName,
       email: email.toLowerCase(), // Sanitize email to lowercase
+      password:encryptedPassword,
       mobileNumber: mobileNumber,
       destinationName: destinationName,
       state: state,
       city: city,
-      summary:summary,
-      filename: req.file.filename,
-      path: req.file.path,
+      summary: summary,
+      address:address,
+      path: data.imagePath,
     });
 
     // Save the new user
@@ -57,7 +71,7 @@ const placeAdminRegister = async (req, res) => {
 //login functonality to login user
 const placeAdminlogin = async (req, res, next) => {
   // take a value from user end
-  const { email, password } = req.body;
+  const { email, password, role } = req.body;
 
   // Validate user input
   if (!(email && password)) {
@@ -109,7 +123,9 @@ const wlcom = async (req, res, next) => {
 };
 
 const getPlaces = async (req, res) => {
+  const id = req.params.id
   try {
+    
     // Specify the fields you want to fetch
     const selectedFields = [
       'adminName',
@@ -120,16 +136,39 @@ const getPlaces = async (req, res) => {
       'city',
       'path',
       'summary',
-      'numbercheckpoints'
+      'numbercheckpoints',
+      'address'
     ];
 
     // Use the select method to fetch only the specified fields
-    const Places = await User.find().select(selectedFields);
+    if (id) {
+      // Count the number of documents for the specific dest_id
+    const numberOfCheckpoints = await CheckpointSchema.countDocuments({ dest_id: id });
+    console.log(numberOfCheckpoints)
 
-    res.status(200).json({
-      success: true,
-      data: Places,
-    });
+    // Update the number of checkpoints in PlaceAdmin
+    try {
+      await User.updateOne({ _id: id }, { $set: { numbercheckpoints: numberOfCheckpoints } });
+    } catch (error) {
+      return res.status(500).json({ success: false, error: `Error updating number of checkpoints ${error}` });
+    }
+
+
+      const Places = await User.findById(id).select(selectedFields);
+      res.status(200).json({
+        success: true,
+        data: Places,
+      });
+    }
+    else {
+      const Places = await User.find().select(selectedFields);
+      res.status(200).json({
+        success: true,
+        data: Places,
+      });
+    }
+
+
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -139,4 +178,4 @@ const getPlaces = async (req, res) => {
 };
 
 
-module.exports = { placeAdminRegister, placeAdminlogin, wlcom ,getPlaces};
+module.exports = { placeAdminRegister, placeAdminlogin, wlcom, getPlaces };
