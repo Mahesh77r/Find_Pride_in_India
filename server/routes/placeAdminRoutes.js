@@ -4,15 +4,23 @@ const {getProducts, updateProduct, deleteProduct, addProductWithFirebase} = requ
 const {addTouristGuide, getTouristGuide} = require("../controllers/TouristGuideCrud")
 const {addEvent,getEvent} = require("../controllers/EventController")
 const { getFacility, addFacility } = require('../controllers/FacilityController');
+const { addCheckpoint, getCheckpoint } = require('../controllers/CheckPointsController');
+const { addArtist, getArtist, updateArtist, deleteArtist } = require('../controllers/ArtistController');
 
 const auth = require("../middelweares/Authentication");
-const { addCheckpoint, getCheckpoint } = require('../controllers/CheckPointsController');
- 
 
 
 router.post("/register",placeAdminRegister);
 router.get("/getplaces",getPlaces);
 router.get("/getplaces/:id",getPlaces);
+
+
+// CRUD artists
+router.post("/addartists",addArtist);
+router.get("/getartists/:dest_name",getArtist);
+router.get("/getartists/",getArtist);
+router.put("/updateartists/:id",updateArtist);
+router.delete("/deleteartists/:id",deleteArtist);
 
 // CRUD products
 router.post("/addproducts",addProductWithFirebase);
