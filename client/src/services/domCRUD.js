@@ -67,6 +67,17 @@ export const fetchEvents = async(name) =>{
   }
 };
 
+export const fetchSummary = async(id) =>{
+
+  // id can be null if we need to view all user
+  id = id || '';
+  try{
+     return await axios.get(`${URL}/getplaces/${id}`);
+  }
+  catch(err){
+      console.log("Error occurs while running fetching summary function",err);
+  }
+};
 export const addProduct = async(formdata) =>{
   try{
     console.log(formdata)

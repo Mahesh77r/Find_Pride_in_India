@@ -14,6 +14,7 @@ import { navForDOM } from './components/navbar/NavLink';
 import { useUser } from './context/UserContext';
 import { TopNavbar } from './components/navbar/TopNavbar';
 import { Practice } from './pages/Practice';
+import { Checkpoints } from './pages/TablePages/Checkpoints';
 
 function App() {
   const [isSideNavbarOpen, setIsSideNavbarOpen] = useState(true);
@@ -53,7 +54,7 @@ return (
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/checkpoints" element={<AllDOM />} />
+            <Route path="/checkpoints" element={<Checkpoints />} />
             <Route path="/form" element={<AddDOM />} />
             <Route path="/resetpassword/:token" element={<ResetPassword />} />
             <Route path="/order" element={<GraphPage />} />

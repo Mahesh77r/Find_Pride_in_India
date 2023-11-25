@@ -1,80 +1,72 @@
-import React, { useState, useEffect } from "react";
 
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Toaster, toast } from 'react-hot-toast';
 import { loginDOM } from "../services/authication";
-import { Alert } from "../components/alert";
+
 export default function LoginPage() {
-  const [loginData, setloginData] = useState({
+  const [loginData, setLoginData] = useState({
     email: "",
     password: "",
   });
-  // pass hide and show
+
+  const [selectedRole, setSelectedRole] = useState("user"); // Default role is "user"
+
   const [showPassword, setShowPassword] = useState(false);
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-  // alert show and hide
-  const [showalert, setShowalert] = useState(false);
-  const handleCloseAlert = () => {
-    setShowalert(false);
-  };
-  // for useEffect 
+
   const [Login, setLogin] = useState(false);
+
   const Navigate = useNavigate();
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setloginData({
+    setLoginData({
       ...loginData,
       [name]: value,
     });
   };
-  useEffect(
-    (req, res) => {
-      // if token is not then rediret it to home page
-      if (localStorage.getItem("user")) {
-        Navigate("/");
-      } 
-    },
-    [Login] 
-  );
-  
-// userContext
+
+  const handleRoleChange = (event) => {
+    setSelectedRole(event.target.value);
+  };
+
+  useEffect(() => {
+    if (localStorage.getItem("user")) {
+      Navigate("/");
+    }
+  }, [Login, Navigate]);
+
   const loginHandler = async (e) => {
     e.preventDefault();
-    const res = await loginDOM(loginData);
-    console.log("At loginPage")
-    console.log(res)
-    if (res.status === 200) {
-      const LoginData = JSON.stringify(res.data.user )
-      console.log(LoginData)
+    console.log({...loginData,role:selectedRole})
+    const res = await loginDOM({ ...loginData, role: selectedRole });
 
+    if (res.status === 200) {
+      const loginData = JSON.stringify(res.data.user);
       setLogin(true);
-      localStorage.setItem("user",LoginData);
-      // 
-      Navigate("/");
+      toast.success("Login Successfully");
+      localStorage.setItem("user", loginData);
+      setTimeout(() => {
+        Navigate("/");
+      }, 1000);
     } else if (res.status === 202) {
-      setShowalert(true);
-      console.log("first")
+      toast.error('Login failed');
     }
   };
 
   return (
     <>
-      <Alert
-        bgcolor={"red"}
-        title={"Login Failed"}
-        desc={"Unauthorized User"}
-        bool={showalert}
-        onClose={handleCloseAlert}
-      />
+      <Toaster position="top-center" />
 
       <div className="flex h-screen bg-orange-100 overflow-y-hidden">
         <div className="m-auto p-6 bg-white rounded-lg shadow-lg w-96">
           <img src="dom.png" alt="Logo" className="mx-auto w-20  mb-6" />
           <h2 className="text-2xl text-center font-semibold mb-4">Sign in</h2>
-          <form  onSubmit={(e)=>loginHandler(e)} >
-            {/* email */}
+          <form onSubmit={(e) => loginHandler(e)}>
             <div className="mb-4">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
@@ -93,7 +85,6 @@ export default function LoginPage() {
                 required
               />
             </div>
-            {/* password */}
             <div className="mb-4">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
@@ -117,7 +108,7 @@ export default function LoginPage() {
                   className="absolute right-2 top-2"
                   onClick={togglePasswordVisibility}
                 >
-                  {showPassword ? (
+                   {showPassword ? (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -156,10 +147,28 @@ export default function LoginPage() {
                 </button>
               </div>
             </div>
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="role"
+              >
+                Select Role
+              </label>
+              <select
+                id="role"
+                name="role"
+                className="w-full px-3 py-2 border rounded-lg"
+                onChange={handleRoleChange}
+                value={selectedRole}
+              >
+                <option value="superadmin">Super Admin</option>
+                <option value="ministry">Ministry</option>
+                <option value="destinationorganization">Destination Organization</option>
+              </select>
+            </div>
             <button
               type="submit"
               className="w-full bg-orange-400 hover:bg-orange-500 text-white font-semibold py-2 rounded-lg"
-              // onClick={(e) => loginHandler(e)} // Pass the event object 'e' to loginHandler
             >
               Login
             </button>

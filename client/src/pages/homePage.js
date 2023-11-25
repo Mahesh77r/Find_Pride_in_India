@@ -2,142 +2,99 @@ import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./ScollCard.css";
-import {
-  GuideCards,
-  AddCards,
-  EventCard,
-  ProductCard,
-  FacilityCard,
-} from "../components/Cards/Cards";
-import {
-  FormEvents,
-  FormFacility,
-  FormPlaceSummary,
-  FormProduct,
-  FormTouristGuide,
-} from "../components/Forms/ManagementsForms";
-import {
-  FamousPlaces,
-  GuideData,
-  Facilities,
-  Summary,
-} from "../components/DemoData";
+import { FormPlaceSummary } from "../components/Forms/ManagementsForms";
 import { EditModal } from "../components/Modal/Modal";
-import { fetchEvents, fetchFacility, fetchGuide, fetchProduct } from "../services/domCRUD";
-
-
-// 
-
-
+import { fetchSummary } from "../services/domCRUD";
+import { GuideTable } from "./TablePages/GuidePage";
+import { ProductTable } from "./TablePages/ProductPage";
+import { EventTable } from "./TablePages/EventPage";
+import { FacilityTable } from "./TablePages/FacilityPage";
 
 function HomePage() {
-
-  const [product, setProduct] = useState([]);
-  const [guide, setGuide] = useState([]);
-  const [facility, setFacility] = useState([]);
-  const [event, setEvent] = useState([]);
+  const [summary, setSummary] = useState([]);
   // eslint-disable-next-line
   const Navigate = useNavigate();
 
   useEffect(() => {
     if (localStorage.getItem("user")) {
-      getProducts();
-      getGuide();
-      getFacility();
-      getEvents();
+      getSummary();
     } else {
       Navigate('/login');
     }
     // eslint-disable-next-line
   }, []);
 
-  const getProducts = async () => {
-    // 
-    const storedUserJSON = localStorage.getItem('user');
-    const storedUser = JSON.parse(storedUserJSON);
-// 
-    const res = await fetchProduct(storedUser.destinationName);
-    // console.log(res.data.data)
-    setProduct(res.data.data);
+
+  const getSummary = async () => {
+    try {
+      const storedUserJSON = localStorage.getItem('user');
+      const storedUser = JSON.parse(storedUserJSON);
+
+      const res = await fetchSummary(storedUser._id);
+      const responseData = [res.data.data];
+      console.log(responseData)
+      // Ensure responseData is an array before setting the state
+      if (Array.isArray(responseData)) {
+        setSummary(responseData);
+      } else {
+        console.error('Invalid data format for summary:', responseData);
+      }
+    } catch (error) {
+      console.error('Error fetching summary:', error);
+    }
   };
-  const getGuide = async () => {
-    // 
-    const storedUserJSON = localStorage.getItem('user');
-    const storedUser = JSON.parse(storedUserJSON);
-// 
-    const res = await fetchGuide(storedUser.destinationName);
-    // console.log(res.data.data)
-    setGuide(res.data.data);
-  };
-  const getFacility = async () => {
-    // 
-    const storedUserJSON = localStorage.getItem('user');
-    const storedUser = JSON.parse(storedUserJSON);
-// 
-    const res = await fetchFacility(storedUser.destinationName);
-    // console.log(res.data.data)
-    setFacility(res.data.data);
-  };
-  const getEvents = async () => {
-    // 
-    const storedUserJSON = localStorage.getItem('user');
-    const storedUser = JSON.parse(storedUserJSON);
-// 
-    const res = await fetchEvents(storedUser.destinationName);
-    console.log(res.data.data)
-    setEvent(res.data.data);
-  };
+
   return (
     <>
       <div className="container m-auto my-2 ">
         {/* About Place */}
-        {Summary.map((data, index) => (
+        {summary.map((data, index) => (
 
           <div key={index} className="my-4 p-4  rounded-2xl">
             <div className="flex items-center justify-center">
               <p className="ms-3 text-4xl text-center font-bold my-3 font-serif me-5">
                 Place Summary
               </p>
-              <UpdateButton update_title={"Place Summary"} updateform={<FormPlaceSummary admin_name={data.admin_name}
+              <UpdateButton update_title={"Place Summary"} updateform={<FormPlaceSummary admin_name={data.adminName}
                 address={data.address}
                 city={data.city}
-                destination_name={data.destination_name}
+                destination_name={data.destinationName}
                 email={data.email}
-                image_url={data.image_url}
-                mobile_no={data.mobile_no}
+                image_url={data.path}
+                mobile_no={data.mobileNumber}
                 state={data.state} />} />
             </div>
-            <div className="flex flex-row">
+            <div className="flex flex-row bg-white p-4 items-center">
 
               <img
-                className="h-50 w-50 rounded-xl"
-                src={data.image_url}
+                className="h-[70%] w-[100%] rounded-xl"
+                src={data.path}
                 alt="Place"
               />
               {/*  */}
               <div className="ms-5">
                 <p className="text-gray-900 text-lg my-2 text-justify">
                   <span className="font-bold text-2xl ">
-                    {" "}
-                    {data.destination_name}
-                  </span>{" "}
-                  , {data.descp}
+
+                    {data.destinationName}
+                  </span>
+                  , {data.summary}
                 </p>
                 <p className="text-gray-900 text-lg my-3 font-semibold">
-                  Place Admin Name :{" "}
+                  Place Admin Name :
                   <span className="text-gray-800 font-normal text-lg">
-                    {data.admin_name}
-                  </span>{" "}
+                    {data.adminName}
+                  </span>
                 </p>
                 <div className="flex">
                   <p className="text-gray-900 text-lg  font-semibold">
-                    State :{" "}
+                    State :
                     <span className="text-gray-800 font-normal text-lg">
                       {data.state}
                     </span>
                   </p>
                   <p className="text-gray-900 text-xl  ms-5 font-semibold">
-                    City :{" "}
+                    City :
                     <span className="text-gray-800 font-normal text-lg">
                       {data.city}
                     </span>
@@ -145,19 +102,19 @@ function HomePage() {
                 </div>
 
                 <p className="text-gray-900 text-lg my-2 font-semibold">
-                  Address :{" "}
+                  Address :
                   <span className="text-gray-800 font-normal text-lg">
                     {data.address}
                   </span>
                 </p>
                 <p className="text-gray-900 text-lg my-2 font-semibold">
-                  Contact Number :{" "}
+                  Contact Number :
                   <span className="text-gray-800 font-normal text-lg">
-                    {data.mobile_no}
+                    {data.mobileNumber}
                   </span>
                 </p>
                 <p className="text-gray-900 text-lg my-2 font-semibold">
-                  E-mail Address :{" "}
+                  E-mail Address :
                   <span className="text-gray-800 font-normal text-lg">
                     {data.email}
                   </span>
@@ -171,94 +128,23 @@ function HomePage() {
 
         {/* Manage Tourist Guide*/}
         <div className="my-4">
-          <p className="ms-3 text-4xl font-serif">Manage Tourist Guide</p>
-          <div className="scroll-container">
-            <div className="scroll-content items-center">
-              {guide.map((guide, index) => (
-                <div key={index} className="min-w-[380px] p-4 ">
-                  <GuideCards
-                    guidename={guide.guide_name}
-                    fees={guide.guide_price}
-                    contact_number={guide.contact}
-                    img_url={guide.path}
-                  />
-                </div>
-              ))}
-              <div className="min-w-[350px] flex items-center p-4">
-                <AddCards
-                  DataName="Tourist Guide"
-                  add_form={<FormTouristGuide />}
-                />
-              </div>
-            </div>
-          </div>
+          <p className="ms-3 text-4xl my-3 font-serif">Manage Tourist Guide</p>
+          <GuideTable />
         </div>
         {/* Manage Events */}
         <div className="my-4">
-          <p className="ms-3 text-4xl font-serif">Manage Events</p>
-          <div className="scroll-container overflow-x-auto whitespace-no-wrap">
-            <div className="scroll-content flex items-center">
-              {event.map((eve, index) => (
-                <div key={index} className="min-w-[350px] p-4">
-                  <EventCard
-                    event_name={eve.event_name}
-                    descp={eve.event_des}
-                    image_url={eve.path}
-                    event_date={eve.date}
-                  />
-                </div>
-              ))}
-              <div className="min-w-[350px] flex items-center p-4">
-                <AddCards DataName="Events" add_form={<FormEvents />} />
-              </div>
-            </div>
-          </div>
+          <p className="ms-3 text-4xl my-3 font-serif">Manage Events</p>
+          <EventTable />
         </div>
         {/* Manage Products */}
         <div className="my-4">
-          <p className="ms-3 text-4xl font-serif">Manage Products</p>
-          <div className="scroll-container overflow-x-auto whitespace-no-wrap">
-            <div className="scroll-content flex items-center">
-              {product.map((prod) => (
-                <div key={prod._id} className="min-w-[380px] h-auto p-4">
-                  
-                    <ProductCard
-                      path={prod.path}
-                      prod_name={prod.product_name}
-                      prod_price={prod.product_price}
-                      prod_quant={prod.quantity_available}
-                      prod_descp={prod.product_descp}
-                    />
-                  
-                </div>
-              ))}
-
-              <div className="min-w-[350px] flex items-center p-4">
-                <AddCards DataName="Products" add_form={<FormProduct />} />
-              </div>
-            </div>
-          </div>
+          <p className="ms-3 text-4xl my-3 font-serif">Manage Products</p>
+          <ProductTable />
         </div>
         {/* Manage nearby Faclities */}
         <div className="my-4">
-          <p className="ms-3 text-4xl font-serif">Manage Nearby Faclities</p>
-          <div className="scroll-container overflow-x-auto whitespace-no-wrap">
-            <div className="scroll-content flex items-center">
-              {facility.map((fac, index) => (
-                <div key={index} className="min-w-[550px]  p-4 ">
-                  <FacilityCard
-                    fac_name={fac.facility_name}
-                    fac_cont={fac.facility_number}
-                    fac_img_url={fac.path}
-                    fac_loact={fac.facility_location}
-                  />
-                </div>
-              ))}
-              <div className="min-w-[350px] flex items-center p-4">
-                <AddCards DataName="Products" add_form={<FormFacility />} />
-              </div>
-            </div>
-          </div>
+          <p className="ms-3 text-4xl my-3 font-serif">Manage Nearby Faclities</p>
+          <FacilityTable />
         </div>
       </div>
     </>

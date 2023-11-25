@@ -34,13 +34,13 @@ export const GuideCards = ({ guidename, img_url, fees, contact_number }) => {
 export const EventCard = ({ event_name, event_date,image_url, descp }) => {
   return (
     <>
-      <div className="rounded bgf item-center overflow-hidden shadow-lg transform transition-transform hover:scale-105">
+      <div className="rounded bgf w-[350px] h-[450px] item-center overflow-hidden shadow-lg transform transition-transform hover:scale-105">
         {/* Buttons */}
         <UpdateDeletebuttons Updateform={<FormEvents event_name={event_name} img_url={image_url} event_date={event_date} event_descp={descp}/>} update_delete_title={"Event"} />
 
         {/* Image */}
-        <div className="row w-full h-40">
-          <img className="w-full h-full" alt="Events " src={image_url} />
+        <div className="row justify-center w-50 h-40">
+          <img className="w-full h-full p-2" alt="Events " src={image_url} />
         </div>
         {/* Place Name */}
         <div className="font-bold mt-3 text-center text-2xl mb-2">
@@ -48,12 +48,12 @@ export const EventCard = ({ event_name, event_date,image_url, descp }) => {
         </div>
         {/* Place Name */}
         <div className="text-gray-700 mt-3 ms-3 text-base ">
-          Upcoming on Date :{event_date}
+          Upcoming on Date : <span className="font-bold ">{event_date.substring(0,10)}</span>
         </div>
 
         {/* Descp */}
         <div className="px-2 text-left py-4">
-          <p className="text-gray-700 text-base">{descp}</p>
+          <p className="text-gray-700 text-base">{descp.substring(0,50)}.....</p>
         </div>
       </div>
     </>
@@ -71,7 +71,7 @@ export const AddCards = ({ DataName, add_form ,formSubmitfunction}) => {
   return (
     <>
     <EditModal isOpen={isOpenAdd} closeModal={closeModalAdd} title={"Addd"} Updateform={add_form} formSubmitfunction={formSubmitfunction}/>
-      <div className="rounded bgf item-center overflow-hidden shadow-lg transform transition-transform hover:scale-105" onClick={openModalAdd}>
+      <div className="w-[350px] h-[450px] p-4 rounded bgf item-center overflow-hidden shadow-lg transform transition-transform hover:scale-105" onClick={openModalAdd}>
         <div className="row justify-center mt-5">
           <svg
             xmlns="http://www.w3.org/2000/svg"
