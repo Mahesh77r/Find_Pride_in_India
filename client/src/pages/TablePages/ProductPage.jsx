@@ -1,68 +1,72 @@
-
-
 import React, { useState, useEffect } from "react";
 import CustomTable from "../../components/Table/Table";
-import { addFacility, fetchFacility } from "../../services/domCRUD";
+import { addProduct, fetchProduct } from "../../services/domCRUD";
 import { AddButton, UpdateButton, UpdateDeletebuttons } from "../../components/CustomButtons";
-import { FormFacility } from '../../components/Forms/ManagementsForms';
-import { Modal } from 'antd';
 import { Toaster, toast } from 'react-hot-toast'
+import { Modal } from 'antd';
+import { FormProduct } from "../../components/Forms/ManagementsForms";
 
-import { styled } from 'styled-components';
+import { styled } from "styled-components";
+
 const StyledImage = styled.img`
   width: 50px;
   height: 50px;
   border-radius: 50%;
 `;
 
-export const FacilityTable = () => {
-
+export const ProductTable = () => {
   const columns = [
     {
-      name: 'Image',
+      name: "Image",
       selector: (row) => <StyledImage src={row.path} alt="Product" />,
       sortable: true,
-      maxWidth: '110px', // Adjust the maximum width as needed
-      textAlign: 'center',
+      maxWidth: "120px", // Adjust the maximum width as needed
     },
     {
-      name: "Facility Name",
-      selector: (row) => row.facility_name,
+      name: "Product Name",
+      selector: (row) => row.product_name,
       sortable: true,
-      textAlign: 'center',
+      maxWidth: "200px", 
     },
     {
-      name: "Facility Number",
-      selector: (row) => row.facility_number,
+      name: "Product Price",
+      selector: (row) => row.product_price,
       sortable: true,
+      maxWidth: "170px", 
     },
     {
-      name: "Event Location",
-      selector: (row) => row.facility_location,
+      name: "Quantity Available",
+      selector: (row) => row.quantity_available,
       sortable: true,
+      maxWidth: "210px", 
+    },
+    {
+      name: "Product Description",
+      selector: (row) => row.product_descp,
+      sortable: true,
+      maxWidth: "270px", 
     },
     {
       name: "Actions",
       cell: (row) => (
-        <UpdateDeletebuttons form_type={` facility ${row.facility_name} `} onClick={() => modalOpenClose('update', row)} />
+        <UpdateDeletebuttons form_type={`product ${row.product_name} `}  onClick={() => modalOpenClose('update', row)} />
       ),
     },
   ];
-
-
-
   const [selectedFile, setSelectedFile] = useState(null);
   const storedUserJSON = localStorage.getItem("user");
   const user = JSON.parse(storedUserJSON);
 
   const initialData =  {
-    facility_name:   "",
-    facility_number:"",
-    facility_location:  "",
-    state: user.state,
-    city: user.city,
-    dest_name: user.destinationName,
-    dest_id: user._id,
+    product_name: "",
+        product_price: "",
+        quantity_available: "",
+        category: "",
+        state: user.state,
+        city: user.city,
+        product_descp: "",
+        destination_name: user.destinationName,
+        dest_id: user._id,
   }
 
   const [records, setRecords] = useState([]);
@@ -76,7 +80,6 @@ export const FacilityTable = () => {
     setFormData(rowData);
     setIsUpdateMode(formType === 'update');
   };
-
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     if (isUpdateMode) {
@@ -89,7 +92,7 @@ export const FacilityTable = () => {
             ...FormData,
             image: selectedFile,
           };
-          const response = await addFacility(FacilityData);
+          const response = await addProduct(FacilityData);
           if (response.status === 200) {
             toast.success("Facility added Successfully");
           }
@@ -104,15 +107,13 @@ export const FacilityTable = () => {
       }
     }
   };
-
-  const getFacility = async () => {
+  const getProducts = async () => {
     try {
       const storedUserJSON = localStorage.getItem("user");
       const storedUser = JSON.parse(storedUserJSON);
 
-      const res = await fetchFacility(storedUser.destinationName);
+      const res = await fetchProduct(storedUser.destinationName);
       const data = res.data.data;
-
       setRecords(data);
       setFilterRecords(data);
     } catch (error) {
@@ -121,7 +122,7 @@ export const FacilityTable = () => {
   };
 
   useEffect(() => {
-    getFacility();
+    getProducts();
   }, []);
 
   const onChangeHandler = (e) => {
@@ -134,48 +135,47 @@ export const FacilityTable = () => {
   const handleFileChange = (e) => {
     setSelectedFile(e.target.files[0]);
   };
-
   return (
     <>
-      <Toaster position="top-center" />
-      <Modal
-        onCancel={() => setVisible(false)}
-        footer={null}
-        visible={visible}
-      >
-        <form onSubmit={onSubmitHandler}>
-          <FormFacility
-            selectedFile={selectedFile}
-            handleFileChange={handleFileChange}
-            onChangeHandler={onChangeHandler}
-            data={formData}
-            isUpdateMode={isUpdateMode}
-          />
-          {isUpdateMode ? (
-            <UpdateButton title={"Facility"} />
-          ) : (
-            <AddButton form_type={"Facility"} />
-          )}
-        </form>
-      </Modal>
-      <CustomTable
-      handleFileChange={handleFileChange}
-      onChangeHandler={onChangeHandler}
-      setFormData={setFormData}
-      data={formData}
-      selectedFile={selectedFile}
-      initialData={initialData}
-        columns={columns}
-        addform={<FormFacility/>}
-        title={'Facility'}
-        searchfield={'facility_name'}
-        records={records}
-        setRecords={setRecords}
-        filterRecords={filterRecords}
-        setFilterRecords={setFilterRecords}
-        fetchData={getFacility}
-        modalOpenClose={modalOpenClose}
-      />
-    </>
+    <Toaster position="top-center" />
+    <Modal
+      onCancel={() => setVisible(false)}
+      footer={null}
+      visible={visible}
+    >
+      <form onSubmit={onSubmitHandler}>
+        <FormProduct
+          selectedFile={selectedFile}
+          handleFileChange={handleFileChange}
+          onChangeHandler={onChangeHandler}
+          data={formData}
+          isUpdateMode={isUpdateMode}
+        />
+        {isUpdateMode ? (
+          <UpdateButton title={"Product"} />
+        ) : (
+          <AddButton form_type={"Product"} />
+        )}
+      </form>
+    </Modal>
+    <CustomTable
+    handleFileChange={handleFileChange}
+    onChangeHandler={onChangeHandler}
+    setFormData={setFormData}
+    data={formData}
+    selectedFile={selectedFile}
+    initialData={initialData}
+      columns={columns}
+      addform={<FormProduct/>}
+      title={'Product'}
+      searchfield={'product_name'}
+      records={records}
+      setRecords={setRecords}
+      filterRecords={filterRecords}
+      setFilterRecords={setFilterRecords}
+      fetchData={getProducts}
+      modalOpenClose={modalOpenClose}
+    />
+  </>
   );
 };

@@ -1,64 +1,57 @@
-
-
 import React, { useState, useEffect } from "react";
 import CustomTable from "../../components/Table/Table";
-import { addFacility, fetchFacility } from "../../services/domCRUD";
+import { addEvent, fetchEvents } from "../../services/domCRUD";
 import { AddButton, UpdateButton, UpdateDeletebuttons } from "../../components/CustomButtons";
-import { FormFacility } from '../../components/Forms/ManagementsForms';
-import { Modal } from 'antd';
 import { Toaster, toast } from 'react-hot-toast'
+import { Modal } from 'antd';
+import {styled} from 'styled-components';
+import { FormEvents } from "../../components/Forms/ManagementsForms";
 
-import { styled } from 'styled-components';
 const StyledImage = styled.img`
-  width: 50px;
-  height: 50px;
+  width: 70px; 
+  height: 50px; 
   border-radius: 50%;
 `;
 
-export const FacilityTable = () => {
 
+export const EventTable = () => {
   const columns = [
     {
       name: 'Image',
       selector: (row) => <StyledImage src={row.path} alt="Product" />,
       sortable: true,
-      maxWidth: '110px', // Adjust the maximum width as needed
-      textAlign: 'center',
-    },
+      maxWidth: '100px', // Adjust the maximum width as needed
+  },
     {
-      name: "Facility Name",
-      selector: (row) => row.facility_name,
-      sortable: true,
-      textAlign: 'center',
-    },
-    {
-      name: "Facility Number",
-      selector: (row) => row.facility_number,
+      name: "Event Name",
+      selector: (row) => row.event_name,
       sortable: true,
     },
     {
-      name: "Event Location",
-      selector: (row) => row.facility_location,
+      name: "Event Date",
+      selector: (row) => row.event_date.substring(0, 10),
+      sortable: true,
+    },
+    {
+      name: "Event Description",
+      selector: (row) => row.event_des,
       sortable: true,
     },
     {
       name: "Actions",
       cell: (row) => (
-        <UpdateDeletebuttons form_type={` facility ${row.facility_name} `} onClick={() => modalOpenClose('update', row)} />
+        <UpdateDeletebuttons form_type={` event ${row.event_name} `}  onClick={() => modalOpenClose('update', row)} />
       ),
     },
   ];
-
-
-
   const [selectedFile, setSelectedFile] = useState(null);
   const storedUserJSON = localStorage.getItem("user");
   const user = JSON.parse(storedUserJSON);
 
   const initialData =  {
-    facility_name:   "",
-    facility_number:"",
-    facility_location:  "",
+    event_name: "",
+    event_date: "",
+    event_des: "",
     state: user.state,
     city: user.city,
     dest_name: user.destinationName,
@@ -89,7 +82,7 @@ export const FacilityTable = () => {
             ...FormData,
             image: selectedFile,
           };
-          const response = await addFacility(FacilityData);
+          const response = await addEvent(FacilityData);
           if (response.status === 200) {
             toast.success("Facility added Successfully");
           }
@@ -104,13 +97,12 @@ export const FacilityTable = () => {
       }
     }
   };
-
-  const getFacility = async () => {
+  const getEvents = async () => {
     try {
       const storedUserJSON = localStorage.getItem("user");
       const storedUser = JSON.parse(storedUserJSON);
 
-      const res = await fetchFacility(storedUser.destinationName);
+      const res = await fetchEvents(storedUser.destinationName);
       const data = res.data.data;
 
       setRecords(data);
@@ -121,7 +113,7 @@ export const FacilityTable = () => {
   };
 
   useEffect(() => {
-    getFacility();
+    getEvents();
   }, []);
 
   const onChangeHandler = (e) => {
@@ -137,45 +129,45 @@ export const FacilityTable = () => {
 
   return (
     <>
-      <Toaster position="top-center" />
-      <Modal
-        onCancel={() => setVisible(false)}
-        footer={null}
-        visible={visible}
-      >
-        <form onSubmit={onSubmitHandler}>
-          <FormFacility
-            selectedFile={selectedFile}
-            handleFileChange={handleFileChange}
-            onChangeHandler={onChangeHandler}
-            data={formData}
-            isUpdateMode={isUpdateMode}
-          />
-          {isUpdateMode ? (
-            <UpdateButton title={"Facility"} />
-          ) : (
-            <AddButton form_type={"Facility"} />
-          )}
-        </form>
-      </Modal>
-      <CustomTable
-      handleFileChange={handleFileChange}
-      onChangeHandler={onChangeHandler}
-      setFormData={setFormData}
-      data={formData}
-      selectedFile={selectedFile}
-      initialData={initialData}
-        columns={columns}
-        addform={<FormFacility/>}
-        title={'Facility'}
-        searchfield={'facility_name'}
-        records={records}
-        setRecords={setRecords}
-        filterRecords={filterRecords}
-        setFilterRecords={setFilterRecords}
-        fetchData={getFacility}
-        modalOpenClose={modalOpenClose}
-      />
-    </>
+    <Toaster position="top-center" />
+    <Modal
+      onCancel={() => setVisible(false)}
+      footer={null}
+      visible={visible}
+    >
+      <form onSubmit={onSubmitHandler}>
+        <FormEvents
+          selectedFile={selectedFile}
+          handleFileChange={handleFileChange}
+          onChangeHandler={onChangeHandler}
+          data={formData}
+          isUpdateMode={isUpdateMode}
+        />
+        {isUpdateMode ? (
+          <UpdateButton title={"Event"} />
+        ) : (
+          <AddButton form_type={"Event"} />
+        )}
+      </form>
+    </Modal>
+    <CustomTable
+    handleFileChange={handleFileChange}
+    onChangeHandler={onChangeHandler}
+    setFormData={setFormData}
+    data={formData}
+    selectedFile={selectedFile}
+    initialData={initialData}
+      columns={columns}
+      addform={<FormEvents/>}
+      title={'Event'}
+      searchfield={'event_name'}
+      records={records}
+      setRecords={setRecords}
+      filterRecords={filterRecords}
+      setFilterRecords={setFilterRecords}
+      fetchData={getEvents}
+      modalOpenClose={modalOpenClose}
+    />
+  </>
   );
 };

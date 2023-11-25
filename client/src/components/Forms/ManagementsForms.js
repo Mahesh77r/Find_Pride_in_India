@@ -1,259 +1,113 @@
-import React, { useEffect, useState } from "react";
-// import { UpdateClose } from '../Modal/Modal';
+import React, { useState } from "react";
 
-import { imgDB } from "../../services/FirebaseConfig";
-import {
-    getDownloadURL,
-    ref as storageRef,
-    uploadBytes,
-} from "firebase/storage";
-import { addEvent, addFacility, addGuide, addProduct } from "../../services/domCRUD";
-
-import { Toaster, toast } from 'react-hot-toast'
-export const FormTouristGuide = ({
-    img_url,
-    guide_name,
-    fees,
-    contact_detail,
-}) => {
-    const [showalert, setShowalert] = useState(false);
-    const handleCloseAlert = () => {
-        setShowalert(false);
-    };
-
-    const [selectedFile, setSelectedFile] = useState(null);
-    const storedUserJSON = localStorage.getItem("user");
-    const user = JSON.parse(storedUserJSON);
-    const [data, setData] = useState({
-        guide_name: "",
-        guide_price: "",
-        contact: "",
-        state: user.state,
-        city: user.city,
-        dest_name: user.destinationName,
-    });
-
-    const onChangeHandler = (e) => {
-        setData({ ...data, [e.target.name]: e.target.value });
-    };
-
-    // Function to handle file selection
-    const handleFileChange = (e) => {
-        setSelectedFile(e.target.files[0]);
-    };
-
-    const onSubmitHandler = async (e) => {
-        e.preventDefault();
-        if (selectedFile) {
-            try {
-                // Create a reference to the location where you want to store the file in Firebase Storage.
-                const imgRef = storageRef(imgDB, `guides/${selectedFile.name}`);
-
-                // Upload the selected file to the specified location.
-                const uploadData = await uploadBytes(imgRef, selectedFile);
-                // Retrieve the download URL from the imgRef reference
-                const downloadURL = await getDownloadURL(imgRef);
-
-                // Now you can proceed to add the product with the image path.
-                const GuideData = {
-                    ...data,
-                    imagePath: downloadURL,
-                };
-
-                // Log the download URL
-                console.log("Download URL:", downloadURL);
-                console.log(uploadData, "Uploaded successfully.");
-                console.log(GuideData)
-                const response = await addGuide(GuideData);
-            } catch (error) {
-                console.error("Firebase Storage Error:", error);
-            }
-        } else {
-            setShowalert(true);
-            console.error("No file selected");
-        }
-    };
-
-
+export const FormTouristGuide = ({ onChangeHandler, data, handleFileChange, selectedFile, isUpdateMode }) => {
+    console.log(data)
 
     return (
         <>
-            <form onSubmit={onSubmitHandler}>
-                {/* <!-- product Image Input --> */}
-                <div className="my-3 flex justify-center">
-                    {/* Hidden file input */}
-                    <input
-                        type="file"
-                        id="fileInput"
-                        className="hidden"
-                        onChange={handleFileChange}
-                    />
-
-                    {/* Image that acts as a file input */}
-                    <label
-                        htmlFor="fileInput"
-                        className="cursor-pointer bg-gray-300 p-4 rounded-md hover:bg-gray-400"
-                    >
-                        {selectedFile ? (
+            {/* <!-- product Image Input --> */}
+            <div className="my-3 flex justify-center">
+                {/* Hidden file input */}
+                <input
+                    type="file"
+                    id="fileInput"
+                    className="hidden"
+                    onChange={handleFileChange}
+                />
+                {/* Image that acts as a file input */}
+                <label
+                    htmlFor="fileInput"
+                    className="cursor-pointer bg-gray-300 p-4 rounded-md hover:bg-gray-400"
+                >
+                    {selectedFile ? (
+                        <img
+                            src={URL.createObjectURL(selectedFile)}
+                            alt="Selected"
+                            className="w-100 h-50 object-cover" // This style will be overridden
+                            style={{ width: '200px', height: '10px', objectFit: 'cover' }}
+                        />
+                    ) : (
+                        data && data.path ? (
                             <img
-                                src={URL.createObjectURL(selectedFile)}
+                                src={data.path}
                                 alt="Selected"
-                                className="w-100 h-50 object-cover"
+                                className="w-100 h-50 object-cover" // This style will be overridden
+                                style={{ width: '400px', height: '250px', objectFit: 'cover' }}
                             />
                         ) : (
-                            <img
-                                src={img_url}
-                                alt="Selected"
-                                className="w-100 h-50 object-cover"
-                            />
-                        )}
-                    </label>
-                </div>
-                <div className="mt-4">
+                            <div style={{ width: '200px', height: '100px', border: '1px solid #ccc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                No Image Selected
+                            </div>
+                        )
+                    )}
+                </label>
 
-                    <label
-                        htmlFor="guideName"
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        Guide Name
-                    </label>
-                    <input
-                        type="text"
-                        id="guide_name"
-                        onChange={onChangeHandler}
-                        value={guide_name}
-                        name="guide_name"
-                        className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
-                    />
-                </div>
+            </div>
+            {/*  */}
+            <div className="mt-4">
 
-                <div className="mt-4">
-                    <label
-                        htmlFor="fees"
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        Fees
-                    </label>
-                    <input
-                        type="text"
-                        id="guide_price"
-                        onChange={onChangeHandler}
-                        value={fees}
-                        name="guide_price"
-                        className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
-                    />
-                </div>
+                <label
+                    htmlFor="guideName"
+                    className="block text-sm font-medium text-gray-700"
+                >
+                    Guide Name
+                </label>
+                <input
+                    type="text"
+                    id="guide_name"
+                    onChange={onChangeHandler}
+                    value={data ? data.guide_name : ""}
+                    name="guide_name"
+                    className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+                />
+            </div>
+            {/*  */}
+            <div className="mt-4">
+                <label
+                    htmlFor="fees"
+                    className="block text-sm font-medium text-gray-700"
+                >
+                    Fees
+                </label>
+                <input
+                    type="text"
+                    id="guide_price"
+                    onChange={onChangeHandler}
+                    value={data ? data.guide_price : ""}
+                    name="guide_price"
+                    className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+                />
+            </div>
+            {/*  */}
+            <div className="mt-4 mb-2">
+                <label
+                    htmlFor="contactDetail"
+                    className="block text-sm font-medium text-gray-700"
+                >
+                    Contact Detail
+                </label>
+                <input
+                    type="text"
+                    id="contact"
+                    value={data ? data.contact: ""}
+                    name="contact"
+                    onChange={onChangeHandler}
 
-                <div className="mt-4">
-                    <label
-                        htmlFor="contactDetail"
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        Contact Detail
-                    </label>
-                    <input
-                        type="text"
-                        id="contact"
-                        value={contact_detail}
-                        name="contact"
-                        onChange={onChangeHandler}
+                    className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+                />
+            </div>
 
-                        className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
-                    />
-                </div>
-
-                {/*button  */}
-                <div className="mt-4 ">
-                    <div className="ms-2">
-                        <button className="bg-purple-500 hover:bg-purple-600 flex p-2  rounded-xl text-white relative">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth="1.5"
-                                stroke="currentColor"
-                                className="w-6 h-6"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-                                />
-                            </svg>
-                            <span className="ms-1">ADD </span>
-                        </button>
-                    </div>
-                </div>
-            </form>
         </>
     );
 };
 
-export const FormEvents = ({
-    img_url,
-    event_name,
-    event_date,
-    event_descp,
-}) => {
-    const [selectedFile, setSelectedFile] = useState(null);
-    const storedUserJSON = localStorage.getItem("user");
-    const user = JSON.parse(storedUserJSON);
-    const [data, setData] = useState({
-        event_name: "",
-        event_date: "",
-        event_des: "",
-        state: user.state,
-        city: user.city,
-        dest_name: user.destinationName,
-    });
-
-    const onChangeHandler = (e) => {
-        setData({ ...data, [e.target.name]: e.target.value });
-    };
-
-    // Function to handle file selection
-    const handleFileChange = (e) => {
-        setSelectedFile(e.target.files[0]);
-    };
-
-    const onSubmitHandler = async (e) => {
-        e.preventDefault();
-        if (selectedFile) {
-            try {
-                // Create a reference to the location where you want to store the file in Firebase Storage.
-                const imgRef = storageRef(imgDB, `facility/${selectedFile.name}`);
-
-                // Upload the selected file to the specified location.
-                const uploadData = await uploadBytes(imgRef, selectedFile);
-                // Retrieve the download URL from the imgRef reference
-                const downloadURL = await getDownloadURL(imgRef);
-
-                // Now you can proceed to add the product with the image path.
-                const FacilityData = {
-                    ...data,
-                    imagePath: downloadURL,
-                };
-
-                // Log the download URL
-                console.log("Download URL:", downloadURL);
-                // console.log(uploadData, "Uploaded successfully.");
-                console.log(FacilityData)
-                const response = await addEvent(FacilityData);
-            } catch (error) {
-                console.error("Firebase Storage Error:", error);
-            }
-        } else {
-            console.error("No file selected");
-        }
-    };
-
-
+export const FormEvents = ({ onChangeHandler, data, handleFileChange, selectedFile, isUpdateMode }) => {
+    console.log(data)
 
     return (
         <>
             {/* <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md"> */}
-            <form onSubmit={onSubmitHandler}>
-                {/* <!-- Event Image Input --> */}
+          
                 <div className="my-3 flex justify-center">
                     {/* Hidden file input */}
                     <input
@@ -264,24 +118,32 @@ export const FormEvents = ({
                     />
 
                     {/* Image that acts as a file input */}
-                    <label
-                        htmlFor="fileInput"
-                        className="cursor-pointer bg-gray-300 p-4 rounded-md hover:bg-gray-400"
-                    >
-                        {selectedFile ? (
+                <label
+                    htmlFor="fileInput"
+                    className="cursor-pointer bg-gray-300 p-4 rounded-md hover:bg-gray-400"
+                >
+                    {selectedFile ? (
+                        <img
+                            src={URL.createObjectURL(selectedFile)}
+                            alt="Selected"
+                            className="w-100 h-50 object-cover" // This style will be overridden
+                            style={{ width: '200px', height: '10px', objectFit: 'cover' }}
+                        />
+                    ) : (
+                        data && data.path ? (
                             <img
-                                src={URL.createObjectURL(selectedFile)}
+                                src={data.path}
                                 alt="Selected"
-                                className="w-100 h-50 object-cover"
+                                className="w-100 h-50 object-cover" // This style will be overridden
+                                style={{ width: '400px', height: '250px', objectFit: 'cover' }}
                             />
                         ) : (
-                            <img
-                                src={img_url}
-                                alt="Selected"
-                                className="w-100 h-50 object-cover"
-                            />
-                        )}
-                    </label>
+                            <div style={{ width: '200px', height: '100px', border: '1px solid #ccc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                No Image Selected
+                            </div>
+                        )
+                    )}
+                </label>
                 </div>
 
                 {/* <!-- Event Name Input --> */}
@@ -295,7 +157,7 @@ export const FormEvents = ({
                     <input
                         type="text"
                         id="event-name"
-                        value={event_name}
+                        value={data ? data.event_name :""}
                         name="event_name"
                         onChange={onChangeHandler}
                         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
@@ -315,7 +177,7 @@ export const FormEvents = ({
                     <input
                         type="date"
                         id="event_date"
-                        value={event_date}
+                        value={data ? data.event_date.substring(0, 10) :""}
                         onChange={onChangeHandler}
 
                         name="event-date"
@@ -335,7 +197,7 @@ export const FormEvents = ({
                     <textarea
                         id="event-description"
                         onChange={onChangeHandler}
-                        value={event_descp}
+                        value={data ? data.event_des:""}
                         name="event_des"
                         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
                         rows="4"
@@ -343,112 +205,28 @@ export const FormEvents = ({
                         required
                     ></textarea>
                 </div>
-                {/*button  */}
-                <div className="mt-4 ">
-                    <div className="ms-2">
-                        <button className="bg-purple-500 hover:bg-purple-600 flex p-2  rounded-xl text-white relative">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth="1.5"
-                                stroke="currentColor"
-                                className="w-6 h-6"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-                                />
-                            </svg>
-                            <span className="ms-1">ADD </span>
-                        </button>
-                    </div>
-                </div>
-            </form>
+               
+           
             {/* </div> */}
         </>
     );
 };
 
-export const FormProduct = ({
-    img_url,
-    prod_name,
-    prod_price,
-    prod_quant,
-    prod_desp,
-}) => {
-
-    const [selectedFile, setSelectedFile] = useState(null);
-    const storedUserJSON = localStorage.getItem("user");
-    const user = JSON.parse(storedUserJSON);
-
-    console.log("in manage form");
-    console.log(user.state, user.city, user.destinationName);
-    const [data, setData] = useState({
-        product_name: "",
-        product_price: "",
-        quantity_available: "",
-        category: "",
-        state: user.state,
-        city: user.city,
-        product_descp: "",
-        destination_name: user.destinationName,
-    });
-
-    const onChangeHandler = (e) => {
-        setData({ ...data, [e.target.name]: e.target.value });
-    };
-
-    // Function to handle file selection
-    const handleFileChange = (e) => {
-        setSelectedFile(e.target.files[0]);
-    };
-
-    const onSubmitHandler = async (e) => {
-        e.preventDefault();
-        if (selectedFile) {
-            try {
-                // Create a reference to the location where you want to store the file in Firebase Storage.
-                const imgRef = storageRef(imgDB, `products/${selectedFile.name}`);
-
-                // Upload the selected file to the specified location.
-                const uploadData = await uploadBytes(imgRef, selectedFile);
-                // Retrieve the download URL from the imgRef reference
-                const downloadURL = await getDownloadURL(imgRef);
-
-                // Now you can proceed to add the product with the image path.
-                const productData = {
-                    ...data,
-                    imagePath: downloadURL,
-                };
-
-                // Log the download URL
-                console.log("Download URL:", downloadURL);
-                console.log(uploadData, "Uploaded successfully.");
-
-                const response = await addProduct(productData);
-            } catch (error) {
-                console.error("Firebase Storage Error:", error);
-            }
-        } else {
-            console.error("No file selected");
-        }
-    };
+export const FormProduct = ({ onChangeHandler, data, handleFileChange, selectedFile, isUpdateMode }) => {
 
     return (
         <>
             {/* <!-- product Image Input --> */}
             <div className="my-3 flex justify-center">
-                {/* Hidden file input */}
-                <input
-                    type="file"
-                    id="fileInput"
-                    className="hidden"
-                    onChange={handleFileChange}
-                />
+                    {/* Hidden file input */}
+                    <input
+                        type="file"
+                        id="fileInput"
+                        className="hidden"
+                        onChange={handleFileChange}
+                    />
 
-                {/* Image that acts as a file input */}
+                    {/* Image that acts as a file input */}
                 <label
                     htmlFor="fileInput"
                     className="cursor-pointer bg-gray-300 p-4 rounded-md hover:bg-gray-400"
@@ -457,17 +235,25 @@ export const FormProduct = ({
                         <img
                             src={URL.createObjectURL(selectedFile)}
                             alt="Selected"
-                            className="w-100 h-50 object-cover"
+                            className="w-100 h-50 object-cover" // This style will be overridden
+                            style={{ width: '200px', height: '10px', objectFit: 'cover' }}
                         />
                     ) : (
-                        <img
-                            src={img_url}
-                            alt="Selected"
-                            className="w-100 h-50 object-cover"
-                        />
+                        data && data.path ? (
+                            <img
+                                src={data.path}
+                                alt="Selected"
+                                className="w-100 h-50 object-cover" // This style will be overridden
+                                style={{ width: '400px', height: '250px', objectFit: 'cover' }}
+                            />
+                        ) : (
+                            <div style={{ width: '200px', height: '100px', border: '1px solid #ccc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                No Image Selected
+                            </div>
+                        )
                     )}
                 </label>
-            </div>
+                </div>
             {/* <!-- product Name Input --> */}
             <div className="mb-4">
                 <label
@@ -480,7 +266,7 @@ export const FormProduct = ({
                     type="text"
                     id="prod_name"
                     onChange={onChangeHandler}
-                    value={prod_name}
+                    value={data ? data.product_name : ""}
                     name="product_name"
                     className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
                     placeholder="Enter the product name"
@@ -498,6 +284,7 @@ export const FormProduct = ({
                 <select
                     id="prod_category"
                     onChange={onChangeHandler}
+                    value={data ? data.product_category : ""}
                     name="category"
                     className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
                     required
@@ -522,7 +309,7 @@ export const FormProduct = ({
                     type="number"
                     id="prod_price"
                     onChange={onChangeHandler}
-                    value={prod_price}
+                    value={data ? data.product_price : ""}
                     name="product_price"
                     className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
                     required
@@ -542,7 +329,7 @@ export const FormProduct = ({
                     type="number"
                     id="prod_quantity"
                     onChange={onChangeHandler}
-                    value={prod_quant}
+                    value={data ? data.quantity_available : ""}
                     name="quantity_available"
                     className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
                     required
@@ -561,7 +348,7 @@ export const FormProduct = ({
                 <textarea
                     id="prod_description"
                     onChange={onChangeHandler}
-                    value={prod_desp}
+                    value={data ? data.product_descp : ""}
                     name="product_descp"
                     className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
                     rows="4"
@@ -575,76 +362,109 @@ export const FormProduct = ({
     );
 };
 
+export const FormFacility = ({ onChangeHandler, data, handleFileChange, selectedFile, isUpdateMode }) => {
+    return (
+        <>
+            <div className="my-3 flex justify-center">
+                <input
+                    type="file"
+                    id="fileInput"
+                    className="hidden"
+                    onChange={handleFileChange}
+                />
+                {/* Image that acts as a file input */}
+                <label
+                    htmlFor="fileInput"
+                    className="cursor-pointer bg-gray-300 p-4 rounded-md hover:bg-gray-400"
+                >
+                    {selectedFile ? (
+                        <img
+                            src={URL.createObjectURL(selectedFile)}
+                            alt="Selected"
+                            className="w-100 h-50 object-cover" // This style will be overridden
+                            style={{ width: '200px', height: '10px', objectFit: 'cover' }}
+                        />
+                    ) : (
+                        data && data.path ? (
+                            <img
+                                src={data.path}
+                                alt="Selected"
+                                className="w-100 h-50 object-cover" // This style will be overridden
+                                style={{ width: '400px', height: '250px', objectFit: 'cover' }}
+                            />
+                        ) : (
+                            <div style={{ width: '200px', height: '100px', border: '1px solid #ccc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                No Image Selected
+                            </div>
+                        )
+                    )}
+                </label>
+            </div>
 
+            <div className="mb-4">
+                <label
+                    htmlFor="facility-name"
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                >
+                    Name of facility
+                </label>
+                <input
+                    type="text"
+                    id="facility-name"
+                    value={data ? data.facility_name : ""}
+                    onChange={onChangeHandler}
+                    name="facility_name"
+                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+                    placeholder="Enter the facility name"
+                    required
+                />
+            </div>
 
-// FormFacility.jsx
+            <div className="mb-4">
+                <label
+                    htmlFor="facility-contact"
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                >
+                    Contact of facility
+                </label>
+                <input
+                    type="tel"
+                    id="facility-contact"
+                    onChange={onChangeHandler}
+                    value={data ? data.facility_number : ""}
+                    name="facility_number"
+                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+                    required
+                />
+            </div>
 
+            <div className="mb-4">
+                <label
+                    htmlFor="facility-location"
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                >
+                    Location of facility
+                </label>
+                <input
+                    type="url"
+                    id="facility-location"
+                    onChange={onChangeHandler}
+                    value={data ? data.facility_location : ""}
+                    name="facility_location"
+                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+                    required
+                />
+                <p className="text-sm text-red-400">Paste the URL</p>
+            </div>
+        </>
+    );
+};
 
-export const FormFacility = ({ updatedata, setupdatedata }) => {
+export const FormCheckpoint = ({ onChangeHandler, data, handleFileChange, selectedFile, isUpdateMode }) => {
 
-  const [selectedFile, setSelectedFile] = useState(null);
-  const storedUserJSON = localStorage.getItem("user");
-  const user = JSON.parse(storedUserJSON);
- 
-  const initialData = updatedata
-    ? {
-        facility_name: updatedata.facility_name || "",
-        facility_number: updatedata.facility_number || "",
-        facility_location: updatedata.facility_location || "",
-      }
-    : {
-        facility_name: "",
-        facility_number: "",
-        facility_location: "",
-      };
-
-  const [data, setData] = useState({
-    ...initialData,
-    state: user.state,
-    city: user.city,
-    dest_name: user.destinationName,
-  });
-
-
-  const onChangeHandler = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
-  };
-
-  // Function to handle file selection
-  const handleFileChange = (e) => {
-    setSelectedFile(e.target.files[0]);
-  };
-
-  const onSubmitHandler = async (e) => {
-    e.preventDefault();
-    if (selectedFile) {
-      try {
-        const FacilityData = {
-          ...data,
-          image: selectedFile,
-        };
-        const response = await addFacility(FacilityData);
-        if (response.status === 200) {
-          toast.success("Facility added Successfully");
-        }
-        else {
-          toast.error("Failed to add Facility ");
-        }
-      } catch (error) {
-        console.error("Firebase Storage Error:", error);
-      }
-    } else {
-      console.error("No file selected");
-    }
-  };
-
-  return (
-    <>
-      <Toaster position="top-center" />
-
-      {/* <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md"> */}
-      <form onSubmit={onSubmitHandler}>
-                {/* <!-- product Image Input --> */}
+    return (
+        <>
+                {/* <!-- checkpoint Image Input --> */}
                 <div className="my-3 flex justify-center">
                     {/* Hidden file input */}
                     <input
@@ -655,108 +475,188 @@ export const FormFacility = ({ updatedata, setupdatedata }) => {
                     />
 
                     {/* Image that acts as a file input */}
-                    <label
-                        htmlFor="fileInput"
-                        className="cursor-pointer bg-gray-300 p-4 rounded-md hover:bg-gray-400"
-                    >
-                        {selectedFile ? (
+                <label
+                    htmlFor="fileInput"
+                    className="cursor-pointer bg-gray-300 p-4 rounded-md hover:bg-gray-400"
+                >
+                    {selectedFile ? (
+                        <img
+                            src={URL.createObjectURL(selectedFile)}
+                            alt="Selected"
+                            className="w-100 h-50 object-cover" // This style will be overridden
+                            style={{ width: '200px', height: '10px', objectFit: 'cover' }}
+                        />
+                    ) : (
+                        data && data.path ? (
                             <img
-                                src={URL.createObjectURL(selectedFile)}
+                                src={data.path}
                                 alt="Selected"
-                                className="w-100 h-50 object-cover"
+                                className="w-100 h-50 object-cover" // This style will be overridden
+                                style={{ width: '400px', height: '250px', objectFit: 'cover' }}
                             />
                         ) : (
-                            <img
-                                src={updatedata.path}
-                                alt="Selected"
-                                className="w-100 h-50 object-cover"
-                            />
-                        )}
-                    </label>
+                            <div style={{ width: '200px', height: '100px', border: '1px solid #ccc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                No Image Selected
+                            </div>
+                        )
+                    )}
+                </label>
                 </div>
 
-
-                {/* <!-- facility Name Input --> */}
-                <div className="mb-4">
+                <div className="mt-4">
                     <label
-                        htmlFor="facility-name"
-                        className="block text-gray-700 text-sm font-bold mb-2"
+                        htmlFor="number"
+                        className="block text-sm font-medium text-gray-700"
                     >
-                        Name of facility
+                        Checkpoint Number
                     </label>
                     <input
                         type="text"
-                        id="facility-name"
-                        value={data.facility_name}
+                        id="checkpoint_number"
                         onChange={onChangeHandler}
-                        name="facility_name"
-                        className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
-                        placeholder="Enter the facility name"
-                        required
+                        value={data ? data.point_number : ""}
+                        name="checkpoint_number"
+                        className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
                     />
                 </div>
 
-                {/* <!-- facility contact Input --> */}
-                <div className="mb-4">
+                <div className="mt-4">
+
                     <label
-                        htmlFor="facility-contact"
-                        className="block text-gray-700 text-sm font-bold mb-2"
+                        htmlFor="checkpointName"
+                        className="block text-sm font-medium text-gray-700"
                     >
-                        Contact of facility
+                        Checkpoint Name
                     </label>
                     <input
-                        type="tel"
-                        id="facility-contact"
+                        type="text"
+                        id="checkpoint_name"
                         onChange={onChangeHandler}
-                        value={data.facility_number}
-                        name="facility_number"
-                        className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
-                        required
+                        value={data ? data.point_name : ""}
+                        name="checkpoint_name"
+                        className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
                     />
                 </div>
 
-                {/* <!-- facility Description Input --> */}
-                <div className="mb-4">
+                <div className="mt-4 mb-2">
                     <label
-                        htmlFor="facility-location"
-                        className="block text-gray-700 text-sm font-bold mb-2"
+                        htmlFor="point_descp"
+                        className="block text-sm font-medium text-gray-700"
                     >
-                        Location of facility
+                        Checkpoint Description
                     </label>
                     <input
-                        type="url"
-                        id="facility-location"
+                        type="text"
+                        id="point_descp"
+                        value={data ? data.point_descp :""}
+                        name="point_descp"
                         onChange={onChangeHandler}
-                        value={data.facility_location}
-                        name="facility_location"
-                        className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
-                        required
+
+                        className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
                     />
-                    <p className="text-sm text-red-400">Paste the URL</p>
                 </div>
-                {/*button  */}
-                <button className="bg-blue-500 hover:bg-blue-600 flex p-2 rounded-lg text-white relative" onClick={onSubmitHandler}>
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="1.5"
-                        stroke="currentColor"
-                        className="w-6 h-6"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-                        />
-                    </svg>
-                    <span >Add new facility</span>
-                </button>
-            </form>
-    </>
-  );
+                
+        </>
+    );
 };
 
+export const FormArtist = ({ onChangeHandler, data, handleFileChange, selectedFile }) => {
+    return (
+        <>
+            {/* Image Input */}
+            <div className="my-3 flex justify-center">
+                {/* Hidden file input */}
+                <input
+                    type="file"
+                    id="fileInput"
+                    className="hidden"
+                    onChange={handleFileChange}
+                />
+                {/* Image that acts as a file input */}
+                <label
+                    htmlFor="fileInput"
+                    className="cursor-pointer bg-gray-300 p-4 rounded-md hover:bg-gray-400"
+                >
+                    {selectedFile ? (
+                        <img
+                            src={URL.createObjectURL(selectedFile)}
+                            alt="Selected"
+                            className="w-100 h-50 object-cover"
+                            style={{ width: '200px', height: '100px', objectFit: 'cover' }}
+                        />
+                    ) : (
+                        data && data.path ? (
+                            <img
+                                src={data.path}
+                                alt="Selected"
+                                className="w-100 h-50 object-cover"
+                                style={{ width: '400px', height: '250px', objectFit: 'cover' }}
+                            />
+                        ) : (
+                            <div style={{ width: '200px', height: '100px', border: '1px solid #ccc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                No Image Selected
+                            </div>
+                        )
+                    )}
+                </label>
+            </div>
+
+            {/* Artist Name Input */}
+            <div className="mt-4">
+                <label
+                    htmlFor="artistName"
+                    className="block text-sm font-medium text-gray-700"
+                >
+                    Artist Name
+                </label>
+                <input
+                    type="text"
+                    id="artist_name"
+                    onChange={onChangeHandler}
+                    value={data ? data.artist_name : ""}
+                    name="artist_name"
+                    className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+                />
+            </div>
+
+            {/* Artist Contact Input */}
+            <div className="mt-4">
+                <label
+                    htmlFor="artistContact"
+                    className="block text-sm font-medium text-gray-700"
+                >
+                    Artist Contact
+                </label>
+                <input
+                    type="text"
+                    id="artist_contact"
+                    onChange={onChangeHandler}
+                    value={data ? data.artist_contact : ""}
+                    name="artist_contact"
+                    className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+                />
+            </div>
+
+            {/* Artist Address Input */}
+            <div className="mt-4 mb-2">
+                <label
+                    htmlFor="artistAddress"
+                    className="block text-sm font-medium text-gray-700"
+                >
+                    Artist Address
+                </label>
+                <input
+                    type="text"
+                    id="artist_address"
+                    value={data ? data.artist_address : ""}
+                    name="artist_address"
+                    onChange={onChangeHandler}
+                    className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+                />
+            </div>
+        </>
+    );
+};
 
 export const FormPlaceSummary = ({
     destination_name,
@@ -933,249 +833,6 @@ export const FormPlaceSummary = ({
         </>
     );
 };
-
-
-export const AddCheckpoint = ({
-    img_url,
-    point_name,
-    point_number,
-    point_descp,
-    point_city,
-    point_state,
-    dest_name,
-    dest_id
-}) => {
-    const [showalert, setShowalert] = useState(false);
-    const handleCloseAlert = () => {
-        setShowalert(false);
-    };
-
-    const [selectedFile, setSelectedFile] = useState(null);
-    const storedUserJSON = localStorage.getItem("user");
-    const user = JSON.parse(storedUserJSON);
-    const [data, setData] = useState({
-        point_name: "",
-        point_number: "",
-        point_descp: "",
-        point_city: user.city,
-        point_state: user.state,
-        dest_name: user.destinationName,
-        dest_id: user._id,
-
-    });
-
-    const onChangeHandler = (e) => {
-        setData({ ...data, [e.target.name]: e.target.value });
-    };
-
-    // Function to handle file selection
-    const handleFileChange = (e) => {
-        setSelectedFile(e.target.files[0]);
-    };
-
-    const onSubmitHandler = async (e) => {
-        e.preventDefault();
-        if (selectedFile) {
-            try {
-
-                // const response = await (GuideData);
-            } catch (error) {
-                console.error("Firebase Storage Error:", error);
-            }
-        } else {
-            setShowalert(true);
-            console.error("No file selected");
-        }
-    };
-
-
-
-    return (
-        <>
-            <form onSubmit={onSubmitHandler}>
-                {/* <!-- checkpoint Image Input --> */}
-                <div className="my-3 flex justify-center">
-                    {/* Hidden file input */}
-                    <input
-                        type="file"
-                        id="fileInput"
-                        className="hidden"
-                        onChange={handleFileChange}
-                    />
-
-                    {/* Image that acts as a file input */}
-                    <label
-                        htmlFor="fileInput"
-                        className="cursor-pointer bg-gray-300 p-4 rounded-md hover:bg-gray-400"
-                    >
-                        {selectedFile ? (
-                            <img
-                                src={URL.createObjectURL(selectedFile)}
-                                alt="Selected"
-                                className="w-100 h-50 object-cover"
-                            />
-                        ) : (
-                            <img
-                                src={img_url}
-                                alt="Selected"
-                                className="w-100 h-50 object-cover"
-                            />
-                        )}
-                    </label>
-                </div>
-                <div className="mt-4">
-
-                    <label
-                        htmlFor="checkpointName"
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        Checkpoint Name
-                    </label>
-                    <input
-                        type="text"
-                        id="checkpoint_name"
-                        onChange={onChangeHandler}
-                        value={point_name}
-                        name="checkpoint_name"
-                        className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
-                    />
-                </div>
-
-                <div className="mt-4">
-                    <label
-                        htmlFor="number"
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        Checkpoint Number
-                    </label>
-                    <input
-                        type="text"
-                        id="checkpoint_number"
-                        onChange={onChangeHandler}
-                        value={point_number}
-                        name="checkpoint_number"
-                        className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
-                    />
-                </div>
-
-                <div className="mt-4">
-                    <label
-                        htmlFor="point_descp"
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        Checkpoint Description
-                    </label>
-                    <input
-                        type="text"
-                        id="point_descp"
-                        value={point_descp}
-                        name="point_descp"
-                        onChange={onChangeHandler}
-
-                        className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
-                    />
-                </div>
-
-                <div className="mt-4">
-                    <label
-                        htmlFor="city"
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        City
-                    </label>
-                    <input
-                        type="text"
-                        id="city"
-                        value={point_city}
-                        name="city"
-                        onChange={onChangeHandler}
-
-                        className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
-                    />
-                </div>
-
-                <div className="mt-4">
-                    <label
-                        htmlFor="state"
-                        className="block text-sm font-medium text-gray-700"
-                    > State
-                    </label>
-                    <input
-                        type="text"
-                        id="state"
-                        value={point_state}
-                        name="state"
-                        onChange={onChangeHandler}
-
-                        className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
-                    />
-                </div>
-
-                <div className="mt-4">
-                    <label
-                        htmlFor="dest_name"
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        Destination Name
-                    </label>
-                    <input
-                        type="text"
-                        id="dest_name"
-                        value={dest_name}
-                        name="dest_name"
-                        onChange={onChangeHandler}
-
-                        className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
-                    />
-                </div>
-
-                <div className="mt-4">
-                    <label
-                        htmlFor="dest_id"
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        Destination ID
-                    </label>
-                    <input
-                        type="text"
-                        id="dest_id"
-                        value={dest_id}
-                        name="dest_id"
-                        onChange={onChangeHandler}
-
-                        className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
-                    />
-                </div>
-
-                {/*button  */}
-                <div className="mt-4 ">
-                    <div className="ms-2">
-                        <button className="bg-purple-500 hover:bg-purple-600 flex p-2  rounded-xl text-white relative">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth="1.5"
-                                stroke="currentColor"
-                                className="w-6 h-6"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-                                />
-                            </svg>
-                            <span className="ms-1">ADD </span>
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </>
-    );
-};
-
-
-
 
 const ImageInput = ({ image_url }) => {
     const [selectedFile, setSelectedFile] = useState(null);

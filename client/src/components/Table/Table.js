@@ -3,7 +3,7 @@ import DataTable from 'react-data-table-component';
 import { AddButton } from '../../components/CustomButtons';
 import { Modal } from 'antd';
 
-const CustomTable = ({ columns,addform , title,fetchData, searchfield, setFilterRecords, filterRecords, setRecords, records }) => {
+const CustomTable = ({ data,handleFileChange, selectedFile,onChangeHandler, columns, addform, initialData, setFormData, title, fetchData, searchfield, setFilterRecords, filterRecords, setRecords, records }) => {
   const customStyles = {
     rows: {
       style: {
@@ -46,7 +46,7 @@ const CustomTable = ({ columns,addform , title,fetchData, searchfield, setFilter
       },
     },
   };
-  
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -58,31 +58,54 @@ const CustomTable = ({ columns,addform , title,fetchData, searchfield, setFilter
     setRecords(newData);
   }
   const [visible, setVisible] = useState(false);
-  const modalopenClose = () => {
-    setVisible(true);
+
+  const modalOpenClose = () => {
+    setVisible(!visible);
+    if (!visible) {
+      // If opening the modal, set form data to initial data
+      setFormData(initialData);
+    }
   };
 
   return (
-    <div className="container" style={{ padding: '2%', backgroundColor: 'white', backgroundImage: 'url("https://www.transparenttextures.com/patterns/cubes.png");', color: '#1c8c59' }}>
-      <div className="text-end" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.2% 0.2% ' }}>
+    <div className="container p-2 bg-white bg-pattern-color text-pattern-text">
+      <div className="flex justify-between items-center space-between p-0.2">
         <input
           type="text"
           placeholder={` Search ${title}`}
           className="border border-solid border-gray-700 mb-3 bg-white p-2 px-2 text-center"
           onChange={handleFilter}
         />
-        <Modal
-        onCancel={() => setVisible(false)}
-        footer={null}
-        visible={visible}>
-        {addform}
+        <Modal onCancel={() => setVisible(false)} footer={null} visible={visible}>
+          <form>
+            {React.cloneElement(addform, { onChangeHandler, data, handleFileChange,selectedFile })} {/* Pass necessary props */}
+            <AddButton form_type={"Facility"} />
+          </form>
         </Modal>
-        <AddButton onClick={modalopenClose} form_type={title}/>
+
+        <AddButton onClickfun={modalOpenClose} form_type={title} />
       </div>
 
-      <DataTable columns={columns} data={records} fixedHeader pagination customStyles={customStyles} style={{ color: '#1c8c59' }} className='text-center items-center justify-center align-middle'/>
+      <DataTable
+        columns={columns}
+        data={records}
+        fixedHeader
+        pagination
+        customStyles={customStyles}
+        className="text-center items-center justify-center align-middle"
+      />
     </div>
+
   );
 };
 
 export default CustomTable;
+
+
+
+
+
+
+
+
+

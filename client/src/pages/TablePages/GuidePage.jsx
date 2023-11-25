@@ -1,54 +1,50 @@
-
-
 import React, { useState, useEffect } from "react";
 import CustomTable from "../../components/Table/Table";
-import { addFacility, fetchFacility } from "../../services/domCRUD";
+import { addGuide, fetchGuide } from "../../services/domCRUD";
 import { AddButton, UpdateButton, UpdateDeletebuttons } from "../../components/CustomButtons";
-import { FormFacility } from '../../components/Forms/ManagementsForms';
-import { Modal } from 'antd';
 import { Toaster, toast } from 'react-hot-toast'
+import { Modal } from 'antd';
 
-import { styled } from 'styled-components';
+import {styled} from 'styled-components';
+import { FormTouristGuide } from "../../components/Forms/ManagementsForms";
+
 const StyledImage = styled.img`
-  width: 50px;
-  height: 50px;
+  width: 50px; 
+  height: 50px; 
   border-radius: 50%;
 `;
 
-export const FacilityTable = () => {
 
+export const GuideTable = () => {
   const columns = [
     {
       name: 'Image',
       selector: (row) => <StyledImage src={row.path} alt="Product" />,
       sortable: true,
-      maxWidth: '110px', // Adjust the maximum width as needed
-      textAlign: 'center',
-    },
+      maxWidth: '100px', // Adjust the maximum width as needed
+  },
     {
-      name: "Facility Name",
-      selector: (row) => row.facility_name,
-      sortable: true,
-      textAlign: 'center',
-    },
-    {
-      name: "Facility Number",
-      selector: (row) => row.facility_number,
+      name: "Guide Name",
+      selector: (row) => row.guide_name,
       sortable: true,
     },
     {
-      name: "Event Location",
-      selector: (row) => row.facility_location,
+      name: "Guide Price",
+      selector: (row) => row.guide_price,
+      sortable: true,
+    },
+    {
+      name: "Contact Number",
+      selector: (row) => row.contact,
       sortable: true,
     },
     {
       name: "Actions",
       cell: (row) => (
-        <UpdateDeletebuttons form_type={` facility ${row.facility_name} `} onClick={() => modalOpenClose('update', row)} />
+        <UpdateDeletebuttons form_type={` guide ${row.guide_name} `} onClick={() => modalOpenClose('update', row)} />
       ),
     },
   ];
-
 
 
   const [selectedFile, setSelectedFile] = useState(null);
@@ -56,9 +52,9 @@ export const FacilityTable = () => {
   const user = JSON.parse(storedUserJSON);
 
   const initialData =  {
-    facility_name:   "",
-    facility_number:"",
-    facility_location:  "",
+    guide_name: "",
+    guide_price: "",
+    contact: "",
     state: user.state,
     city: user.city,
     dest_name: user.destinationName,
@@ -89,7 +85,7 @@ export const FacilityTable = () => {
             ...FormData,
             image: selectedFile,
           };
-          const response = await addFacility(FacilityData);
+          const response = await addGuide(FacilityData);
           if (response.status === 200) {
             toast.success("Facility added Successfully");
           }
@@ -104,13 +100,12 @@ export const FacilityTable = () => {
       }
     }
   };
-
-  const getFacility = async () => {
+  const getGuide = async () => {
     try {
       const storedUserJSON = localStorage.getItem("user");
       const storedUser = JSON.parse(storedUserJSON);
 
-      const res = await fetchFacility(storedUser.destinationName);
+      const res = await fetchGuide(storedUser.destinationName);
       const data = res.data.data;
 
       setRecords(data);
@@ -121,9 +116,8 @@ export const FacilityTable = () => {
   };
 
   useEffect(() => {
-    getFacility();
+    getGuide();
   }, []);
-
   const onChangeHandler = (e) => {
     // setData({ ...data, [e.target.name]: e.target.value });
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -134,48 +128,47 @@ export const FacilityTable = () => {
   const handleFileChange = (e) => {
     setSelectedFile(e.target.files[0]);
   };
-
   return (
     <>
-      <Toaster position="top-center" />
-      <Modal
-        onCancel={() => setVisible(false)}
-        footer={null}
-        visible={visible}
-      >
-        <form onSubmit={onSubmitHandler}>
-          <FormFacility
-            selectedFile={selectedFile}
-            handleFileChange={handleFileChange}
-            onChangeHandler={onChangeHandler}
-            data={formData}
-            isUpdateMode={isUpdateMode}
-          />
-          {isUpdateMode ? (
-            <UpdateButton title={"Facility"} />
-          ) : (
-            <AddButton form_type={"Facility"} />
-          )}
-        </form>
-      </Modal>
-      <CustomTable
-      handleFileChange={handleFileChange}
-      onChangeHandler={onChangeHandler}
-      setFormData={setFormData}
-      data={formData}
-      selectedFile={selectedFile}
-      initialData={initialData}
-        columns={columns}
-        addform={<FormFacility/>}
-        title={'Facility'}
-        searchfield={'facility_name'}
-        records={records}
-        setRecords={setRecords}
-        filterRecords={filterRecords}
-        setFilterRecords={setFilterRecords}
-        fetchData={getFacility}
-        modalOpenClose={modalOpenClose}
-      />
-    </>
+    <Toaster position="top-center" />
+    <Modal
+      onCancel={() => setVisible(false)}
+      footer={null}
+      visible={visible}
+    >
+      <form onSubmit={onSubmitHandler}>
+        <FormTouristGuide
+          selectedFile={selectedFile}
+          handleFileChange={handleFileChange}
+          onChangeHandler={onChangeHandler}
+          data={formData}
+          isUpdateMode={isUpdateMode}
+        />
+        {isUpdateMode ? (
+          <UpdateButton title={"Guide"} />
+        ) : (
+          <AddButton form_type={"Guide"} />
+        )}
+      </form>
+    </Modal>
+    <CustomTable
+    handleFileChange={handleFileChange}
+    onChangeHandler={onChangeHandler}
+    setFormData={setFormData}
+    data={formData}
+    selectedFile={selectedFile}
+    initialData={initialData}
+      columns={columns}
+      addform={<FormTouristGuide/>}
+      title={'Guide'}
+      searchfield={'guide_name'}
+      records={records}
+      setRecords={setRecords}
+      filterRecords={filterRecords}
+      setFilterRecords={setFilterRecords}
+      fetchData={getGuide}
+      modalOpenClose={modalOpenClose}
+    />
+  </>
   );
 };

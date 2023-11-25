@@ -15,3 +15,15 @@ export const fetchCheckpoints = async(id) =>{
         console.log("Error occurs while running fetching Checkpoints function",err);
     }
 };
+
+export const addCheckpoint = async(formdata) =>{
+    try{
+      console.log(formdata)
+  
+      await axios.post(`${LOCALURL}/addcheckpoints`,formdata)
+    }
+    catch(err){
+        console.log(formdata)
+      console.log(`Error occur during adding Prodcut ${err}`)
+    }
+  }

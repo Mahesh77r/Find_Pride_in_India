@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { React, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./ScollCard.css";
@@ -6,6 +6,7 @@ import { GuideTable } from "./TablePages/GuidePage";
 import { ProductTable } from "./TablePages/ProductPage";
 import { EventTable } from "./TablePages/EventPage";
 import { FacilityTable } from "./TablePages/FacilityPage";
+import { ArtistTable } from "./TablePages/ArtistPage";
 
 function HomePage() {
   // eslint-disable-next-line
@@ -25,6 +26,11 @@ function HomePage() {
     <>
       <div className="container m-auto my-2 ">
        
+       {/* Manage Artist*/}
+       <div className="my-4">
+          <p className="ms-3 text-4xl my-3 font-serif">Manage Local Artist</p>
+          < ArtistTable/>
+        </div>
 
         {/* Manage Tourist Guide*/}
         <div className="my-4">
