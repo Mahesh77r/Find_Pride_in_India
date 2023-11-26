@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CustomTable from "../../components/Table/Table";
-import { addEvent, fetchArtist } from "../../services/domCRUD";
+import { addArtist, addEvent, fetchArtist } from "../../services/domCRUD";
 import { AddButton, UpdateButton, UpdateDeletebuttons } from "../../components/CustomButtons";
 import { Toaster, toast } from 'react-hot-toast'
 import { Modal } from 'antd';
@@ -72,31 +72,34 @@ export const ArtistTable = () => {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    if (isUpdateMode) {
-      // Handle update logic
-      // ...
-    } else {
-      if (selectedFile) {
-        try {
-          const FacilityData = {
-            ...FormData,
-            image: selectedFile,
-          };
-          const response = await addEvent(FacilityData);
-          if (response.status === 200) {
-            toast.success("Facility added Successfully");
-          }
-          else {
-            toast.error("Failed to add Facility ");
-          }
-        } catch (error) {
-          console.error("Firebase Storage Error:", error);
-        }
+    try {
+      if (isUpdateMode) {
+        // Handle update logic
+        // ...
+        console.log("Update logic here");
+        toast.success("Artist updated successfully");
       } else {
-        console.error("No file selected");
+        // Handle add logic
+        // ...
+        console.log("Add logic here");
+        // const artistData = {
+        //   ...formData,
+        //   image: selectedFile,
+        // };
+  
+        // const response = await addArtist(artistData);
+        // if (response.status === 200) {
+        //   toast.success("Artist added successfully");
+        // } else {
+        //   toast.error("Failed to add artist");
+        // }
       }
+    } catch (error) {
+      console.error("Error:", error);
     }
   };
+  
+
   const getArtist = async () => {
     try {
       const storedUserJSON = localStorage.getItem("user");
@@ -118,7 +121,6 @@ export const ArtistTable = () => {
   const onChangeHandler = (e) => {
     // setData({ ...data, [e.target.name]: e.target.value });
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    console.log(formData)
   };
 
   // Function to handle file selection
@@ -145,7 +147,7 @@ export const ArtistTable = () => {
         {isUpdateMode ? (
           <UpdateButton title={"Artist"} />
         ) : (
-          <AddButton form_type={"Artist"} />
+          <AddButton form_type={"Artist"} onClickfun={""}/>
         )}
       </form>
     </Modal>

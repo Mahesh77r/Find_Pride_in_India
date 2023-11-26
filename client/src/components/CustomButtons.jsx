@@ -55,24 +55,40 @@ export const UpdateDeletebuttons = ({ onClick, row }) => {
 };
 
 export const AddButton = ({ form_type, onClickfun }) => {
+  const demo = (e) =>{
+    e.preventDefault();
+    console.log("wwwwwwwwwfirst")
+  }
+  const handleClick = onClickfun ? onClickfun : demo;
+  // const handleClick = onClickfun ? onClickfun : (e) => e.preventDefault();
 
   return (
-    <>
-      <div className="mx-2">
-        <button
-          className="bg-blue-500 hover:bg-blue-600 flex p-2 rounded-lg text-white relative"
-          onClick={onClickfun ? onClickfun : null}
+    <div className="mx-2">
+      <button
+        className="bg-blue-500 hover:bg-blue-600 flex p-2 rounded-lg text-white relative"
+        onClick={handleClick}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
 
-          <span className="ms-2">Add new {form_type}</span>
-        </button>
-      </div>
-    </>
+        <span className="ms-2">Add new {form_type}</span>
+      </button>
+    </div>
   );
 };
+
 
 export const UpdateButton = ({title}) => {
   return (

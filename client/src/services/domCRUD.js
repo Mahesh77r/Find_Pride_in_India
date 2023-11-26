@@ -35,7 +35,7 @@ export const fetchArtist = async(name) =>{
   // id can be null if we need to view all user
   name = name || '';
   try{
-     return await axios.get(`${LOCALURL}/getartists/${name}`);
+     return await axios.get(`${URL}/getartists/${name}`);
   }
   catch(err){
       console.log("Error occurs while running fetching artists function",err);
@@ -135,5 +135,17 @@ export const addEvent = async(formdata) =>{
   catch(err){
       console.log(formdata)
     console.log(`Error occur during adding events ${err}`)
+  }
+}
+
+export const addArtist = async(formdata) =>{
+  try{
+    console.log(formdata)
+
+    await axios.post(`${LOCALURL}/addartists`,formdata)
+  }
+  catch(err){
+      console.log(formdata)
+    console.log(`Error occur during adding artists ${err}`)
   }
 }

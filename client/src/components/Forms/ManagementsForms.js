@@ -5,6 +5,10 @@ export const FormTouristGuide = ({ onChangeHandler, data, handleFileChange, sele
 
     return (
         <>
+            <h1 className="text-xl font-bold mb-3 text-center">
+                Do you want to {isUpdateMode ? "update" : "add"} Guide?
+            </h1>
+
             {/* <!-- product Image Input --> */}
             <div className="my-3 flex justify-center">
                 {/* Hidden file input */}
@@ -89,7 +93,7 @@ export const FormTouristGuide = ({ onChangeHandler, data, handleFileChange, sele
                 <input
                     type="text"
                     id="contact"
-                    value={data ? data.contact: ""}
+                    value={data ? data.contact : ""}
                     name="contact"
                     onChange={onChangeHandler}
 
@@ -107,17 +111,19 @@ export const FormEvents = ({ onChangeHandler, data, handleFileChange, selectedFi
     return (
         <>
             {/* <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md"> */}
-          
-                <div className="my-3 flex justify-center">
-                    {/* Hidden file input */}
-                    <input
-                        type="file"
-                        id="fileInput"
-                        className="hidden"
-                        onChange={handleFileChange}
-                    />
+            <h1 className="text-xl font-bold mb-3 text-center">
+                Do you want to {isUpdateMode ? "update" : "add"} Event?
+            </h1>
+            <div className="my-3 flex justify-center">
+                {/* Hidden file input */}
+                <input
+                    type="file"
+                    id="fileInput"
+                    className="hidden"
+                    onChange={handleFileChange}
+                />
 
-                    {/* Image that acts as a file input */}
+                {/* Image that acts as a file input */}
                 <label
                     htmlFor="fileInput"
                     className="cursor-pointer bg-gray-300 p-4 rounded-md hover:bg-gray-400"
@@ -144,69 +150,69 @@ export const FormEvents = ({ onChangeHandler, data, handleFileChange, selectedFi
                         )
                     )}
                 </label>
-                </div>
+            </div>
 
-                {/* <!-- Event Name Input --> */}
-                <div className="mb-4">
-                    <label
-                        htmlFor="event-name"
-                        className="block text-gray-700 text-sm font-bold mb-2"
-                    >
-                        Name of Event
-                    </label>
-                    <input
-                        type="text"
-                        id="event-name"
-                        value={data ? data.event_name :""}
-                        name="event_name"
-                        onChange={onChangeHandler}
-                        className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
-                        placeholder="Enter the event name"
-                        required
-                    />
-                </div>
+            {/* <!-- Event Name Input --> */}
+            <div className="mb-4">
+                <label
+                    htmlFor="event-name"
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                >
+                    Name of Event
+                </label>
+                <input
+                    type="text"
+                    id="event-name"
+                    value={data ? data.event_name : ""}
+                    name="event_name"
+                    onChange={onChangeHandler}
+                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+                    placeholder="Enter the event name"
+                    required
+                />
+            </div>
 
-                {/* <!-- Event Date Input --> */}
-                <div className="mb-4">
-                    <label
-                        htmlFor="event-date"
-                        className="block text-gray-700 text-sm font-bold mb-2"
-                    >
-                        Date of Event
-                    </label>
-                    <input
-                        type="date"
-                        id="event_date"
-                        value={data ? data.event_date.substring(0, 10) :""}
-                        onChange={onChangeHandler}
+            {/* <!-- Event Date Input --> */}
+            <div className="mb-4">
+                <label
+                    htmlFor="event-date"
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                >
+                    Date of Event
+                </label>
+                <input
+                    type="date"
+                    id="event_date"
+                    value={data ? data.event_date.substring(0, 10) : ""}
+                    onChange={onChangeHandler}
 
-                        name="event-date"
-                        className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
-                        required
-                    />
-                </div>
+                    name="event-date"
+                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+                    required
+                />
+            </div>
 
-                {/* <!-- Event Description Input --> */}
-                <div className="mb-4">
-                    <label
-                        htmlFor="event-description"
-                        className="block text-gray-700 text-sm font-bold mb-2"
-                    >
-                        Description of Event
-                    </label>
-                    <textarea
-                        id="event-description"
-                        onChange={onChangeHandler}
-                        value={data ? data.event_des:""}
-                        name="event_des"
-                        className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
-                        rows="4"
-                        placeholder="Enter a description htmlFor the event"
-                        required
-                    ></textarea>
-                </div>
-               
-           
+            {/* <!-- Event Description Input --> */}
+            <div className="mb-4">
+                <label
+                    htmlFor="event-description"
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                >
+                    Description of Event
+                </label>
+                <textarea
+                    id="event-description"
+                    onChange={onChangeHandler}
+                    value={data ? data.event_des : ""}
+                    name="event_des"
+                    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
+                    rows="4"
+                    placeholder="Enter a description htmlFor the event"
+                    required
+                ></textarea>
+            </div>
+
+
             {/* </div> */}
         </>
     );
@@ -216,17 +222,20 @@ export const FormProduct = ({ onChangeHandler, data, handleFileChange, selectedF
 
     return (
         <>
+        <h1 className="text-xl font-bold mb-3 text-center">
+                Do you want to {isUpdateMode ? "update" : "add"} Prodcut?
+            </h1>
             {/* <!-- product Image Input --> */}
             <div className="my-3 flex justify-center">
-                    {/* Hidden file input */}
-                    <input
-                        type="file"
-                        id="fileInput"
-                        className="hidden"
-                        onChange={handleFileChange}
-                    />
+                {/* Hidden file input */}
+                <input
+                    type="file"
+                    id="fileInput"
+                    className="hidden"
+                    onChange={handleFileChange}
+                />
 
-                    {/* Image that acts as a file input */}
+                {/* Image that acts as a file input */}
                 <label
                     htmlFor="fileInput"
                     className="cursor-pointer bg-gray-300 p-4 rounded-md hover:bg-gray-400"
@@ -253,7 +262,7 @@ export const FormProduct = ({ onChangeHandler, data, handleFileChange, selectedF
                         )
                     )}
                 </label>
-                </div>
+            </div>
             {/* <!-- product Name Input --> */}
             <div className="mb-4">
                 <label
@@ -365,6 +374,9 @@ export const FormProduct = ({ onChangeHandler, data, handleFileChange, selectedF
 export const FormFacility = ({ onChangeHandler, data, handleFileChange, selectedFile, isUpdateMode }) => {
     return (
         <>
+        <h1 className="text-xl font-bold mb-3 text-center">
+                Do you want to {isUpdateMode ? "update" : "add"} Facility?
+            </h1>
             <div className="my-3 flex justify-center">
                 <input
                     type="file"
@@ -464,17 +476,20 @@ export const FormCheckpoint = ({ onChangeHandler, data, handleFileChange, select
 
     return (
         <>
-                {/* <!-- checkpoint Image Input --> */}
-                <div className="my-3 flex justify-center">
-                    {/* Hidden file input */}
-                    <input
-                        type="file"
-                        id="fileInput"
-                        className="hidden"
-                        onChange={handleFileChange}
-                    />
+        <h1 className="text-xl font-bold mb-3 text-center">
+                Do you want to {isUpdateMode ? "update" : "add"} Checkpoint?
+            </h1>
+            {/* <!-- checkpoint Image Input --> */}
+            <div className="my-3 flex justify-center">
+                {/* Hidden file input */}
+                <input
+                    type="file"
+                    id="fileInput"
+                    className="hidden"
+                    onChange={handleFileChange}
+                />
 
-                    {/* Image that acts as a file input */}
+                {/* Image that acts as a file input */}
                 <label
                     htmlFor="fileInput"
                     className="cursor-pointer bg-gray-300 p-4 rounded-md hover:bg-gray-400"
@@ -501,68 +516,71 @@ export const FormCheckpoint = ({ onChangeHandler, data, handleFileChange, select
                         )
                     )}
                 </label>
-                </div>
+            </div>
 
-                <div className="mt-4">
-                    <label
-                        htmlFor="number"
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        Checkpoint Number
-                    </label>
-                    <input
-                        type="text"
-                        id="checkpoint_number"
-                        onChange={onChangeHandler}
-                        value={data ? data.point_number : ""}
-                        name="checkpoint_number"
-                        className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
-                    />
-                </div>
+            <div className="mt-4">
+                <label
+                    htmlFor="number"
+                    className="block text-sm font-medium text-gray-700"
+                >
+                    Checkpoint Number
+                </label>
+                <input
+                    type="text"
+                    id="checkpoint_number"
+                    onChange={onChangeHandler}
+                    value={data ? data.point_number : ""}
+                    name="checkpoint_number"
+                    className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+                />
+            </div>
 
-                <div className="mt-4">
+            <div className="mt-4">
 
-                    <label
-                        htmlFor="checkpointName"
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        Checkpoint Name
-                    </label>
-                    <input
-                        type="text"
-                        id="checkpoint_name"
-                        onChange={onChangeHandler}
-                        value={data ? data.point_name : ""}
-                        name="checkpoint_name"
-                        className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
-                    />
-                </div>
+                <label
+                    htmlFor="checkpointName"
+                    className="block text-sm font-medium text-gray-700"
+                >
+                    Checkpoint Name
+                </label>
+                <input
+                    type="text"
+                    id="checkpoint_name"
+                    onChange={onChangeHandler}
+                    value={data ? data.point_name : ""}
+                    name="checkpoint_name"
+                    className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+                />
+            </div>
 
-                <div className="mt-4 mb-2">
-                    <label
-                        htmlFor="point_descp"
-                        className="block text-sm font-medium text-gray-700"
-                    >
-                        Checkpoint Description
-                    </label>
-                    <input
-                        type="text"
-                        id="point_descp"
-                        value={data ? data.point_descp :""}
-                        name="point_descp"
-                        onChange={onChangeHandler}
+            <div className="mt-4 mb-2">
+                <label
+                    htmlFor="point_descp"
+                    className="block text-sm font-medium text-gray-700"
+                >
+                    Checkpoint Description
+                </label>
+                <input
+                    type="text"
+                    id="point_descp"
+                    value={data ? data.point_descp : ""}
+                    name="point_descp"
+                    onChange={onChangeHandler}
 
-                        className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
-                    />
-                </div>
-                
+                    className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+                />
+            </div>
+
         </>
     );
 };
 
-export const FormArtist = ({ onChangeHandler, data, handleFileChange, selectedFile }) => {
+export const FormArtist = ({ onChangeHandler, data, handleFileChange, selectedFile,isUpdateMode }) => {
     return (
         <>
+        <h1 className="text-xl font-bold mb-3 text-center">
+                Do you want to {isUpdateMode ? "update" : "add"} Artist?
+            </h1>
             {/* Image Input */}
             <div className="my-3 flex justify-center">
                 {/* Hidden file input */}

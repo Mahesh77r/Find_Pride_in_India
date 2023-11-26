@@ -79,7 +79,7 @@ const CustomTable = ({ data,handleFileChange, selectedFile,onChangeHandler, colu
         <Modal onCancel={() => setVisible(false)} footer={null} visible={visible}>
           <form>
             {React.cloneElement(addform, { onChangeHandler, data, handleFileChange,selectedFile })} {/* Pass necessary props */}
-            <AddButton form_type={"Facility"} />
+            <AddButton form_type={title} onClickfun={""}/>
           </form>
         </Modal>
 
