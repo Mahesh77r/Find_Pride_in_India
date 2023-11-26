@@ -16,6 +16,8 @@ import { TopNavbar } from './components/navbar/TopNavbar';
 import { Practice } from './pages/Practice';
 import { Chart } from './components/Charts/Chart';
 import { ChartPlaceAdmin } from './components/Charts/ChartPlaceAdmin';
+import { Checkpoints } from './pages/TablePages/Checkpoints';
+import { ProfilePage } from './pages/ProfilePage';
 
 function App() {
   const [isSideNavbarOpen, setIsSideNavbarOpen] = useState(true);
@@ -55,7 +57,8 @@ return (
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/checkpoints" element={<AllDOM />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/checkpoints" element={<Checkpoints />} />
             <Route path="/form" element={<AddDOM />} />
             <Route path="/resetpassword/:token" element={<ResetPassword />} />
             <Route path="/order" element={<GraphPage />} />

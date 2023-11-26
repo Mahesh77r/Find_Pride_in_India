@@ -31,6 +31,17 @@ export const fetchProduct = async(name) =>{
     }
 };
 
+export const fetchArtist = async(name) =>{
+  // id can be null if we need to view all user
+  name = name || '';
+  try{
+     return await axios.get(`${LOCALURL}/getartists/${name}`);
+  }
+  catch(err){
+      console.log("Error occurs while running fetching artists function",err);
+  }
+};
+
 export const fetchGuide = async(name) =>{
 
   // id can be null if we need to view all user
@@ -64,6 +75,18 @@ export const fetchEvents = async(name) =>{
   }
   catch(err){
       console.log("Error occurs while running fetching events function",err);
+  }
+};
+
+export const fetchSummary = async(id) =>{
+
+  // id can be null if we need to view all user
+  id = id || '';
+  try{
+     return await axios.get(`${URL}/getplaces/${id}`);
+  }
+  catch(err){
+      console.log("Error occurs while running fetching summary function",err);
   }
 };
 
@@ -102,6 +125,7 @@ export const addFacility = async(formdata) =>{
     console.log(`Error occur during adding facility ${err}`)
   }
 }
+
 export const addEvent = async(formdata) =>{
   try{
     console.log(formdata)

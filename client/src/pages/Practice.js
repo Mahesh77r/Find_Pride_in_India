@@ -6,14 +6,7 @@ import {
   uploadBytes,
 } from "firebase/storage";
 
-import { Alert } from '../components/alert';
-
 export const Practice = () => {
-  // show and hide alert
-  const [showalert, setShowalert] = useState(false);
-  const handleCloseAlert = () => {
-    setShowalert(false);
-  };
   // Function to handle file upload
   const handleUpload = async (e) => {
     try {
@@ -38,15 +31,7 @@ export const Practice = () => {
 
   return (
     <>
-   <Alert
-        bgcolor={"red"}
-        title={"Login Failed"}
-        desc={"Unauthorized User"}
-        bool={showalert}
-        onClose={handleCloseAlert}
-      />
       <div className='container flex items-center justify-center mt-10'>
-        <button onClick={() => setShowalert(true)}>Show Alert</button>
         <div>
           <input type='file' onChange={(e) => handleUpload(e)} />
         </div>

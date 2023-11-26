@@ -2,22 +2,24 @@ import React from "react";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import { useUser } from "../../context/UserContext";
+import { Toaster, toast } from 'react-hot-toast'
 
 export const SideNavbar = ({ navigation, isSideNavbarOpen, toggleSideNavbar }) => {
  
     const {user} = useUser();
     console.log(user)
 
-  
+    const LogoutMsg = () => {toast.success('Logout Successfully')}
+
   const handleLogout = () => {
     // Clear the access_token from localStorage when logging out
     localStorage.removeItem("user");
-    // Redirect the user to the login page or home page after logout
-    // You can add your own redirect logic based on your routes
     window.location.assign("/");
+    LogoutMsg()
   };
   return (
-
+  <>
+    <Toaster position="top-center" />
     <div
       className={`bg-[#000D27] min-h-screen ${isSideNavbarOpen ? "w-64" : "w-16"
         } duration-700 text-gray-100 px-4`}
@@ -68,6 +70,6 @@ export const SideNavbar = ({ navigation, isSideNavbarOpen, toggleSideNavbar }) =
         ))}
       </div>
     </div>
-
+    </>
   );
 };
