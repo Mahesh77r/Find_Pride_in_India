@@ -5,11 +5,11 @@ const { asyncParse,  UploadMultipleFiles,uploadSingleFile} = require("./FileUplo
 const addEvent = async (req, res) => {
     try {
     let parseData = await asyncParse(req)
-    let ImageInformation = parseData.files.file
+    let ImageInformation = parseData.files.image
     let data = JSON.parse(parseData.fields.data)
       try {
       // Assuming you have data and file in the form data
-      await upload(ImageInformation,'events').then((response) => { data.imagePath = response })
+      await UploadMultipleFiles(ImageInformation,'events').then((response) => { data.imagePath = response })
       } catch (error) {
         return res.status(400).json({ success: false, error: `Image not uploaded : ${error}` });
       }

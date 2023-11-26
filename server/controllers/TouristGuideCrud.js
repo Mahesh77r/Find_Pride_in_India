@@ -1,14 +1,18 @@
 const GuideSchema = require("../models/TouristGuide");
+const { asyncParse, uploadSingleFile} = require("./FileUpload")
 
 const addTouristGuide = async (req, res) => {
     try {
-      // Ensure the incoming data is correctly formatted JSON
-      let data;
-      try {
-        data = req.body;
-      } catch (error) {
-        return res.status(400).json({ success: false, error: `Invalid JSON data ${error}` });
-      }
+        let parseData = await asyncParse(req)
+        let ImageInformation = parseData.files.image
+        let data = JSON.parse(parseData.fields.data)
+          try {
+            
+          // Assuming you have data and file in the form data
+          await uploadSingleFile(ImageInformation,'events').then((response) => { data.imagePath = response })
+          } catch (error) {
+            return res.status(400).json({ success: false, error: `Image not uploaded : ${error}` });
+          }
       // Create a new product object
       const newGuide = new GuideSchema({
         guide_name: data.guide_name,

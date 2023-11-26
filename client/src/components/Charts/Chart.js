@@ -1,10 +1,15 @@
 
 import React, { useState } from 'react';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Pie } from 'react-chartjs-2';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement, } from 'chart.js';
+import { Pie, Line, Bar } from 'react-chartjs-2';
 
-ChartJS.register(ArcElement, Tooltip, Legend);
-// This is charts
+ChartJS.register(ArcElement, Tooltip, CategoryScale, LinearScale,
+  PointElement,
+  LineElement, Legend);
+
 const GraphData = [
   {
     name:"John Doe",
@@ -14,7 +19,8 @@ const GraphData = [
     state: "California",
     age: 30,
     gender: "Male",
-    work: "Software Engineer"
+    work: "Software Engineer",
+    Date: "30 may 2010"
   },
   {
     name:"Jane Smith",
@@ -24,7 +30,8 @@ const GraphData = [
     state: "Ontario",
     age: 28,
     gender: "Female",
-    work: "Student"
+    work: "Student",
+    Date: "3 may 2011"
   },
   {
     name:"David Johnson",
@@ -34,7 +41,8 @@ const GraphData = [
     state: "London",
     age: 35,
     gender: "Male",
-    work: "Traveler"
+    work: "Traveler",
+    Date: "30 april 2010"
   },
   {
     name:"Sarah Williams",
@@ -44,7 +52,8 @@ const GraphData = [
     state: "New South Wales",
     age: 29,
     gender: "Female",
-    work: "Vlogger"
+    work: "Vlogger",
+    Date: "30 may 2010"
   },
   {
     name:"Michael Brown",
@@ -54,7 +63,8 @@ const GraphData = [
     state: "Bavaria",
     age: 32,
     gender: "Male",
-    work: "Professor"
+    work: "Professor",
+    Date: "30 may 2010"
   },
   {
     name:"Emily Davis",
@@ -64,7 +74,8 @@ const GraphData = [
     state: "Île-de-France",
     age: 27,
     gender: "Female",
-    work: "Traveler"
+    work: "Traveler",
+    Date: "30 sep 2012"
   },
   {
     name:"Robert Wilson",
@@ -74,7 +85,8 @@ const GraphData = [
     state: "Alberta",
     age: 31,
     gender: "Male",
-    work: "Engineer"
+    work: "Engineer",
+    Date: "30 sep 2012"
   },
   {
     name:"Linda Davis",
@@ -84,7 +96,8 @@ const GraphData = [
     state: "New York",
     age: 26,
     gender: "Female",
-    work: "Teacher"
+    work: "Teacher",
+    Date: "10 jan 2008"
   },
   {
     name:"Chris Evans",
@@ -94,7 +107,8 @@ const GraphData = [
     state: "Manchester",
     age: 34,
     gender: "Male",
-    work: "Doctor"
+    work: "Doctor",
+    Date: "30 jan 2002"
   },
   {
     name:"Amy Johnson",
@@ -104,7 +118,8 @@ const GraphData = [
     state: "Victoria",
     age: 29,
     gender: "Female",
-    work: "Artist"
+    work: "Artist",
+    Date: "19 april 2002"
   },
   {
     name:"Richard Brown",
@@ -114,7 +129,8 @@ const GraphData = [
     state: "Ontario",
     age: 30,
     gender: "Male",
-    work: "Designer"
+    work: "Designer",
+    Date: "30 feb 2015"
   },
   {
     name:"Catherine Lee",
@@ -124,7 +140,8 @@ const GraphData = [
     state: "Texas",
     age: 27,
     gender: "Female",
-    work: "Student"
+    work: "Student",
+    Date: "30 may 2014"
   },
   {
     name:"Daniel Lee",
@@ -134,7 +151,8 @@ const GraphData = [
     state: "British Columbia",
     age: 32,
     gender: "Male",
-    work: "Architect"
+    work: "Architect",
+    Date: "30 may 2010"
   },
   {
     name:"Olivia Johnson",
@@ -144,7 +162,8 @@ const GraphData = [
     state: "New South Wales",
     age: 28,
     gender: "Female",
-    work: "Researcher"
+    work: "Researcher",
+    Date: "30 feb 2015"
   },
   {
     name:"Sophia Smith",
@@ -154,21 +173,26 @@ const GraphData = [
     state: "London",
     age: 33,
     gender: "Female",
-    work: "Consultant"
+    work: "Consultant",
+    Date: "30 may 2010"
   }
 ]
 
 export function Chart() {
-  const [selectedField, setSelectedField] = useState('age');
+  const [selectedField1, setSelectedField1] = useState('age');
+  const [selectedField2, setSelectedField2] = useState('gender');
 
-  const calculateData = (field) => {
+  const calculateData = (field1, field2) => {
     const dataMap = {};
     GraphData.forEach((item) => {
-      const value = item[field];
-      if (!dataMap[value]) {
-        dataMap[value] = 1;
+      const value1 = item[field1];
+      const value2 = item[field2];
+      const key = `${value1}-${value2}`;
+
+      if (!dataMap[key]) {
+        dataMap[key] = 1;
       } else {
-        dataMap[value] += 1;
+        dataMap[key] += 1;
       }
     });
 
@@ -181,13 +205,13 @@ export function Chart() {
     };
   };
 
-  const { labels, data } = calculateData(selectedField);
+  const { labels, data } = calculateData(selectedField1, selectedField2);
 
   const chartData = {
     labels,
     datasets: [
       {
-        label: selectedField,
+        label: `${selectedField1} & ${selectedField2}`,
         data,
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
@@ -210,16 +234,119 @@ export function Chart() {
     ],
   };
 
+   const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Chart.js Line Chart',
+      },
+    },
+  };
+  
+  const linelabels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  
+   const lineChartdata = {
+    labels: GraphData.map(item => item.Date),
+    datasets: [
+      {
+        label: 'Dataset 1',
+        data: GraphData.map(item => item[selectedField1]),
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      },
+      {
+        label: 'Dataset 2',
+        data: GraphData.map(item => item[selectedField2]),
+        borderColor: 'rgb(53, 162, 235)',
+        backgroundColor: 'rgba(53, 162, 235, 0.5)',
+      },
+    ],
+  };
+  
+  const calculateCountryData = () => {
+    const countryDataMap = {};
+  
+    GraphData.forEach((item) => {
+      const country = item['country'];
+  
+      if (!countryDataMap[country]) {
+        countryDataMap[country] = 1;
+      } else {
+        countryDataMap[country] += 1;
+      }
+    });
+  
+    const countryLabels = Object.keys(countryDataMap);
+    const countryData = Object.values(countryDataMap);
+  
+    return {
+      countryLabels,
+      countryData,
+    };
+  };
+  
+  const { countryLabels, countryData } = calculateCountryData();
+  
+  const areaChartData = {
+    labels: countryLabels,
+    datasets: [
+      {
+        label: 'Visitors by Country',
+        data: countryData,
+        backgroundColor: 'rgba(75,192,192,0.2)',
+        borderColor: 'rgba(75,192,192,1)',
+        borderWidth: 1,
+        fill: true,
+      },
+    ],
+  };
+  
+  const areaChartOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Number of Visitors by Country',
+      },
+    },
+  };
+
   return (
-    <div className='w-80 h-80'>
-      <select onChange={(e) => setSelectedField(e.target.value)}>
+    <div className='flex'>
+    <div className='w-96 h-3/4 mt-24 mb-6 ml-36'>
+      <select onChange={(e) => setSelectedField1(e.target.value)}
+      className='border border-black rounded-xl text-center ml-12'>
         {Object.keys(GraphData[0]).map((field) => (
           <option key={field} value={field}>
             {field}
           </option>
         ))}
       </select>
-      <Pie data={chartData} />
+      <select
+      onChange={(e) => setSelectedField2(e.target.value)}
+      className='ml-3 mb-3 border border-black rounded-xl text-center'>
+        {Object.keys(GraphData[0]).map((field) => (
+          <option key={field} value={field}>
+            {field}
+          </option>
+        ))}
+      </select>
+      <Pie data={chartData} width={300} height={300}/>
+    </div>
+
+    {/* <div className='mt-40 ml-60 max-w-xl h-4/6 w-auto'>
+    <Line options={options} data={lineChartdata} />
+    </div> */}
+    <div className='mt-40 h-max w-1/2 ml-48'>
+          <Bar options={areaChartOptions} data={areaChartData} />
+    </div>
     </div>
   );
 }

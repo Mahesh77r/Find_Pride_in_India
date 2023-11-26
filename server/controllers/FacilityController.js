@@ -1,15 +1,18 @@
 const FacilitySchema = require("../models/Facility");
+const { asyncParse, uploadSingleFile} = require("./FileUpload")
 
 const addFacility = async (req, res) => {
-    try {
-      // Ensure the incoming data is correctly formatted JSON
-      let data;
+  try {
+    let parseData = await asyncParse(req)
+    let ImageInformation = parseData.files.image
+    let data = JSON.parse(parseData.fields.data)
       try {
-        data = req.body;
+        
+      // Assuming you have data and file in the form data
+      await uploadSingleFile(ImageInformation,'facilities').then((response) => { data.imagePath = response })
       } catch (error) {
-        return res.status(400).json({ success: false, error: `Invalid JSON data ${error}` });
+        return res.status(400).json({ success: false, error: `Image not uploaded : ${error}` });
       }
-  
   
       // Create a new facility 
       const newFacility = new FacilitySchema({
