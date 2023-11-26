@@ -9,7 +9,7 @@ const getCheckpoint = async (req, res) => {
   try {
 
     if (dest_id) {
-      const checkpointsData = await CheckpointSchema.find({ dest_id: dest_id })
+      const checkpointsData = await CheckpointSchema.find({ dest_name: dest_id })
 
       res.status(200).json({
         success: true,
