@@ -14,6 +14,8 @@ import { navForDOM } from './components/navbar/NavLink';
 import { useUser } from './context/UserContext';
 import { TopNavbar } from './components/navbar/TopNavbar';
 import { Practice } from './pages/Practice';
+import { Chart } from './components/Charts/Chart';
+import { ChartPlaceAdmin } from './components/Charts/ChartPlaceAdmin';
 
 function App() {
   const [isSideNavbarOpen, setIsSideNavbarOpen] = useState(true);
@@ -58,6 +60,8 @@ return (
             <Route path="/resetpassword/:token" element={<ResetPassword />} />
             <Route path="/order" element={<GraphPage />} />
             <Route path="/practice" element={<Practice />} />
+            <Route path="/chart" element={<Chart/>}/>
+            <Route path="/chart1" element={<ChartPlaceAdmin/>}/>
           </Routes>
         </div>
       </div>
