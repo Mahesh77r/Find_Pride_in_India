@@ -4,7 +4,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale,
   LinearScale,
   PointElement,
   LineElement, } from 'chart.js';
-import { Pie, Line } from 'react-chartjs-2';
+import { Pie, Line, Bar } from 'react-chartjs-2';
 
 ChartJS.register(ArcElement, Tooltip, CategoryScale, LinearScale,
   PointElement,
@@ -267,6 +267,56 @@ export function Chart() {
     ],
   };
   
+  const calculateCountryData = () => {
+    const countryDataMap = {};
+  
+    GraphData.forEach((item) => {
+      const country = item['country'];
+  
+      if (!countryDataMap[country]) {
+        countryDataMap[country] = 1;
+      } else {
+        countryDataMap[country] += 1;
+      }
+    });
+  
+    const countryLabels = Object.keys(countryDataMap);
+    const countryData = Object.values(countryDataMap);
+  
+    return {
+      countryLabels,
+      countryData,
+    };
+  };
+  
+  const { countryLabels, countryData } = calculateCountryData();
+  
+  const areaChartData = {
+    labels: countryLabels,
+    datasets: [
+      {
+        label: 'Visitors by Country',
+        data: countryData,
+        backgroundColor: 'rgba(75,192,192,0.2)',
+        borderColor: 'rgba(75,192,192,1)',
+        borderWidth: 1,
+        fill: true,
+      },
+    ],
+  };
+  
+  const areaChartOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Number of Visitors by Country',
+      },
+    },
+  };
 
   return (
     <div className='flex'>
@@ -291,8 +341,11 @@ export function Chart() {
       <Pie data={chartData} width={300} height={300}/>
     </div>
 
-    <div className='mt-40 ml-60 max-w-xl h-4/6 w-auto'>
+    {/* <div className='mt-40 ml-60 max-w-xl h-4/6 w-auto'>
     <Line options={options} data={lineChartdata} />
+    </div> */}
+    <div className='mt-40 h-max w-1/2 ml-48'>
+          <Bar options={areaChartOptions} data={areaChartData} />
     </div>
     </div>
   );

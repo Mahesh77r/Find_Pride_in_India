@@ -5,6 +5,10 @@ import "./ScollCard.css";
 import { EditModal } from "../components/Modal/Modal";
 import { FormPlaceSummary } from "../components/Forms/ManagementsForms";
 import { fetchSummary } from "../services/domCRUD";
+
+import {ChartPlaceAdmin} from "../components/Charts/ChartPlaceAdmin";
+import { Chart } from '../components/Charts/Chart';
+
 export const ProfilePage = () => {
     const [summary, setSummary] = useState([]);
     // eslint-disable-next-line
@@ -119,6 +123,13 @@ export const ProfilePage = () => {
           <div></div>
         </div>
       ))}
+
+
+      {/* charts */}
+      <div>
+        <ChartPlaceAdmin/>
+        <Chart/>
+      </div>
  </div>
   )
 

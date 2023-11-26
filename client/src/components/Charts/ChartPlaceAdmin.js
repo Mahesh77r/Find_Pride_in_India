@@ -344,7 +344,7 @@ export function ChartPlaceAdmin() {
           },
           title: {
             display: true,
-            text: 'Visits per Month',
+            text: 'Types of visits per month',
           },
         },
       };
@@ -390,13 +390,12 @@ const data1 = {
 };
 
         
-        
 return (
-  <div className='flex h-screen'>
-    <div style={{ width: '50%', paddingRight: '10px' }}>
+  <div className='flex h-max'>
+    <div style={{ width: '50%', paddingRight: '10px',  paddingLeft: '10px' }}>
       <Bar options={options} data={data} />
     </div>
-    <div style={{ width: '50%', paddingLeft: '10px' }}>
+    <div style={{ width: '50%', paddingLeft: '10px',paddingRight: '10px' }}>
       <Line options={options1} data={data1} />
     </div>
   </div>
