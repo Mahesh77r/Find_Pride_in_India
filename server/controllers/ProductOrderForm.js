@@ -33,7 +33,7 @@ const createOrderForm = async (req, res) => {
     // Save the order to the database
     const savedOrder = await newOrder.save();
 
-    return res.status(201).json({
+    return res.status(200).json({
       success: true,
       data: savedOrder,
       message: "Order form submitted successfully",
