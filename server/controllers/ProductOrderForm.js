@@ -1,4 +1,44 @@
 const Order = require('../models/OrderForm');
+const nodemailer = require('nodemailer');
+
+const sendOrderConfirmationEmail = async (order) => {
+  try {
+    const transporter = nodemailer.createTransport({
+      service: 'Gmail',
+      auth: {
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD,
+      },
+    });
+
+    const mailOptions = {
+      from: process.env.EMAIL,
+      to: order.tourist_email,
+      subject: 'Order Confirmation',
+      text: `
+        Hello ${order.tourist_name},
+        
+        Thank you for your order with Finding Pride in India!
+        Order Details:
+        Product Name: ${order.product_name}
+        Quantity: ${order.product_quantity}
+        Total Price: ${order.product_price * order.product_quantity}
+        
+        Your order has been confirmed. We will process it shortly.
+        
+        If you have any questions or concerns, please contact our support team.
+        
+        Happy exploring,
+        The Finding Pride in India Team`,
+    };
+
+    await transporter.sendMail(mailOptions);
+    return 1;
+  } catch (error) {
+    console.error(error);
+    return -1;
+  }
+};
 
 const createOrderForm = async (req, res) => {
   try {
@@ -32,6 +72,13 @@ const createOrderForm = async (req, res) => {
 
     // Save the order to the database
     const savedOrder = await newOrder.save();
+
+    // Send order confirmation email
+    const emailStatus = await sendOrderConfirmationEmail(savedOrder);
+
+    if (emailStatus === -1) {
+      return res.status(500).json({ success: false, error: "Error sending order confirmation email" });
+    }
 
     return res.status(200).json({
       success: true,
