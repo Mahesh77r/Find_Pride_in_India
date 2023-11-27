@@ -320,10 +320,10 @@ export function Chart() {
 
   return (
     <div className='flex'>
-    <div className='w-96 h-3/4 mt-24 mb-6 ml-36'>
+   <div className='w-96 h-3/4 mt-24 mb-6 ml-36'>
       <select onChange={(e) => setSelectedField1(e.target.value)}
       className='border border-black rounded-xl text-center ml-12'>
-        {Object.keys(GraphData[0]).map((field) => (
+        {Object.keys(GraphData[0]).filter(field => field !== 'name' && field !== 'email' && field !== 'password').map((field) => (
           <option key={field} value={field}>
             {field}
           </option>
@@ -332,7 +332,7 @@ export function Chart() {
       <select
       onChange={(e) => setSelectedField2(e.target.value)}
       className='ml-3 mb-3 border border-black rounded-xl text-center'>
-        {Object.keys(GraphData[0]).map((field) => (
+        {Object.keys(GraphData[0]).filter(field => field !== 'name' && field !== 'email' && field !== 'password').map((field) => (
           <option key={field} value={field}>
             {field}
           </option>

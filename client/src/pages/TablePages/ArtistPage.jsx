@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import CustomTable from "../../components/Table/Table";
-import { addArtist, addEvent, fetchArtist } from "../../services/domCRUD";
+import { addArtist, fetchArtist } from "../../services/domCRUD";
 import { AddButton, UpdateButton, UpdateDeletebuttons } from "../../components/CustomButtons";
 import { Toaster, toast } from 'react-hot-toast'
 import { Modal } from 'antd';
-import {styled} from 'styled-components';
+import { styled } from 'styled-components';
 import { FormArtist } from "../../components/Forms/ManagementsForms";
 
 const StyledImage = styled.img`
@@ -12,8 +12,6 @@ const StyledImage = styled.img`
   height: 50px; 
   border-radius: 50%;
 `;
-
-
 export const ArtistTable = () => {
   const columns = [
     {
@@ -21,7 +19,7 @@ export const ArtistTable = () => {
       selector: (row) => <StyledImage src={row.path} alt="Product" />,
       sortable: true,
       maxWidth: '100px', // Adjust the maximum width as needed
-  },
+    },
     {
       name: "Artist Name",
       selector: (row) => row.artist_name,
@@ -40,7 +38,7 @@ export const ArtistTable = () => {
     {
       name: "Actions",
       cell: (row) => (
-        <UpdateDeletebuttons form_type={` artist ${row.artist_name} `}  onClick={() => modalOpenClose('update', row)} />
+        <UpdateDeletebuttons form_type={` artist ${row.artist_name} `} onClick={() => modalOpenClose('update', row)} />
       ),
     },
   ];
@@ -48,7 +46,7 @@ export const ArtistTable = () => {
   const storedUserJSON = localStorage.getItem("user");
   const user = JSON.parse(storedUserJSON);
 
-  const initialData =  {
+  const initialData = {
     artist_name: "",
     artist_address: "",
     artist_contact: "",
@@ -70,35 +68,42 @@ export const ArtistTable = () => {
     setIsUpdateMode(formType === 'update');
   };
 
-  const onSubmitHandler = async (e) => {
-    e.preventDefault();
-    try {
-      if (isUpdateMode) {
-        // Handle update logic
-        // ...
-        console.log("Update logic here");
-        toast.success("Artist updated successfully");
+const onSubmitHandler = async (e) => {
+  e.preventDefault();
+  let loadingToast;
+  try {
+    if (isUpdateMode) {
+      // Handle update logic
+      console.log("Update logic here");
+      toast.success("Artist updated successfully");
+    } else {
+      // Handle add logic
+      const artistData = new FormData();
+      artistData.append('data', JSON.stringify(formData));
+      artistData.append('image', selectedFile);
+
+      // Show loading notification
+       loadingToast = toast.loading("Processing...");
+
+      const res = await addArtist(artistData);
+      console.log(res);
+      if (res.status === 200) {
+        toast.success("Artist added successfully");
       } else {
-        // Handle add logic
-        // ...
-        console.log("Add logic here");
-        // const artistData = {
-        //   ...formData,
-        //   image: selectedFile,
-        // };
-  
-        // const response = await addArtist(artistData);
-        // if (response.status === 200) {
-        //   toast.success("Artist added successfully");
-        // } else {
-        //   toast.error("Failed to add artist");
-        // }
+        toast.error("Failed to add artist");
       }
-    } catch (error) {
-      console.error("Error:", error);
     }
-  };
-  
+  } catch (error) {
+    console.error("Error:", error);
+    toast.error("An error occurred");
+  } finally {
+    // Remove loading notification
+    toast.dismiss(loadingToast);
+    // Close modal
+    setVisible(false);
+  }
+};
+
 
   const getArtist = async () => {
     try {
@@ -122,53 +127,55 @@ export const ArtistTable = () => {
     // setData({ ...data, [e.target.name]: e.target.value });
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
   // Function to handle file selection
   const handleFileChange = (e) => {
+
     setSelectedFile(e.target.files[0]);
   };
 
   return (
     <>
-    <Toaster position="top-center" />
-    <Modal
-      onCancel={() => setVisible(false)}
-      footer={null}
-      visible={visible}
-    >
-      <form onSubmit={onSubmitHandler}>
-        <FormArtist
-          selectedFile={selectedFile}
-          handleFileChange={handleFileChange}
-          onChangeHandler={onChangeHandler}
-          data={formData}
-          isUpdateMode={isUpdateMode}
-        />
-        {isUpdateMode ? (
-          <UpdateButton title={"Artist"} />
-        ) : (
-          <AddButton form_type={"Artist"} onClickfun={""}/>
-        )}
-      </form>
-    </Modal>
-    <CustomTable
-    handleFileChange={handleFileChange}
-    onChangeHandler={onChangeHandler}
-    setFormData={setFormData}
-    data={formData}
-    selectedFile={selectedFile}
-    initialData={initialData}
-      columns={columns}
-      addform={<FormArtist/>}
-      title={'Artist'}
-      searchfield={'artist_name'}
-      records={records}
-      setRecords={setRecords}
-      filterRecords={filterRecords}
-      setFilterRecords={setFilterRecords}
-      fetchData={getArtist}
-      modalOpenClose={modalOpenClose}
-    />
-  </>
+      <Toaster position="top-center" />
+      <Modal
+        onCancel={() => setVisible(false)}
+        footer={null}
+        open={visible}
+      >
+        <form onSubmit={onSubmitHandler} encType="multipart/form-data">
+          <FormArtist
+            selectedFile={selectedFile}
+            handleFileChange={handleFileChange}
+            onChangeHandler={onChangeHandler}
+            data={formData}
+            isUpdateMode={isUpdateMode}
+          />
+          {isUpdateMode ? (
+            <UpdateButton title={"Artist"} />
+          ) : (
+            <AddButton form_type={"Artist"} onClickfun={""} />
+          )}
+        </form>
+      </Modal>
+      <CustomTable
+        setSelectedFile={setSelectedFile}
+        handleFileChange={handleFileChange}
+        onSubmitHandler={onSubmitHandler}
+        onChangeHandler={onChangeHandler}
+        setFormData={setFormData}
+        data={formData}
+        selectedFile={selectedFile}
+        initialData={initialData}
+        columns={columns}
+        addform={<FormArtist />}
+        title={'Artist'}
+        searchfield={'artist_name'}
+        records={records}
+        setRecords={setRecords}
+        filterRecords={filterRecords}
+        setFilterRecords={setFilterRecords}
+        fetchData={getArtist}
+        modalOpenClose={modalOpenClose}
+      />
+    </>
   );
 };

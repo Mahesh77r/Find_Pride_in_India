@@ -3,7 +3,7 @@ import DataTable from 'react-data-table-component';
 import { AddButton } from '../../components/CustomButtons';
 import { Modal } from 'antd';
 
-const CustomTable = ({ data,handleFileChange, selectedFile,onChangeHandler, columns, addform, initialData, setFormData, title, fetchData, searchfield, setFilterRecords, filterRecords, setRecords, records }) => {
+const CustomTable = ({ onSubmitHandler, data,handleFileChange, selectedFile,setSelectedFile, onChangeHandler, columns, addform, initialData, setFormData, title, fetchData, searchfield, setFilterRecords, filterRecords, setRecords, records }) => {
   const customStyles = {
     rows: {
       style: {
@@ -49,7 +49,7 @@ const CustomTable = ({ data,handleFileChange, selectedFile,onChangeHandler, colu
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);
 
   function handleFilter(event) {
     const newData = filterRecords.filter((row) => {
@@ -66,7 +66,11 @@ const CustomTable = ({ data,handleFileChange, selectedFile,onChangeHandler, colu
       setFormData(initialData);
     }
   };
-
+  const onCancel = () => {
+    setVisible(false);
+    setSelectedFile(null);
+    setFormData(null);
+  };
   return (
     <div className="container p-2 bg-white bg-pattern-color text-pattern-text">
       <div className="flex justify-between items-center space-between p-0.2">
@@ -76,10 +80,10 @@ const CustomTable = ({ data,handleFileChange, selectedFile,onChangeHandler, colu
           className="border border-solid border-gray-700 mb-3 bg-white p-2 px-2 text-center"
           onChange={handleFilter}
         />
-        <Modal onCancel={() => setVisible(false)} footer={null} visible={visible}>
+        <Modal onCancel={() => onCancel()} footer={null} open={visible}>
           <form>
             {React.cloneElement(addform, { onChangeHandler, data, handleFileChange,selectedFile })} {/* Pass necessary props */}
-            <AddButton form_type={title} onClickfun={""}/>
+            <AddButton form_type={title} onClickfun={onSubmitHandler}/>
           </form>
         </Modal>
 

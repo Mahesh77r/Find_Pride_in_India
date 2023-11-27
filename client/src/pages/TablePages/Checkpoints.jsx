@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import CustomTable from "../../components/Table/Table";
 import { addCheckpoint, fetchCheckpoints } from "../../services/CheckpointsCrud";
 
-import {styled} from 'styled-components';
+import { styled } from 'styled-components';
 import { AddButton, UpdateButton, UpdateDeletebuttons } from "../../components/CustomButtons";
 import { Toaster, toast } from 'react-hot-toast'
 import { Modal } from 'antd';
@@ -28,7 +28,7 @@ export const Checkpoints = () => {
       selector: (row) => <StyledImage src={row.image_path} alt="Checkpoints" />,
       sortable: true,
       maxWidth: '100px', // Adjust the maximum width as needed
-  },
+    },
     {
       name: "Point Number",
       selector: (row) => row.point_number,
@@ -53,7 +53,7 @@ export const Checkpoints = () => {
     {
       name: "Actions",
       cell: (row) => (
-        <UpdateDeletebuttons form_type={`checkpoint ${row.point_name} `}  onClick={() => modalOpenClose('update', row)} />
+        <UpdateDeletebuttons form_type={`checkpoint ${row.point_name} `} onClick={() => modalOpenClose('update', row)} />
       ),
     },
   ];
@@ -62,14 +62,14 @@ export const Checkpoints = () => {
   const storedUserJSON = localStorage.getItem("user");
   const user = JSON.parse(storedUserJSON);
 
-  const initialData =  {
+  const initialData = {
     point_name: "",
-        point_number: "",
-        point_descp: "",
-        point_city: user.city,
-        point_state: user.state,
-        dest_name: user.destinationName,
-        dest_id: user._id,
+    point_number: "",
+    point_descp: "",
+    point_city: user.city,
+    point_state: user.state,
+    dest_name: user.destinationName,
+    dest_id: user._id,
   }
 
   const [records, setRecords] = useState([]);
@@ -115,7 +115,7 @@ export const Checkpoints = () => {
       const storedUserJSON = localStorage.getItem("user");
       const storedUser = JSON.parse(storedUserJSON);
 
-      const res = await fetchCheckpoints(storedUser._id);
+      const res = await fetchCheckpoints(storedUser.destinationName);
       const data = res.data.data;
 
       setRecords(data);
@@ -141,45 +141,47 @@ export const Checkpoints = () => {
   };
   return (
     <>
-    <Toaster position="top-center" />
-    <Modal
-      onCancel={() => setVisible(false)}
-      footer={null}
-      visible={visible}
-    >
-      <form onSubmit={onSubmitHandler}>
-        <FormCheckpoint
-          selectedFile={selectedFile}
-          handleFileChange={handleFileChange}
-          onChangeHandler={onChangeHandler}
-          data={formData}
-          isUpdateMode={isUpdateMode}
-        />
-        {isUpdateMode ? (
-          <UpdateButton title={"Checkpoint"} />
-        ) : (
-          <AddButton form_type={"Checkpoint"} />
-        )}
-      </form>
-    </Modal>
-    <CustomTable
-    handleFileChange={handleFileChange}
-    onChangeHandler={onChangeHandler}
-    setFormData={setFormData}
-    data={formData}
-    selectedFile={selectedFile}
-    initialData={initialData}
-      columns={columns}
-      addform={<FormCheckpoint/>}
-      title={'Checkpoint'}
-      searchfield={'checkpoint_name'}
-      records={records}
-      setRecords={setRecords}
-      filterRecords={filterRecords}
-      setFilterRecords={setFilterRecords}
-      fetchData={getCheckpoints}
-      modalOpenClose={modalOpenClose}
-    />
-  </>
+      <Toaster position="top-center" />
+      <Modal
+        onCancel={() => setVisible(false)}
+        footer={null}
+        open={visible}
+      >
+        <form onSubmit={onSubmitHandler}>
+          <FormCheckpoint
+            selectedFile={selectedFile}
+            handleFileChange={handleFileChange}
+            onChangeHandler={onChangeHandler}
+            data={formData}
+            isUpdateMode={isUpdateMode}
+          />
+          {isUpdateMode ? (
+            <UpdateButton title={"Checkpoint"} />
+          ) : (
+            <AddButton form_type={"Checkpoint"} />
+          )}
+        </form>
+      </Modal>
+      <CustomTable
+      onSubmitHandler={onSubmitHandler}
+        setSelectedFile={setSelectedFile}
+        handleFileChange={handleFileChange}
+        onChangeHandler={onChangeHandler}
+        setFormData={setFormData}
+        data={formData}
+        selectedFile={selectedFile}
+        initialData={initialData}
+        columns={columns}
+        addform={<FormCheckpoint />}
+        title={'Checkpoint'}
+        searchfield={'checkpoint_name'}
+        records={records}
+        setRecords={setRecords}
+        filterRecords={filterRecords}
+        setFilterRecords={setFilterRecords}
+        fetchData={getCheckpoints}
+        modalOpenClose={modalOpenClose}
+      />
+    </>
   );
 };

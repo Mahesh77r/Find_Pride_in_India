@@ -1,5 +1,5 @@
 const ArtistSchema = require("../models/Artist");
-const { asyncParse,  UploadMultipleFiles} = require("./FileUpload")
+const { asyncParse,  UploadMultipleFiles, deleteImageByUrl} = require("./FileUpload")
 
 const getArtist = async (req, res) => {
     const dest_name = req.params.dest_name;
@@ -31,60 +31,104 @@ const getArtist = async (req, res) => {
 
 const updateArtist = async (req, res) => {
   try {
+    // Parse the incoming data
+    let parseData = await asyncParse(req);
+    let ImageInformation = parseData.files.image;
+    let data = JSON.parse(parseData.fields.data);
 
-    let data;
-    try {
-      data = JSON.parse(req.body.data);
-    } catch (error) {
-      return res.status(400).json({ success: false, error: `Invalid JSON data ${error}` });
+    // Find the artist to be updated by ID
+    const existingArtist = await ArtistSchema.findById(req.params.id);
+    if (!existingArtist) {
+      return res.status(404).json({ success: false, error: "Artist not found" });
     }
-    //  
-    //  
-    const updatedData = new ArtistSchema({
-      dest_id: data.dest_id,
-      artist_name: data.artist_name,
-      artist_contact: data.artist_contact,
-      artist_address : data.artist_address ,
-      state: data.state,
-      city: data.city,
-      admin_name: data.admin_name,
-      path: path,
-    });
-    // 
-    await ArtistSchema.updateOne({ _id: req.params.id }, updatedData)
-    res.status(200).json({
+
+    // Check if the artist name is being updated and if it conflicts with an existing artist
+    if (data.artist_name && data.artist_name !== existingArtist.artist_name) {
+      const artistNameConflict = await ArtistSchema.findOne({
+        $and: [{ artist_name: data.artist_name }, { dest_name: data.dest_name }],
+      });
+
+      if (artistNameConflict) {
+        return res.status(202).json({ success: false, error: "Artist name already exists" });
+      }
+    }
+
+    // Handle image upload
+    try {
+      await UploadMultipleFiles(ImageInformation, 'artists').then((response) => {
+        data.imagePath = response;
+      });
+    } catch (error) {
+      return res.status(400).json({ success: false, error: `Image not uploaded: ${error}` });
+    }
+
+    // Update the artist data
+    existingArtist.artist_name = data.artist_name || existingArtist.artist_name;
+    existingArtist.artist_contact = data.artist_contact || existingArtist.artist_contact;
+    existingArtist.artist_address = data.artist_address || existingArtist.artist_address;
+    existingArtist.state = data.state || existingArtist.state;
+    existingArtist.city = data.city || existingArtist.city;
+    existingArtist.admin_name = data.admin_name || existingArtist.admin_name;
+    existingArtist.path = data.imagePath || existingArtist.path;
+
+    // Save the updated artist to the database
+    await existingArtist.save();
+
+    return res.status(200).json({
       success: true,
-      data: updatedData,
+      data: existingArtist,
+      message: "Artist updated successfully",
     });
-  }
-  catch (error) {
+  } catch (error) {
     console.error(error);
-    return res.status(500).json({ success: false, error: `Error Updating Product ${error}` });
+    return res.status(500).json({ success: false, error: `Error updating artist: ${error}` });
   }
-}
+};
+
 const deleteArtist = async (req, res) => {
   try {
-    console.log(req.params.id);
-    // deleteData = await ArtistSchema.deleteOne({_id:req.params.id})
+    // Extract artist ID from the request parameters
+    const artistId = req.params.id;
 
-    // res.status(200).json({
-    //   success: true,
-    //   data:deleteData
-    // });
-  }
-  catch (error) {
+    // Find the artist by ID
+    const artistToDelete = await ArtistSchema.findById(artistId);
+    
+    if (!artistToDelete) {
+      return res.status(404).json({ success: false, error: "Artist not found" });
+    }
+
+    try {
+        await deleteImageByUrl(artistToDelete.path[0],'artists');
+    } catch (error) {
+      return res.status(400).json({ success: false, error: `Image not deleted : ${error}` });
+    }
+    // Perform the delete operation
+    await artistToDelete.deleteOne();
+
+
+    return res.status(200).json({
+      success: true,
+      data: {},
+      message: "Artist deleted successfully",
+    });
+  } catch (error) {
     console.error(error);
-    res.status(500).json({ success: false, error: `Error deleting  artists ${error}` });
+    return res.status(500).json({ success: false, error: `Error deleting artist: ${error}` });
   }
-}
+};
+
+module.exports = { deleteArtist };
+
 
 const addArtist = async (req, res) => {
   try {
+    console.log("first")
     let parseData = await asyncParse(req)
+    console.log("first")
     let ImageInformation = parseData.files.image
     let data = JSON.parse(parseData.fields.data)
     try {
-    const existingArtist = await ArtistSchema.findOne({ $and: [{ product_name: data.product_name }, { dest_name: data.dest_name }] });
+    const existingArtist = await ArtistSchema.findOne({ $and: [{ artist_name: data.artist_name}, { dest_name: data.dest_name }] });
 
       if(existingArtist){
         return res.status(202).json({ success: false, error: `Artist already exists` });
@@ -113,7 +157,7 @@ const addArtist = async (req, res) => {
     // Save the product to the database
     await newArtist.save();
 
-    return res.status(201).json({
+    return res.status(200).json({
       success: true,
       data: newArtist,
       message: "Artist added successfully",
@@ -124,6 +168,5 @@ const addArtist = async (req, res) => {
   }
 
 };
-
 
 module.exports = { addArtist, getArtist,updateArtist,deleteArtist};

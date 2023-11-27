@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import AllDOM from './pages/allDOM';
 import AddDOM from './components/Forms/addDOM';
 
 import HomePage from './pages/homePage';
 import LoginPage from './pages/loginPage';
 import ResetPassword from './pages/ResetPass';
-
-import { GraphPage } from './pages/GraphPage';
+import {OrderPage} from './pages/OrderPage';
 import { SideNavbar } from './components/navbar/SideNavbar';
 import { navForDOM } from './components/navbar/NavLink';
 import { useUser } from './context/UserContext';
@@ -61,7 +59,7 @@ return (
             <Route path="/checkpoints" element={<Checkpoints />} />
             <Route path="/form" element={<AddDOM />} />
             <Route path="/resetpassword/:token" element={<ResetPassword />} />
-            <Route path="/order" element={<GraphPage />} />
+            <Route path="/order" element={<OrderPage />} />
             <Route path="/practice" element={<Practice />} />
             <Route path="/chart" element={<Chart/>}/>
             <Route path="/chart1" element={<ChartPlaceAdmin/>}/>

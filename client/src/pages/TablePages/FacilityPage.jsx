@@ -55,10 +55,10 @@ export const FacilityTable = () => {
   const storedUserJSON = localStorage.getItem("user");
   const user = JSON.parse(storedUserJSON);
 
-  const initialData =  {
-    facility_name:   "",
-    facility_number:"",
-    facility_location:  "",
+  const initialData = {
+    facility_name: "",
+    facility_number: "",
+    facility_location: "",
     state: user.state,
     city: user.city,
     dest_name: user.destinationName,
@@ -141,7 +141,7 @@ export const FacilityTable = () => {
       <Modal
         onCancel={() => setVisible(false)}
         footer={null}
-        visible={visible}
+        open={visible}
       >
         <form onSubmit={onSubmitHandler}>
           <FormFacility
@@ -159,14 +159,16 @@ export const FacilityTable = () => {
         </form>
       </Modal>
       <CustomTable
-      handleFileChange={handleFileChange}
-      onChangeHandler={onChangeHandler}
-      setFormData={setFormData}
-      data={formData}
-      selectedFile={selectedFile}
-      initialData={initialData}
+        onSubmitHandler={onSubmitHandler}
+        setSelectedFile={setSelectedFile}
+        handleFileChange={handleFileChange}
+        onChangeHandler={onChangeHandler}
+        setFormData={setFormData}
+        data={formData}
+        selectedFile={selectedFile}
+        initialData={initialData}
         columns={columns}
-        addform={<FormFacility/>}
+        addform={<FormFacility />}
         title={'Facility'}
         searchfield={'facility_name'}
         records={records}

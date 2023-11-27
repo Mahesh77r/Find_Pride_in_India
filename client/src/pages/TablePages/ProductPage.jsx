@@ -26,30 +26,30 @@ export const ProductTable = () => {
       name: "Product Name",
       selector: (row) => row.product_name,
       sortable: true,
-      maxWidth: "200px", 
+      maxWidth: "200px",
     },
     {
       name: "Product Price",
       selector: (row) => row.product_price,
       sortable: true,
-      maxWidth: "170px", 
+      maxWidth: "170px",
     },
     {
       name: "Quantity Available",
       selector: (row) => row.quantity_available,
       sortable: true,
-      maxWidth: "210px", 
+      maxWidth: "210px",
     },
     {
       name: "Product Description",
       selector: (row) => row.product_descp,
       sortable: true,
-      maxWidth: "270px", 
+      maxWidth: "270px",
     },
     {
       name: "Actions",
       cell: (row) => (
-        <UpdateDeletebuttons form_type={`product ${row.product_name} `}  onClick={() => modalOpenClose('update', row)} />
+        <UpdateDeletebuttons form_type={`product ${row.product_name} `} onClick={() => modalOpenClose('update', row)} />
       ),
     },
   ];
@@ -57,16 +57,16 @@ export const ProductTable = () => {
   const storedUserJSON = localStorage.getItem("user");
   const user = JSON.parse(storedUserJSON);
 
-  const initialData =  {
+  const initialData = {
     product_name: "",
-        product_price: "",
-        quantity_available: "",
-        category: "",
-        state: user.state,
-        city: user.city,
-        product_descp: "",
-        destination_name: user.destinationName,
-        dest_id: user._id,
+    product_price: "",
+    quantity_available: "",
+    category: "",
+    state: user.state,
+    city: user.city,
+    product_descp: "",
+    destination_name: user.destinationName,
+    dest_id: user._id,
   }
 
   const [records, setRecords] = useState([]);
@@ -137,45 +137,47 @@ export const ProductTable = () => {
   };
   return (
     <>
-    <Toaster position="top-center" />
-    <Modal
-      onCancel={() => setVisible(false)}
-      footer={null}
-      visible={visible}
-    >
-      <form onSubmit={onSubmitHandler}>
-        <FormProduct
-          selectedFile={selectedFile}
-          handleFileChange={handleFileChange}
-          onChangeHandler={onChangeHandler}
-          data={formData}
-          isUpdateMode={isUpdateMode}
-        />
-        {isUpdateMode ? (
-          <UpdateButton title={"Product"} />
-        ) : (
-          <AddButton form_type={"Product"} />
-        )}
-      </form>
-    </Modal>
-    <CustomTable
-    handleFileChange={handleFileChange}
-    onChangeHandler={onChangeHandler}
-    setFormData={setFormData}
-    data={formData}
-    selectedFile={selectedFile}
-    initialData={initialData}
-      columns={columns}
-      addform={<FormProduct/>}
-      title={'Product'}
-      searchfield={'product_name'}
-      records={records}
-      setRecords={setRecords}
-      filterRecords={filterRecords}
-      setFilterRecords={setFilterRecords}
-      fetchData={getProducts}
-      modalOpenClose={modalOpenClose}
-    />
-  </>
+      <Toaster position="top-center" />
+      <Modal
+        onCancel={() => setVisible(false)}
+        footer={null}
+        open={visible}
+      >
+        <form onSubmit={onSubmitHandler}>
+          <FormProduct
+            selectedFile={selectedFile}
+            handleFileChange={handleFileChange}
+            onChangeHandler={onChangeHandler}
+            data={formData}
+            isUpdateMode={isUpdateMode}
+          />
+          {isUpdateMode ? (
+            <UpdateButton title={"Product"} />
+          ) : (
+            <AddButton form_type={"Product"} />
+          )}
+        </form>
+      </Modal>
+      <CustomTable
+        setSelectedFile={setSelectedFile}
+        onSubmitHandler={onSubmitHandler}
+        handleFileChange={handleFileChange}
+        onChangeHandler={onChangeHandler}
+        setFormData={setFormData}
+        data={formData}
+        selectedFile={selectedFile}
+        initialData={initialData}
+        columns={columns}
+        addform={<FormProduct />}
+        title={'Product'}
+        searchfield={'product_name'}
+        records={records}
+        setRecords={setRecords}
+        filterRecords={filterRecords}
+        setFilterRecords={setFilterRecords}
+        fetchData={getProducts}
+        modalOpenClose={modalOpenClose}
+      />
+    </>
   );
 };

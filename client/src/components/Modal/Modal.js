@@ -1,6 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
-import { UpdateDeletebuttons,AddButton } from '../../components/CustomButtons';
+
 
 export const DeleteModal = ({ isOpen, closeModal, title }) => {
   return (

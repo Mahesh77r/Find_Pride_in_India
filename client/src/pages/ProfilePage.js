@@ -47,7 +47,7 @@ export const ProfilePage = () => {
    
      {/* About Place */}
      {summary.map((data, index) => (
-
+        
         <div key={index} className="my-4 p-4  rounded-2xl">
           <div className="flex items-center justify-center">
             <p className="ms-3 text-4xl text-center font-bold my-3 font-serif me-5">
@@ -65,8 +65,8 @@ export const ProfilePage = () => {
           <div className="flex flex-row bg-white p-4 items-center">
 
             <img
-              className="h-[70%] w-[100%] rounded-xl"
-              src={data.path}
+              className="max-h-56 max-w-full rounded-xl"
+              src={data.path[1]}
               alt="Place"
             />
             {/*  */}

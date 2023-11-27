@@ -140,9 +140,10 @@ export const addEvent = async(formdata) =>{
 
 export const addArtist = async(formdata) =>{
   try{
-    console.log(formdata)
-
-    await axios.post(`${LOCALURL}/addartists`,formdata)
+    
+    const res = await axios.post(`${LOCALURL}/addartists`,formdata)
+    return res;
+    
   }
   catch(err){
       console.log(formdata)

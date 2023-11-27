@@ -5,7 +5,7 @@ import { AddButton, UpdateButton, UpdateDeletebuttons } from "../../components/C
 import { Toaster, toast } from 'react-hot-toast'
 import { Modal } from 'antd';
 
-import {styled} from 'styled-components';
+import { styled } from 'styled-components';
 import { FormTouristGuide } from "../../components/Forms/ManagementsForms";
 
 const StyledImage = styled.img`
@@ -22,7 +22,7 @@ export const GuideTable = () => {
       selector: (row) => <StyledImage src={row.path} alt="Product" />,
       sortable: true,
       maxWidth: '100px', // Adjust the maximum width as needed
-  },
+    },
     {
       name: "Guide Name",
       selector: (row) => row.guide_name,
@@ -51,7 +51,7 @@ export const GuideTable = () => {
   const storedUserJSON = localStorage.getItem("user");
   const user = JSON.parse(storedUserJSON);
 
-  const initialData =  {
+  const initialData = {
     guide_name: "",
     guide_price: "",
     contact: "",
@@ -130,45 +130,47 @@ export const GuideTable = () => {
   };
   return (
     <>
-    <Toaster position="top-center" />
-    <Modal
-      onCancel={() => setVisible(false)}
-      footer={null}
-      visible={visible}
-    >
-      <form onSubmit={onSubmitHandler}>
-        <FormTouristGuide
-          selectedFile={selectedFile}
-          handleFileChange={handleFileChange}
-          onChangeHandler={onChangeHandler}
-          data={formData}
-          isUpdateMode={isUpdateMode}
-        />
-        {isUpdateMode ? (
-          <UpdateButton title={"Guide"} />
-        ) : (
-          <AddButton form_type={"Guide"} />
-        )}
-      </form>
-    </Modal>
-    <CustomTable
-    handleFileChange={handleFileChange}
-    onChangeHandler={onChangeHandler}
-    setFormData={setFormData}
-    data={formData}
-    selectedFile={selectedFile}
-    initialData={initialData}
-      columns={columns}
-      addform={<FormTouristGuide/>}
-      title={'Guide'}
-      searchfield={'guide_name'}
-      records={records}
-      setRecords={setRecords}
-      filterRecords={filterRecords}
-      setFilterRecords={setFilterRecords}
-      fetchData={getGuide}
-      modalOpenClose={modalOpenClose}
-    />
-  </>
+      <Toaster position="top-center" />
+      <Modal
+        onCancel={() => setVisible(false)}
+        footer={null}
+        open={visible}
+      >
+        <form onSubmit={onSubmitHandler}>
+          <FormTouristGuide
+            selectedFile={selectedFile}
+            handleFileChange={handleFileChange}
+            onChangeHandler={onChangeHandler}
+            data={formData}
+            isUpdateMode={isUpdateMode}
+          />
+          {isUpdateMode ? (
+            <UpdateButton title={"Guide"} />
+          ) : (
+            <AddButton form_type={"Guide"} />
+          )}
+        </form>
+      </Modal>
+      <CustomTable
+        setSelectedFile={setSelectedFile}
+        onSubmitHandler={onSubmitHandler}
+        handleFileChange={handleFileChange}
+        onChangeHandler={onChangeHandler}
+        setFormData={setFormData}
+        data={formData}
+        selectedFile={selectedFile}
+        initialData={initialData}
+        columns={columns}
+        addform={<FormTouristGuide />}
+        title={'Guide'}
+        searchfield={'guide_name'}
+        records={records}
+        setRecords={setRecords}
+        filterRecords={filterRecords}
+        setFilterRecords={setFilterRecords}
+        fetchData={getGuide}
+        modalOpenClose={modalOpenClose}
+      />
+    </>
   );
 };

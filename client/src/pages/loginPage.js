@@ -42,21 +42,33 @@ export default function LoginPage() {
 
   const loginHandler = async (e) => {
     e.preventDefault();
-    console.log({...loginData,role:selectedRole})
-    const res = await loginDOM({ ...loginData, role: selectedRole });
-
-    if (res.status === 200) {
-      const loginData = JSON.stringify(res.data.user);
-      setLogin(true);
-      toast.success("Login Successfully");
-      localStorage.setItem("user", loginData);
-      setTimeout(() => {
-        Navigate("/");
-      }, 1000);
-    } else if (res.status === 202) {
-      toast.error('Login failed');
+  
+    // Show loading notification
+    const loadingToast = toast.loading("Processing...");
+  
+    try {
+      const res = await loginDOM({ ...loginData, role: selectedRole });
+  
+      if (res.status === 200) {
+        const loginData = JSON.stringify(res.data.user);
+        setLogin(true);
+        toast.success("Login Successfully");
+        localStorage.setItem("user", loginData);
+        setTimeout(() => {
+          Navigate("/");
+        }, 1000);
+      } else if (res.status === 202) {
+        toast.error('Login failed');
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+      toast.error('An error occurred during login');
+    } finally {
+      // Close loading notification
+      toast.dismiss(loadingToast);
     }
   };
+  
 
   return (
     <>

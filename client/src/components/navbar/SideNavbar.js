@@ -7,14 +7,13 @@ import { Toaster, toast } from 'react-hot-toast'
 export const SideNavbar = ({ navigation, isSideNavbarOpen, toggleSideNavbar }) => {
  
     const {user} = useUser();
-    console.log(user)
 
     const LogoutMsg = () => {toast.success('Logout Successfully')}
 
   const handleLogout = () => {
     // Clear the access_token from localStorage when logging out
     localStorage.removeItem("user");
-    window.location.assign("/");
+    window.location.assign("/login");
     LogoutMsg()
   };
   return (

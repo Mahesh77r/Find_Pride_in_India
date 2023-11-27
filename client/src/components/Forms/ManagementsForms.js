@@ -587,6 +587,7 @@ export const FormArtist = ({ onChangeHandler, data, handleFileChange, selectedFi
                 <input
                     type="file"
                     id="fileInput"
+                    required
                     className="hidden"
                     onChange={handleFileChange}
                 />
@@ -634,6 +635,7 @@ export const FormArtist = ({ onChangeHandler, data, handleFileChange, selectedFi
                     value={data ? data.artist_name : ""}
                     name="artist_name"
                     className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+                    required
                 />
             </div>
 
@@ -652,6 +654,7 @@ export const FormArtist = ({ onChangeHandler, data, handleFileChange, selectedFi
                     value={data ? data.artist_contact : ""}
                     name="artist_contact"
                     className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+                    required
                 />
             </div>
 
@@ -670,6 +673,7 @@ export const FormArtist = ({ onChangeHandler, data, handleFileChange, selectedFi
                     name="artist_address"
                     onChange={onChangeHandler}
                     className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+                    required
                 />
             </div>
         </>
@@ -851,246 +855,6 @@ export const FormPlaceSummary = ({
         </>
     );
 };
-
-// export const AddCheckpoint = ({
-//     img_url,
-//     point_name,
-//     point_number,
-//     point_descp,
-//     point_city,
-//     point_state,
-//     dest_name,
-//     dest_id
-// }) => {
-//     const [showalert, setShowalert] = useState(false);
-//     const handleCloseAlert = () => {
-//         setShowalert(false);
-//     };
-
-//     const [selectedFile, setSelectedFile] = useState(null);
-//     const storedUserJSON = localStorage.getItem("user");
-//     const user = JSON.parse(storedUserJSON);
-//     const [data, setData] = useState({
-//         point_name: "",
-//         point_number: "",
-//         point_descp: "",
-//         point_city: user.city,
-//         point_state: user.state,
-//         dest_name: user.destinationName,
-//         dest_id: user._id,
-
-//     });
-
-//     const onChangeHandler = (e) => {
-//         setData({ ...data, [e.target.name]: e.target.value });
-//     };
-
-//     // Function to handle file selection
-//     const handleFileChange = (e) => {
-//         setSelectedFile(e.target.files[0]);
-//     };
-
-//     const onSubmitHandler = async (e) => {
-//         e.preventDefault();
-//         if (selectedFile) {
-//             try {
-                
-//                 const response = await addGuide(GuideData);
-//             } catch (error) {
-//                 console.error("Firebase Storage Error:", error);
-//             }
-//         } else {
-//             setShowalert(true);
-//             console.error("No file selected");
-//         }
-//     };
-
-
-
-//     return (
-//         <>
-//             <form onSubmit={onSubmitHandler}>
-//                 {/* <!-- checkpoint Image Input --> */}
-//                 <div className="my-3 flex justify-center">
-//                     {/* Hidden file input */}
-//                     <input
-//                         type="file"
-//                         id="fileInput"
-//                         className="hidden"
-//                         onChange={handleFileChange}
-//                     />
-
-//                     {/* Image that acts as a file input */}
-//                     <label
-//                         htmlFor="fileInput"
-//                         className="cursor-pointer bg-gray-300 p-4 rounded-md hover:bg-gray-400"
-//                     >
-//                         {selectedFile ? (
-//                             <img
-//                                 src={URL.createObjectURL(selectedFile)}
-//                                 alt="Selected"
-//                                 className="w-100 h-50 object-cover"
-//                             />
-//                         ) : (
-//                             <img
-//                                 src={img_url}
-//                                 alt="Selected"
-//                                 className="w-100 h-50 object-cover"
-//                             />
-//                         )}
-//                     </label>
-//                 </div>
-//                 <div className="mt-4">
-
-//                     <label
-//                         htmlFor="checkpointName"
-//                         className="block text-sm font-medium text-gray-700"
-//                     >
-//                         Checkpoint Name
-//                     </label>
-//                     <input
-//                         type="text"
-//                         id="checkpoint_name"
-//                         onChange={onChangeHandler}
-//                         value={point_name}
-//                         name="checkpoint_name"
-//                         className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
-//                     />
-//                 </div>
-
-//                 <div className="mt-4">
-//                     <label
-//                         htmlFor="number"
-//                         className="block text-sm font-medium text-gray-700"
-//                     >
-//                         Checkpoint Number
-//                     </label>
-//                     <input
-//                         type="text"
-//                         id="checkpoint_number"
-//                         onChange={onChangeHandler}
-//                         value={point_number}
-//                         name="checkpoint_number"
-//                         className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
-//                     />
-//                 </div>
-
-//                 <div className="mt-4">
-//                     <label
-//                         htmlFor="point_descp"
-//                         className="block text-sm font-medium text-gray-700"
-//                     >
-//                         Checkpoint Description
-//                     </label>
-//                     <input
-//                         type="text"
-//                         id="point_descp"
-//                         value={point_descp}
-//                         name="point_descp"
-//                         onChange={onChangeHandler}
-
-//                         className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
-//                     />
-//                 </div>
-
-//                 <div className="mt-4">
-//                     <label
-//                         htmlFor="city"
-//                         className="block text-sm font-medium text-gray-700"
-//                     >
-//                        City
-//                     </label>
-//                     <input
-//                         type="text"
-//                         id="city"
-//                         value={point_city}
-//                         name="city"
-//                         onChange={onChangeHandler}
-
-//                         className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
-//                     />
-//                 </div>
-
-//                 <div className="mt-4">
-//                     <label
-//                         htmlFor="state"
-//                         className="block text-sm font-medium text-gray-700"
-//                     > State
-//                     </label>
-//                     <input
-//                         type="text"
-//                         id="state"
-//                         value={point_state}
-//                         name="state"
-//                         onChange={onChangeHandler}
-
-//                         className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
-//                     />
-//                 </div>
-
-//                 <div className="mt-4">
-//                     <label
-//                         htmlFor="dest_name"
-//                         className="block text-sm font-medium text-gray-700"
-//                     >
-//                         Destination Name
-//                     </label>
-//                     <input
-//                         type="text"
-//                         id="dest_name"
-//                         value={dest_name}
-//                         name="dest_name"
-//                         onChange={onChangeHandler}
-
-//                         className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
-//                     />
-//                 </div>
-
-//                 <div className="mt-4">
-//                     <label
-//                         htmlFor="dest_id"
-//                         className="block text-sm font-medium text-gray-700"
-//                     >
-//                         Destination ID
-//                     </label>
-//                     <input
-//                         type="text"
-//                         id="dest_id"
-//                         value={dest_id}
-//                         name="dest_id"
-//                         onChange={onChangeHandler}
-
-//                         className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
-//                     />
-//                 </div>
-
-//                 {/*button  */}
-//                 <div className="mt-4 ">
-//                     <div className="ms-2">
-//                         <button className="bg-purple-500 hover:bg-purple-600 flex p-2  rounded-xl text-white relative">
-//                             <svg
-//                                 xmlns="http://www.w3.org/2000/svg"
-//                                 fill="none"
-//                                 viewBox="0 0 24 24"
-//                                 strokeWidth="1.5"
-//                                 stroke="currentColor"
-//                                 className="w-6 h-6"
-//                             >
-//                                 <path
-//                                     strokeLinecap="round"
-//                                     strokeLinejoin="round"
-//                                     d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-//                                 />
-//                             </svg>
-//                             <span className="ms-1">ADD </span>
-//                         </button>
-//                     </div>
-//                 </div>
-//             </form>
-//         </>
-//     );
-// };
-
 
 
 const ImageInput = ({ image_url }) => {

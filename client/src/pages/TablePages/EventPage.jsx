@@ -4,7 +4,7 @@ import { addEvent, fetchEvents } from "../../services/domCRUD";
 import { AddButton, UpdateButton, UpdateDeletebuttons } from "../../components/CustomButtons";
 import { Toaster, toast } from 'react-hot-toast'
 import { Modal } from 'antd';
-import {styled} from 'styled-components';
+import { styled } from 'styled-components';
 import { FormEvents } from "../../components/Forms/ManagementsForms";
 
 const StyledImage = styled.img`
@@ -21,7 +21,7 @@ export const EventTable = () => {
       selector: (row) => <StyledImage src={row.path} alt="Product" />,
       sortable: true,
       maxWidth: '100px', // Adjust the maximum width as needed
-  },
+    },
     {
       name: "Event Name",
       selector: (row) => row.event_name,
@@ -40,7 +40,7 @@ export const EventTable = () => {
     {
       name: "Actions",
       cell: (row) => (
-        <UpdateDeletebuttons form_type={` event ${row.event_name} `}  onClick={() => modalOpenClose('update', row)} />
+        <UpdateDeletebuttons form_type={` event ${row.event_name} `} onClick={() => modalOpenClose('update', row)} />
       ),
     },
   ];
@@ -48,7 +48,7 @@ export const EventTable = () => {
   const storedUserJSON = localStorage.getItem("user");
   const user = JSON.parse(storedUserJSON);
 
-  const initialData =  {
+  const initialData = {
     event_name: "",
     event_date: "",
     event_des: "",
@@ -129,45 +129,47 @@ export const EventTable = () => {
 
   return (
     <>
-    <Toaster position="top-center" />
-    <Modal
-      onCancel={() => setVisible(false)}
-      footer={null}
-      visible={visible}
-    >
-      <form onSubmit={onSubmitHandler}>
-        <FormEvents
-          selectedFile={selectedFile}
-          handleFileChange={handleFileChange}
-          onChangeHandler={onChangeHandler}
-          data={formData}
-          isUpdateMode={isUpdateMode}
-        />
-        {isUpdateMode ? (
-          <UpdateButton title={"Event"} />
-        ) : (
-          <AddButton form_type={"Event"} />
-        )}
-      </form>
-    </Modal>
-    <CustomTable
-    handleFileChange={handleFileChange}
-    onChangeHandler={onChangeHandler}
-    setFormData={setFormData}
-    data={formData}
-    selectedFile={selectedFile}
-    initialData={initialData}
-      columns={columns}
-      addform={<FormEvents/>}
-      title={'Event'}
-      searchfield={'event_name'}
-      records={records}
-      setRecords={setRecords}
-      filterRecords={filterRecords}
-      setFilterRecords={setFilterRecords}
-      fetchData={getEvents}
-      modalOpenClose={modalOpenClose}
-    />
-  </>
+      <Toaster position="top-center" />
+      <Modal
+        onCancel={() => setVisible(false)}
+        footer={null}
+        open={visible}
+      >
+        <form onSubmit={onSubmitHandler}>
+          <FormEvents
+            selectedFile={selectedFile}
+            handleFileChange={handleFileChange}
+            onChangeHandler={onChangeHandler}
+            data={formData}
+            isUpdateMode={isUpdateMode}
+          />
+          {isUpdateMode ? (
+            <UpdateButton title={"Event"} />
+          ) : (
+            <AddButton form_type={"Event"} />
+          )}
+        </form>
+      </Modal>
+      <CustomTable
+        onSubmitHandler={onSubmitHandler}
+        setSelectedFile={setSelectedFile}
+        handleFileChange={handleFileChange}
+        onChangeHandler={onChangeHandler}
+        setFormData={setFormData}
+        data={formData}
+        selectedFile={selectedFile}
+        initialData={initialData}
+        columns={columns}
+        addform={<FormEvents />}
+        title={'Event'}
+        searchfield={'event_name'}
+        records={records}
+        setRecords={setRecords}
+        filterRecords={filterRecords}
+        setFilterRecords={setFilterRecords}
+        fetchData={getEvents}
+        modalOpenClose={modalOpenClose}
+      />
+    </>
   );
 };
