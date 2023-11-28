@@ -110,6 +110,13 @@ const addProduct = async (req, res) => {
     let ImageInformation = parseData.files.image;
     let data = JSON.parse(parseData.fields.data);
 
+    // Check for null values
+    for (const key in data) {
+      if (data.hasOwnProperty(key) && data[key] === null) {
+        return res.status(400).json({ success: false, error: `${key} cannot be null` });
+      }
+    }
+
     try {
       const existingProduct = await ProductSchema.findOne({
         $and: [{ product_name: data.product_name }, { dest_name: data.dest_name }],
@@ -118,8 +125,8 @@ const addProduct = async (req, res) => {
       if (existingProduct) {
         return res.status(202).json({ success: false, error: "Product already exists" });
       }
-      
-      //   uploading Images
+
+      // Upload Images
       await UploadMultipleFiles(ImageInformation, 'products').then((response) => {
         data.imagePath = response;
       });
@@ -155,6 +162,7 @@ const addProduct = async (req, res) => {
     return res.status(500).json({ success: false, error: `Error Adding Product ${error}` });
   }
 };
+
 
 
 // Controller to add a product to favorites
