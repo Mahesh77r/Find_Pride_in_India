@@ -1,11 +1,12 @@
 const router = require('express').Router();
 const {placeAdminRegister, placeAdminlogin, wlcom ,getPlaces} = require("../controllers/adminAuthController");
-const {getProducts, updateProduct, deleteProduct, addProductWithFirebase} = require("../controllers/ProductCrud")
+const {getProducts, updateProduct, deleteProduct, addProduct} = require("../controllers/ProductCrud")
 const {addTouristGuide, getTouristGuide} = require("../controllers/TouristGuideCrud")
 const {addEvent,getEvent} = require("../controllers/EventController")
 const { getFacility, addFacility } = require('../controllers/FacilityController');
 const { addCheckpoint, getCheckpoint } = require('../controllers/CheckPointsController');
 const { addArtist, getArtist, updateArtist, deleteArtist } = require('../controllers/ArtistController');
+const {  getOrderByDest, updateShippedStatus, deleteOrderAndNotify } = require('../controllers/ProductOrderForm');
 
 const auth = require("../middelweares/Authentication");
 
@@ -23,7 +24,7 @@ router.put("/updateartists/:id",updateArtist);
 router.delete("/deleteartists/:id",deleteArtist);
 
 // CRUD products
-router.post("/addproducts",addProductWithFirebase);
+router.post("/addproducts",addProduct);
 router.get("/getproducts/:dest_name",getProducts);
 router.get("/getproducts/",getProducts);
 router.put("/updateproducts/:id",updateProduct);
@@ -50,7 +51,11 @@ router.post("/addcheckpoints",addCheckpoint);
 router.get("/getcheckpoints",getCheckpoint);
 router.get("/getcheckpoints/:dest_id",getCheckpoint);
 
+// order shipped and cancle
 
+router.put("/ordershipped/:order_id",updateShippedStatus)
+router.delete("/ordercancle/:order_id",deleteOrderAndNotify)
+router.get("/getorderfordest/:dest_id",getOrderByDest)
 
 router.post("/login",placeAdminlogin);
 router.get("/",auth,wlcom);

@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const Order = new mongoose.Schema({
     
+    tourist_id: { type: String ,require:true},
     tourist_name: { type: String ,require:true},
     tourist_email: { type: String ,require:true},
     tourist_state:{ type: String ,require:true},
@@ -14,6 +15,7 @@ const Order = new mongoose.Schema({
     product_name:{type: String ,require:true},
     product_quantity:{type: Number ,require:true},
     product_price:{type: Number ,require:true},
+    product_dest_id: { type: String ,require:true},
 
     shipped_status:{type:Boolean , default:false}
 

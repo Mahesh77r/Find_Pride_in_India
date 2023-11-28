@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const {touristRegister, verifyOtp, touristLogin,sendOtp,getHello, forgotpassword,resetpassword} = require("../controllers/touristController");
-const { createOrderForm } = require('../controllers/ProductOrderForm');
+const { createOrderForm ,getOrder, getOrderByTourist} = require('../controllers/ProductOrderForm');
 
 // const auth = require("../middelweares/Authentication");
 
@@ -14,6 +14,10 @@ router.post("/resetpassword/:token",resetpassword);
 
 // 
 router.post("/order",createOrderForm)
+router.get("/getorder",getOrder)
+router.get("/getorderfortourist/:tourist_id",getOrderByTourist)
+
+
 
 router.get( '/hello' , getHello )
 
