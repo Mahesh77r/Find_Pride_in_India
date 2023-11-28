@@ -22,4 +22,4 @@ const placeAdminSchema = new mongoose.Schema({
     resetTokenExpiration: Date,
 })
 
-module.exports = mongoose.model("placeAdmin", placeAdminSchema)
+module.exports = mongoose.model("placeAdmins", placeAdminSchema)

@@ -4,6 +4,7 @@ const { createOrderForm ,getOrder, getOrderByTourist} = require('../controllers/
 const { addFavoriteProduct, getFavoriteProducts, removeFavoriteProduct } = require('../controllers/ProductCrud');
 
 const auth = require("../middelweares/Authentication");
+const { addFavoritePlace, getFavoritePlaces, removeFavoritePlace } = require('../controllers/adminAuthController');
 
 // tourist
 router.post("/register",touristRegister)
@@ -21,7 +22,11 @@ router.get("/getorderfortourist/:tourist_id",getOrderByTourist)
 // 
 router.post('/addfavoriteproduct',auth,addFavoriteProduct)
 router.get('/getfavoriteproduct',auth, getFavoriteProducts)
-router.get('/removefavoriteproduct',auth, removeFavoriteProduct)
+router.post('/removefavoriteproduct',auth, removeFavoriteProduct)
+
+router.post('/addfavoriteplace',auth,addFavoritePlace)
+router.post('/removefavoriteplace',auth, removeFavoritePlace)
+router.get('/getfavoriteplace',auth, getFavoritePlaces)
 
 
 router.get( '/hello' , getHello )

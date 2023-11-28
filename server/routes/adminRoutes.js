@@ -34,10 +34,10 @@ router.post("/register", async(req,res) =>{
       return res.status(201).json({
         success: true,
         data: newadmin,
-        message: "Admin added successfully",
+        message: "Ministry added successfully",
       });
     } catch (error) {
-    return res.status(500).json({ success: false, error: `Error Adding Admin ${error}` });
+    return res.status(500).json({ success: false, error: `Error Adding ministry ${error}` });
 
     }
 
