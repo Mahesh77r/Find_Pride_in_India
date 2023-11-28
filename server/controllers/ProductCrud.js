@@ -90,19 +90,28 @@ const deleteProduct = async (req, res) => {
       return res.status(404).json({ success: false, error: "Product not found" });
     }
 
-    // Perform the delete operation
+    // Identify user favorite products associated with the product
+    const favoriteProductsToDelete = await FavoriteProduct.find({ productId: productId });
+
+    // Delete user favorite products
+    await Promise.all(favoriteProductsToDelete.map(async (favoriteProduct) => {
+      await favoriteProduct.deleteOne();
+    }));
+
+    // Perform the delete operation for the product
     await productToDelete.deleteOne();
 
     return res.status(200).json({
       success: true,
       data: {},
-      message: "Product deleted successfully",
+      message: "Product and associated favorite products deleted successfully",
     });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ success: false, error: `Error deleting product: ${error}` });
   }
 };
+
 
 const addProduct = async (req, res) => {
   try {
@@ -205,5 +214,28 @@ const getFavoriteProducts = async (req, res) => {
 };
 
 
+const removeFavoriteProduct = async (req, res) => {
+  const { productId } = req.body;
+  const userId = req.user.user_id; // Assuming you have user authentication middleware
 
-module.exports = { addFavoriteProduct,getFavoriteProducts,getProducts, updateProduct, deleteProduct, addProduct };
+  try {
+    // Check if the product is in favorites
+    const existingFavorite = await FavoriteProduct.findOne({ productId, userId });
+
+    if (!existingFavorite) {
+      return res.status(400).json({ error: 'Product is not in favorites' });
+    }
+
+    // Remove the product from favorites
+    await FavoriteProduct.findOneAndRemove({ productId, userId });
+
+    res.status(200).json({ message: 'Product removed from favorites successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+
+
+module.exports = { addFavoriteProduct,getFavoriteProducts,removeFavoriteProduct, getProducts, updateProduct, deleteProduct, addProduct };
