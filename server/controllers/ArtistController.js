@@ -31,21 +31,34 @@ const getArtist = async (req, res) => {
 
 const updateArtist = async (req, res) => {
   try {
-    // Parse the incoming data
-    let parseData = await asyncParse(req);
-    let ImageInformation = parseData.files.image;
-    let data = JSON.parse(parseData.fields.data);
+    const data = req.body;
 
-    // Find the artist to be updated by ID
-    const existingArtist = await ArtistSchema.findById(req.params.id);
-    if (!existingArtist) {
+    // Find and update the artist by ID
+    const updatedArtist = await ArtistSchema.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: {
+          artist_name: data.artist_name,
+          artist_contact: data.artist_contact,
+          artist_address: data.artist_address,
+          state: data.state,
+          city: data.city,
+          admin_name: data.admin_name,
+          path: data.imagePath ,
+        },
+      },
+      { new: true } // Return the updated document
+    );
+
+    if (!updatedArtist) {
       return res.status(404).json({ success: false, error: "Artist not found" });
     }
 
     // Check if the artist name is being updated and if it conflicts with an existing artist
-    if (data.artist_name && data.artist_name !== existingArtist.artist_name) {
+    if (data.artist_name && data.artist_name !== updatedArtist.artist_name) {
       const artistNameConflict = await ArtistSchema.findOne({
-        $and: [{ artist_name: data.artist_name }, { dest_name: data.dest_name }],
+        artist_name: data.artist_name,
+        dest_name: data.dest_name,
       });
 
       if (artistNameConflict) {
@@ -53,30 +66,9 @@ const updateArtist = async (req, res) => {
       }
     }
 
-    // Handle image upload
-    try {
-      await UploadMultipleFiles(ImageInformation, 'artists').then((response) => {
-        data.imagePath = response;
-      });
-    } catch (error) {
-      return res.status(400).json({ success: false, error: `Image not uploaded: ${error}` });
-    }
-
-    // Update the artist data
-    existingArtist.artist_name = data.artist_name || existingArtist.artist_name;
-    existingArtist.artist_contact = data.artist_contact || existingArtist.artist_contact;
-    existingArtist.artist_address = data.artist_address || existingArtist.artist_address;
-    existingArtist.state = data.state || existingArtist.state;
-    existingArtist.city = data.city || existingArtist.city;
-    existingArtist.admin_name = data.admin_name || existingArtist.admin_name;
-    existingArtist.path = data.imagePath || existingArtist.path;
-
-    // Save the updated artist to the database
-    await existingArtist.save();
-
     return res.status(200).json({
       success: true,
-      data: existingArtist,
+      data: updatedArtist,
       message: "Artist updated successfully",
     });
   } catch (error) {
@@ -117,14 +109,9 @@ const deleteArtist = async (req, res) => {
   }
 };
 
-module.exports = { deleteArtist };
-
-
 const addArtist = async (req, res) => {
   try {
-    console.log("first")
     let parseData = await asyncParse(req)
-    console.log("first")
     let ImageInformation = parseData.files.image
     let data = JSON.parse(parseData.fields.data)
     try {
