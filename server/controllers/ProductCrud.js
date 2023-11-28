@@ -191,7 +191,7 @@ const addFavoriteProduct = async (req, res) => {
     const newFavorite = new FavoriteProduct({ productId, userId });
     await newFavorite.save();
 
-    res.status(201).json({ message: 'Product added to favorites successfully' });
+    res.status(200).json({ message: 'Product added to favorites successfully' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });

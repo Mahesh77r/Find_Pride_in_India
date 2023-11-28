@@ -1,6 +1,7 @@
 const User = require("../models/placeAdminModal");
 const CheckpointSchema = require("../models/Checkpoints");
 const { asyncParse,  UploadMultipleFiles} = require("./FileUpload")
+const FavoritePlace = require("../models/FavoritePlace");
 
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -177,5 +178,66 @@ const getPlaces = async (req, res) => {
   }
 };
 
+// Controller to add a product to favorites
+const addFavoritePlace = async (req, res) => {
+  const { placeId } = req.body;
+  const userId = req.user.user_id; // Assuming you have user authentication middleware
 
-module.exports = { placeAdminRegister, placeAdminlogin, wlcom, getPlaces };
+  try {
+    // Check if the product is already in favorites
+    const existingFavorite = await FavoritePlace.findOne({ placeId, userId });
+
+    if (existingFavorite) {
+      return res.status(400).json({ error: 'Place is already in favorites' });
+    }
+
+    // Add the product to favorites
+    const newFavorite = new FavoritePlace({ placeId, userId });
+    await newFavorite.save();
+
+    res.status(200).json({ message: 'Place added to favorites successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+const getFavoritePlaces = async (req, res) => {
+  const userId = req.user.user_id; // Assuming you have user authentication middleware
+
+  try {
+    // Find all favorite places for the user
+    const favoritePlaces = await FavoritePlace.find({ userId })
+      .populate({
+        path: 'placeId',
+        select: 'adminName email path numbercheckpoints destinationName summary state city address',  // Add the fields you want to select
+      });
+
+    res.status(200).json(favoritePlaces);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+
+const removeFavoritePlace = async (req, res) => {
+  const { placeId } = req.body;
+  const userId = req.user.user_id; // Assuming you have user authentication middleware
+
+  try {
+    // Check if the place is in favorites
+    const existingFavorite = await FavoritePlace.findOneAndDelete({ placeId, userId });
+
+    if (!existingFavorite) {
+      return res.status(404).json({ error: 'Place not found in favorites' });
+    }
+
+    res.status(200).json({ message: 'Place removed from favorites successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+
+module.exports = { getFavoritePlaces, removeFavoritePlace ,addFavoritePlace,placeAdminRegister, placeAdminlogin, wlcom, getPlaces };
