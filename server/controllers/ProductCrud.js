@@ -1,5 +1,6 @@
 const ProductSchema = require("../models/Product");
 const { asyncParse, UploadMultipleFiles } = require("./FileUpload");
+const FavoriteProduct = require('../models/FavoriteProduct');
 
 const getProducts = async (req, res) => {
   const dest_name = req.params.dest_name;
@@ -155,4 +156,46 @@ const addProduct = async (req, res) => {
   }
 };
 
-module.exports = { getProducts, updateProduct, deleteProduct, addProduct };
+
+// Controller to add a product to favorites
+const addFavoriteProduct = async (req, res) => {
+  const { productId } = req.body;
+  const userId = req.user.user_id; // Assuming you have user authentication middleware
+
+  try {
+    // Check if the product is already in favorites
+    const existingFavorite = await FavoriteProduct.findOne({ productId, userId });
+
+    if (existingFavorite) {
+      return res.status(400).json({ error: 'Product is already in favorites' });
+    }
+
+    // Add the product to favorites
+    const newFavorite = new FavoriteProduct({ productId, userId });
+    await newFavorite.save();
+
+    res.status(201).json({ message: 'Product added to favorites successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+// Controller to get all favorite products for a user
+const getFavoriteProducts = async (req, res) => {
+  const userId = req.user.user_id; // Assuming you have user authentication middleware
+  console.log(userId)
+  try {
+    const favoriteProducts = await FavoriteProduct.find({ userId:userId })
+      .populate('productId'); // Populate the 'productId' field with actual product details
+
+    res.status(200).json({ favoriteProducts });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+
+
+module.exports = { addFavoriteProduct,getFavoriteProducts,getProducts, updateProduct, deleteProduct, addProduct };
