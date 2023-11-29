@@ -19,76 +19,7 @@ export const addDOM = async(file,inputformData) => {
     }
 };
 
-export const fetchProduct = async(name) =>{
-
-    // id can be null if we need to view all user
-    name = name || '';
-    try{
-       return await axios.get(`${URL}/getproducts/${name}`);
-    }
-    catch(err){
-        console.log("Error occurs while running fetching Products function",err);
-    }
-};
-
-export const fetchArtist = async(name) =>{
-  // id can be null if we need to view all user
-  name = name || '';
-  try{
-     return await axios.get(`${URL}/getartists/${name}`);
-  }
-  catch(err){
-      console.log("Error occurs while running fetching artists function",err);
-  }
-};
-
-export const fetchGuide = async(name) =>{
-
-  // id can be null if we need to view all user
-  name = name || '';
-  try{
-     return await axios.get(`${URL}/getguides/${name}`);
-  }
-  catch(err){
-      console.log("Error occurs while running fetching guides function",err);
-  }
-};
-
-export const fetchFacility = async(name) =>{
-
-  // id can be null if we need to view all user
-  name = name || '';
-  try{
-     return await axios.get(`${URL}/getfacilities/${name}`);
-  }
-  catch(err){
-      console.log("Error occurs while running fetching facility function",err);
-  }
-};
-
-export const fetchEvents = async(name) =>{
-
-  // id can be null if we need to view all user
-  name = name || '';
-  try{
-     return await axios.get(`${URL}/getevents/${name}`);
-  }
-  catch(err){
-      console.log("Error occurs while running fetching events function",err);
-  }
-};
-
-export const fetchSummary = async(id) =>{
-
-  // id can be null if we need to view all user
-  id = id || '';
-  try{
-     return await axios.get(`${URL}/getplaces/${id}`);
-  }
-  catch(err){
-      console.log("Error occurs while running fetching summary function",err);
-  }
-};
+// 
 
 export const addProduct = async(formdata) =>{
   try{
@@ -101,7 +32,18 @@ export const addProduct = async(formdata) =>{
     console.log(`Error occur during adding Prodcut ${err}`)
   }
 }
+export const fetchProduct = async(name) =>{
 
+    // id can be null if we need to view all user
+    name = name || '';
+    try{
+       return await axios.get(`${URL}/getproducts/${name}`);
+    }
+    catch(err){
+        console.log("Error occurs while running fetching Products function",err);
+    }
+};
+// 
 export const addGuide = async(formdata) =>{
   try{
     console.log(formdata)
@@ -114,6 +56,19 @@ export const addGuide = async(formdata) =>{
   }
 }
 
+export const fetchGuide = async(name) =>{
+
+  // id can be null if we need to view all user
+  name = name || '';
+  try{
+     return await axios.get(`${URL}/getguides/${name}`);
+  }
+  catch(err){
+      console.log("Error occurs while running fetching guides function",err);
+  }
+};
+// 
+
 export const addFacility = async(formdata) =>{
   try{
     console.log(formdata)
@@ -125,7 +80,19 @@ export const addFacility = async(formdata) =>{
     console.log(`Error occur during adding facility ${err}`)
   }
 }
+export const fetchFacility = async(name) =>{
 
+  // id can be null if we need to view all user
+  name = name || '';
+  try{
+     return await axios.get(`${URL}/getfacilities/${name}`);
+  }
+  catch(err){
+      console.log("Error occurs while running fetching facility function",err);
+  }
+};
+
+// 
 export const addEvent = async(formdata) =>{
   try{
     console.log(formdata)
@@ -137,6 +104,31 @@ export const addEvent = async(formdata) =>{
     console.log(`Error occur during adding events ${err}`)
   }
 }
+export const fetchEvents = async(name) =>{
+
+  // id can be null if we need to view all user
+  name = name || '';
+  try{
+     return await axios.get(`${URL}/getevents/${name}`);
+  }
+  catch(err){
+      console.log("Error occurs while running fetching events function",err);
+  }
+};
+// 
+export const fetchSummary = async(id) =>{
+
+  // id can be null if we need to view all user
+  id = id || '';
+  try{
+     return await axios.get(`${URL}/getplaces/${id}`);
+  }
+  catch(err){
+      console.log("Error occurs while running fetching summary function",err);
+  }
+};
+
+// 
 
 export const addArtist = async(formdata) =>{
   try{
@@ -150,3 +142,75 @@ export const addArtist = async(formdata) =>{
     console.log(`Error occur during adding artists ${err}`)
   }
 }
+
+export const fetchArtist = async(name) =>{
+  // id can be null if we need to view all user
+  name = name || '';
+  try{
+     return await axios.get(`${URL}/getartists/${name}`);
+  }
+  catch(err){
+      console.log("Error occurs while running fetching artists function",err);
+  }
+};
+
+export const updateArtist = async(id,formdata) =>{
+  try{
+    id = id || '';
+    console.log(id)
+    return await axios.put(`${LOCALURL}/updateartists/${id}`,formdata)
+    
+  }
+  catch(err){
+    console.log(`Error occur during updating artists ${err}`)
+  }
+};
+
+export const deleteArtist = async(id) =>{
+  // id can be null if we need to view all user
+  id = id || '';
+  try{
+     return await axios.delete(`${URL}/deleteartists/${id}`);
+  }
+  catch(err){
+      console.log("Error occurs while running fetching artists function",err);
+  }
+};
+
+// 
+
+export const fetchOrder = async(id) =>{
+  // id can be null if we need to view all user
+  id = id || '';
+  try{
+     return await axios.get(`${LOCALURL}/getorderfordest/${id}`);
+  }
+  catch(err){
+      console.log("Error occurs while running fetching orders function",err);
+  }
+};
+
+export const updateShippedStatus = async(id,formdata) =>{
+  try{
+    id = id || '';
+    console.log(id)
+    return await axios.put(`${LOCALURL}/ordershipped/${id}`,formdata)
+    
+  }
+  catch(err){
+    console.log(`Error occur during shipping order ${err}`)
+  }
+};
+
+export const deleteOrder = async (id, cancellation_reason) => {
+  id = id || '';
+  console.log(cancellation_reason);
+
+  try {
+    return await axios.delete(`${LOCALURL}/ordercancle/${id}`, {
+      data: { cancellation_reason }, // Include the data in the request body
+    });
+  } catch (err) {
+    console.log("Error occurs while running canceling order function", err);
+  }
+};
