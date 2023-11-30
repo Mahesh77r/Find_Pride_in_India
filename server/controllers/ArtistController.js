@@ -1,5 +1,5 @@
 const ArtistSchema = require("../models/Artist");
-const { asyncParse,  UploadMultipleFiles, deleteImageByUrl} = require("./FileUpload")
+const { asyncParse,  UploadMultipleFiles, deleteFileByUrl} = require("./FileUpload")
 
 const getArtist = async (req, res) => {
     const dest_name = req.params.dest_name;
@@ -90,7 +90,7 @@ const deleteArtist = async (req, res) => {
     }
 
     try {
-        await deleteImageByUrl(artistToDelete.path[0],'artists');
+        await deleteFileByUrl(artistToDelete.path[0],'artists');
     } catch (error) {
       return res.status(400).json({ success: false, error: `Image not deleted : ${error}` });
     }

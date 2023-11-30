@@ -95,7 +95,7 @@ async function UploadMultipleFiles(files, folderName) {
   });
 }
 
-async function deleteImageByUrl(imageUrl, folderName) {
+async function deleteFileByUrl(imageUrl, folderName) {
   const fileName = extractFilenameFromUrl(imageUrl);
   const storage = getStorage(server);
   console.log(fileName)
@@ -109,4 +109,4 @@ async function deleteImageByUrl(imageUrl, folderName) {
     throw error;
   }
 }
-module.exports = { asyncParse, UploadMultipleFiles, uploadSingleFile, deleteImageByUrl }
+module.exports = { asyncParse, UploadMultipleFiles, uploadSingleFile, deleteFileByUrl }

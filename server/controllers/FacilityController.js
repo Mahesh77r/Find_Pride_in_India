@@ -1,5 +1,5 @@
 const FacilitySchema = require("../models/Facility");
-const { asyncParse, uploadSingleFile } = require("./FileUpload");
+const { asyncParse, uploadSingleFile ,deleteFileByUrl} = require("./FileUpload");
 
 const addFacility = async (req, res) => {
   try {
@@ -128,7 +128,7 @@ const deleteFacility = async (req, res) => {
     }
 
     try {
-      await deleteImageByUrl(facilityToDelete.path[0], 'facilities');
+      await deleteFileByUrl(facilityToDelete.path[0], 'facilities');
     } catch (error) {
       return res.status(400).json({ success: false, error: `Image not deleted: ${error}` });
     }

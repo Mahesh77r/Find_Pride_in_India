@@ -90,6 +90,11 @@ const deleteProduct = async (req, res) => {
       return res.status(404).json({ success: false, error: "Product not found" });
     }
 
+    try {
+      await deleteFileByUrl(productToDelete.path[0], 'products');
+    } catch (error) {
+      return res.status(400).json({ success: false, error: `Image not deleted: ${error}` });
+    }
     // Identify user favorite products associated with the product
     const favoriteProductsToDelete = await FavoriteProduct.find({ productId: productId });
 

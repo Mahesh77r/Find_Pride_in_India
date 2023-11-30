@@ -128,7 +128,7 @@ const deleteEvent = async (req, res) => {
     }
 
     try {
-      await deleteImageByUrl(eventToDelete.path[0], 'events');
+      await deleteFileByUrl(eventToDelete.path[0], 'events');
     } catch (error) {
       return res.status(400).json({ success: false, error: `Image not deleted: ${error}` });
     }

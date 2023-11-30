@@ -1,5 +1,5 @@
 const CheckpointSchema = require("../models/Checkpoints");
-const { asyncParse, UploadMultipleFiles } = require("./FileUpload")
+const { asyncParse, UploadMultipleFiles,deleteFileByUrl } = require("./FileUpload")
 const PlaceAdmin = require("../models/placeAdminModal");
 
 
@@ -33,28 +33,89 @@ const getCheckpoint = async (req, res) => {
 
 const updateCheckpoint = async (req, res) => {
   try {
+    const data = req.body;
 
-  }
-  catch (error) {
+    // Find and update the checkpoint by ID
+    const updatedCheckpoint = await CheckpointSchema.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: {
+          point_name: data.point_name,
+          point_number: data.point_number,
+          point_descp: data.point_descp,
+          point_city: data.point_city,
+          point_state: data.point_state,
+          dest_name: data.dest_name,
+          image_path: data.imagePath,
+          audio_path: data.audioPath,
+        },
+      },
+      { new: true } // Return the updated document
+    );
+
+    if (!updatedCheckpoint) {
+      return res.status(404).json({ success: false, error: "Checkpoint not found" });
+    }
+
+    // Check if the point name is being updated and if it conflicts with an existing checkpoint
+    if (data.point_name && data.point_name !== updatedCheckpoint.point_name) {
+      const pointNameConflict = await CheckpointSchema.findOne({
+        point_name: data.point_name,
+        dest_name: data.dest_name,
+      });
+
+      if (pointNameConflict) {
+        return res.status(202).json({ success: false, error: "Checkpoint name already exists" });
+      }
+    }
+
+    return res.status(200).json({
+      success: true,
+      data: updatedCheckpoint,
+      message: "Checkpoint updated successfully",
+    });
+  } catch (error) {
     console.error(error);
-    return res.status(500).json({ success: false, error: `Error Updating Product ${error}` });
+    return res.status(500).json({ success: false, error: `Error updating checkpoint: ${error}` });
   }
-}
+};
+
 const deleteCheckpoint = async (req, res) => {
   try {
-    console.log(req.params.id);
-    // deleteData = await ProductSchema.deleteOne({_id:req.params.id})
+    // Extract checkpoint ID from the request parameters
+    const checkpointId = req.params.id;
 
-    // res.status(200).json({
-    //   success: true,
-    //   data:deleteData
-    // });
-  }
-  catch (error) {
+    // Find the checkpoint by ID
+    const checkpointToDelete = await CheckpointSchema.findById(checkpointId);
+
+    if (!checkpointToDelete) {
+      return res.status(404).json({ success: false, error: "Checkpoint not found" });
+    }
+
+    try {
+      // Assuming you have a function to delete the image associated with the checkpoint
+      await deleteFileByUrl(checkpointToDelete.image_path, 'checkpoints/images');
+
+      // Assuming you have a function to delete the audio associated with the checkpoint
+      await deleteFileByUrl(checkpointToDelete.audio_path, 'checkpoints/audios');
+    } catch (error) {
+      return res.status(400).json({ success: false, error: `Media files not deleted: ${error}` });
+    }
+
+    // Perform the delete operation
+    await checkpointToDelete.deleteOne();
+
+    return res.status(200).json({
+      success: true,
+      data: {},
+      message: "Checkpoint deleted successfully",
+    });
+  } catch (error) {
     console.error(error);
-    res.status(500).json({ success: false, error: `Error deleting  products ${error}` });
+    return res.status(500).json({ success: false, error: `Error deleting checkpoint: ${error}` });
   }
-}
+};
+
 
 const addCheckpoint = async (req, res) => {
   try {
@@ -70,7 +131,6 @@ const addCheckpoint = async (req, res) => {
       if (existingPointNumber || existingPointOnThePlace) {
         return res.status(202).json({ success: false, error: `Checkpoint already exists` });
       }
-
       //   uploading Images
       await UploadMultipleFiles(ImageInformation, 'checkpoints/images').then((response) => { data.imagePath = response });
 
@@ -108,7 +168,7 @@ const addCheckpoint = async (req, res) => {
       return res.status(500).json({ success: false, error: `Error updating number of checkpoints ${error}` });
     }
 
-    return res.status(201).json({
+    return res.status(200).json({
       success: true,
       data: newCheckpoint,
       message: "Checkpoint added successfully",

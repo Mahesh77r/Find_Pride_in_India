@@ -9,7 +9,7 @@ const addTouristGuide = async (req, res) => {
 
     try {
       // Assuming you have data and file in the form data
-      await uploadSingleFile(ImageInformation, 'events').then((response) => {
+      await uploadSingleFile(ImageInformation, 'guides').then((response) => {
         data.imagePath = response;
       });
     } catch (error) {
@@ -125,6 +125,11 @@ const deleteGuide = async (req, res) => {
 
     if (!guideToDelete) {
       return res.status(404).json({ success: false, error: "Guide not found" });
+    }
+    try {
+      await deleteFileByUrl(guideToDelete.path[0], 'guides');
+    } catch (error) {
+      return res.status(400).json({ success: false, error: `Image not deleted: ${error}` });
     }
 
     // Perform the delete operation
