@@ -5,7 +5,7 @@ const AdminSchema = new mongoose.Schema({
     admin_name: { type: String, default: null },
     email: { type: String},
     password: { type: String, default:"admin123" },
-    role : {type : String, default : "admin"},
+    role : {type : String, default : "ministry"},
     path :{type:Array},
 
     // 

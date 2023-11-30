@@ -16,7 +16,6 @@ const verifyToken = (req, res, next) => {
   try {
     // Verify the token using the TOKEN_KEY from the environment configuration
     const decoded = jwt.verify(token, config.TOKEN_KEY);
-    console.log(decoded);
 
     // If the token is valid, store the decoded user information in the request object
     req.user = decoded;

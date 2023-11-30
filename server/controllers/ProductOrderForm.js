@@ -225,7 +225,6 @@ const deleteOrderAndNotify = async (req, res) => {
   try {
     const orderId = req.params.order_id;
     const { cancellation_reason } = req.body;
-
     if (!orderId || !cancellation_reason) {
       return res.status(400).json({ success: false, error: 'Missing required parameters' });
     }
