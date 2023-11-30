@@ -6,12 +6,11 @@ import AddDOM from './components/Forms/addDOM';
 import HomePage from './pages/homePage';
 import LoginPage from './pages/loginPage';
 import ResetPassword from './pages/ResetPass';
-import {OrderPage} from './pages/OrderPage';
+import {OrderTable} from './pages/OrderPage';
 import { SideNavbar } from './components/navbar/SideNavbar';
 import { navForDOM } from './components/navbar/NavLink';
 import { useUser } from './context/UserContext';
 import { TopNavbar } from './components/navbar/TopNavbar';
-import { Practice } from './pages/Practice';
 import { Chart } from './components/Charts/Chart';
 import { ChartPlaceAdmin } from './components/Charts/ChartPlaceAdmin';
 import { Checkpoints } from './pages/TablePages/Checkpoints';
@@ -59,8 +58,7 @@ return (
             <Route path="/checkpoints" element={<Checkpoints />} />
             <Route path="/form" element={<AddDOM />} />
             <Route path="/resetpassword/:token" element={<ResetPassword />} />
-            <Route path="/order" element={<OrderPage />} />
-            <Route path="/practice" element={<Practice />} />
+            <Route path="/order" element={<OrderTable />} />
             <Route path="/chart" element={<Chart/>}/>
             <Route path="/chart1" element={<ChartPlaceAdmin/>}/>
           </Routes>

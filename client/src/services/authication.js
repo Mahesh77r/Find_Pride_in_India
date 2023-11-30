@@ -13,7 +13,15 @@ export const loginDOM = async(data) => {
     }
 };
 
-
+export const loginMinistry = async(data) => {
+    try{
+        // console.log(data);
+       return await axios.post(`${URL}/admin/login`,data);
+    }
+    catch(err){
+        console.log("Error occurs while running loginMinistry function",err);
+    }
+};
 
 export const resetPassword = async(data) => {
     try{

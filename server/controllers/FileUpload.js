@@ -31,6 +31,7 @@ const asyncParse = async (req) => {
   });
 
 }
+
 function extractFilenameFromUrl(url) {
   const fullPath = new URL(url).pathname;
   const decodedPath = decodeURIComponent(fullPath);
@@ -41,11 +42,15 @@ function extractFilenameFromUrl(url) {
 async function uploadSingleFile(file, folderName) {
   return new Promise((resolve, reject) => {
     try {
+      const timestamp = new Date().getTime();
       // Get a reference to the storage service, which is used to create references in your storage bucket
       const storage = getStorage(server);
 
+      // Append timestamp to the original file name
+      const fileName = `${timestamp}_${file[0].originalFilename}`;
+
       // Create a storage reference from our storage service
-      const storageRef = ref(storage, `${folderName}/${file[0].originalFilename}`);
+      const storageRef = ref(storage, `${folderName}/${fileName}`);
       // Assuming 'image.filepath' is the local file path
       uploadBytes(storageRef, fs.readFileSync(file[0].filepath)).then((snapshot) => {
 
@@ -73,7 +78,8 @@ async function UploadMultipleFiles(files, folderName) {
       const uploadPromises = [];
 
       for (const file of files) {
-        const storageRef = ref(storage, `${folderName}/${file.originalFilename}`);
+        const timestamp = new Date().getTime();
+        const storageRef = ref(storage, `${folderName}/${timestamp}_${file.originalFilename}`);
 
         const uploadPromise = uploadBytes(storageRef, fs.readFileSync(file.filepath))
           .then((snapshot) => getDownloadURL(storageRef))
@@ -94,6 +100,7 @@ async function UploadMultipleFiles(files, folderName) {
     }
   });
 }
+
 
 async function deleteFileByUrl(imageUrl, folderName) {
   const fileName = extractFilenameFromUrl(imageUrl);

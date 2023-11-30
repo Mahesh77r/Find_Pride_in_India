@@ -4,7 +4,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale,
   LinearScale,
   PointElement,
   LineElement, } from 'chart.js';
-import { Pie, Line, Bar } from 'react-chartjs-2';
+import { Pie, Bar } from 'react-chartjs-2';
 
 ChartJS.register(ArcElement, Tooltip, CategoryScale, LinearScale,
   PointElement,
@@ -234,38 +234,38 @@ export function Chart() {
     ],
   };
 
-   const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'top',
-      },
-      title: {
-        display: true,
-        text: 'Chart.js Line Chart',
-      },
-    },
-  };
+  //  const options = {
+  //   responsive: true,
+  //   plugins: {
+  //     legend: {
+  //       position: 'top',
+  //     },
+  //     title: {
+  //       display: true,
+  //       text: 'Chart.js Line Chart',
+  //     },
+  //   },
+  // };
   
-  const linelabels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  // const linelabels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   
-   const lineChartdata = {
-    labels: GraphData.map(item => item.Date),
-    datasets: [
-      {
-        label: 'Dataset 1',
-        data: GraphData.map(item => item[selectedField1]),
-        borderColor: 'rgb(255, 99, 132)',
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-      },
-      {
-        label: 'Dataset 2',
-        data: GraphData.map(item => item[selectedField2]),
-        borderColor: 'rgb(53, 162, 235)',
-        backgroundColor: 'rgba(53, 162, 235, 0.5)',
-      },
-    ],
-  };
+  //  const lineChartdata = {
+  //   labels: GraphData.map(item => item.Date),
+  //   datasets: [
+  //     {
+  //       label: 'Dataset 1',
+  //       data: GraphData.map(item => item[selectedField1]),
+  //       borderColor: 'rgb(255, 99, 132)',
+  //       backgroundColor: 'rgba(255, 99, 132, 0.5)',
+  //     },
+  //     {
+  //       label: 'Dataset 2',
+  //       data: GraphData.map(item => item[selectedField2]),
+  //       borderColor: 'rgb(53, 162, 235)',
+  //       backgroundColor: 'rgba(53, 162, 235, 0.5)',
+  //     },
+  //   ],
+  // };
   
   const calculateCountryData = () => {
     const countryDataMap = {};

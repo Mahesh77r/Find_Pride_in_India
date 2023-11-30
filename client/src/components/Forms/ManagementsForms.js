@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 
-export const FormTouristGuide = ({ onChangeHandler, data, handleFileChange, selectedFile, isUpdateMode }) => {
-    console.log(data)
+export const FormTouristGuide = ({
+    onChangeHandler,
+    data,
+    handleFileChange,
+    selectedFile,
+    isUpdateMode,
+}) => {
+    console.log(data);
 
     return (
         <>
@@ -28,28 +34,33 @@ export const FormTouristGuide = ({ onChangeHandler, data, handleFileChange, sele
                             src={URL.createObjectURL(selectedFile)}
                             alt="Selected"
                             className="w-100 h-50 object-cover" // This style will be overridden
-                            style={{ width: '200px', height: '10px', objectFit: 'cover' }}
+                            style={{ width: "200px", height: "10px", objectFit: "cover" }}
+                        />
+                    ) : data && data.path ? (
+                        <img
+                            src={data.path}
+                            alt="Selected"
+                            className="w-100 h-50 object-cover" // This style will be overridden
+                            style={{ width: "400px", height: "250px", objectFit: "cover" }}
                         />
                     ) : (
-                        data && data.path ? (
-                            <img
-                                src={data.path}
-                                alt="Selected"
-                                className="w-100 h-50 object-cover" // This style will be overridden
-                                style={{ width: '400px', height: '250px', objectFit: 'cover' }}
-                            />
-                        ) : (
-                            <div style={{ width: '200px', height: '100px', border: '1px solid #ccc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                No Image Selected
-                            </div>
-                        )
+                        <div
+                            style={{
+                                width: "200px",
+                                height: "100px",
+                                border: "1px solid #ccc",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                            }}
+                        >
+                            No Image Selected
+                        </div>
                     )}
                 </label>
-
             </div>
             {/*  */}
             <div className="mt-4">
-
                 <label
                     htmlFor="guideName"
                     className="block text-sm font-medium text-gray-700"
@@ -96,17 +107,21 @@ export const FormTouristGuide = ({ onChangeHandler, data, handleFileChange, sele
                     value={data ? data.contact : ""}
                     name="contact"
                     onChange={onChangeHandler}
-
                     className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
                 />
             </div>
-
         </>
     );
 };
 
-export const FormEvents = ({ onChangeHandler, data, handleFileChange, selectedFile, isUpdateMode }) => {
-    console.log(data)
+export const FormEvents = ({
+    onChangeHandler,
+    data,
+    handleFileChange,
+    selectedFile,
+    isUpdateMode,
+}) => {
+    console.log(data);
 
     return (
         <>
@@ -133,21 +148,28 @@ export const FormEvents = ({ onChangeHandler, data, handleFileChange, selectedFi
                             src={URL.createObjectURL(selectedFile)}
                             alt="Selected"
                             className="w-100 h-50 object-cover" // This style will be overridden
-                            style={{ width: '200px', height: '10px', objectFit: 'cover' }}
+                            style={{ width: "200px", height: "10px", objectFit: "cover" }}
+                        />
+                    ) : data && data.path ? (
+                        <img
+                            src={data.path}
+                            alt="Selected"
+                            className="w-100 h-50 object-cover" // This style will be overridden
+                            style={{ width: "400px", height: "250px", objectFit: "cover" }}
                         />
                     ) : (
-                        data && data.path ? (
-                            <img
-                                src={data.path}
-                                alt="Selected"
-                                className="w-100 h-50 object-cover" // This style will be overridden
-                                style={{ width: '400px', height: '250px', objectFit: 'cover' }}
-                            />
-                        ) : (
-                            <div style={{ width: '200px', height: '100px', border: '1px solid #ccc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                No Image Selected
-                            </div>
-                        )
+                        <div
+                            style={{
+                                width: "200px",
+                                height: "100px",
+                                border: "1px solid #ccc",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                            }}
+                        >
+                            No Image Selected
+                        </div>
                     )}
                 </label>
             </div>
@@ -185,7 +207,6 @@ export const FormEvents = ({ onChangeHandler, data, handleFileChange, selectedFi
                     id="event_date"
                     value={data ? data.event_date.substring(0, 10) : ""}
                     onChange={onChangeHandler}
-
                     name="event-date"
                     className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500"
                     required
@@ -212,17 +233,21 @@ export const FormEvents = ({ onChangeHandler, data, handleFileChange, selectedFi
                 ></textarea>
             </div>
 
-
             {/* </div> */}
         </>
     );
 };
 
-export const FormProduct = ({ onChangeHandler, data, handleFileChange, selectedFile, isUpdateMode }) => {
-
+export const FormProduct = ({
+    onChangeHandler,
+    data,
+    handleFileChange,
+    selectedFile,
+    isUpdateMode,
+}) => {
     return (
         <>
-        <h1 className="text-xl font-bold mb-3 text-center">
+            <h1 className="text-xl font-bold mb-3 text-center">
                 Do you want to {isUpdateMode ? "update" : "add"} Prodcut?
             </h1>
             {/* <!-- product Image Input --> */}
@@ -245,21 +270,28 @@ export const FormProduct = ({ onChangeHandler, data, handleFileChange, selectedF
                             src={URL.createObjectURL(selectedFile)}
                             alt="Selected"
                             className="w-100 h-50 object-cover" // This style will be overridden
-                            style={{ width: '200px', height: '10px', objectFit: 'cover' }}
+                            style={{ width: "200px", height: "10px", objectFit: "cover" }}
+                        />
+                    ) : data && data.path ? (
+                        <img
+                            src={data.path}
+                            alt="Selected"
+                            className="w-100 h-50 object-cover" // This style will be overridden
+                            style={{ width: "400px", height: "250px", objectFit: "cover" }}
                         />
                     ) : (
-                        data && data.path ? (
-                            <img
-                                src={data.path}
-                                alt="Selected"
-                                className="w-100 h-50 object-cover" // This style will be overridden
-                                style={{ width: '400px', height: '250px', objectFit: 'cover' }}
-                            />
-                        ) : (
-                            <div style={{ width: '200px', height: '100px', border: '1px solid #ccc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                No Image Selected
-                            </div>
-                        )
+                        <div
+                            style={{
+                                width: "200px",
+                                height: "100px",
+                                border: "1px solid #ccc",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                            }}
+                        >
+                            No Image Selected
+                        </div>
                     )}
                 </label>
             </div>
@@ -365,16 +397,20 @@ export const FormProduct = ({ onChangeHandler, data, handleFileChange, selectedF
                     required
                 ></textarea>
             </div>
-
-
         </>
     );
 };
 
-export const FormFacility = ({ onChangeHandler, data, handleFileChange, selectedFile, isUpdateMode }) => {
+export const FormFacility = ({
+    onChangeHandler,
+    data,
+    handleFileChange,
+    selectedFile,
+    isUpdateMode,
+}) => {
     return (
         <>
-        <h1 className="text-xl font-bold mb-3 text-center">
+            <h1 className="text-xl font-bold mb-3 text-center">
                 Do you want to {isUpdateMode ? "update" : "add"} Facility?
             </h1>
             <div className="my-3 flex justify-center">
@@ -394,21 +430,28 @@ export const FormFacility = ({ onChangeHandler, data, handleFileChange, selected
                             src={URL.createObjectURL(selectedFile)}
                             alt="Selected"
                             className="w-100 h-50 object-cover" // This style will be overridden
-                            style={{ width: '200px', height: '10px', objectFit: 'cover' }}
+                            style={{ width: "200px", height: "10px", objectFit: "cover" }}
+                        />
+                    ) : data && data.path ? (
+                        <img
+                            src={data.path}
+                            alt="Selected"
+                            className="w-100 h-50 object-cover" // This style will be overridden
+                            style={{ width: "400px", height: "250px", objectFit: "cover" }}
                         />
                     ) : (
-                        data && data.path ? (
-                            <img
-                                src={data.path}
-                                alt="Selected"
-                                className="w-100 h-50 object-cover" // This style will be overridden
-                                style={{ width: '400px', height: '250px', objectFit: 'cover' }}
-                            />
-                        ) : (
-                            <div style={{ width: '200px', height: '100px', border: '1px solid #ccc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                No Image Selected
-                            </div>
-                        )
+                        <div
+                            style={{
+                                width: "200px",
+                                height: "100px",
+                                border: "1px solid #ccc",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                            }}
+                        >
+                            No Image Selected
+                        </div>
                     )}
                 </label>
             </div>
@@ -472,16 +515,24 @@ export const FormFacility = ({ onChangeHandler, data, handleFileChange, selected
     );
 };
 
-export const FormCheckpoint = ({ onChangeHandler, data, handleFileChange, selectedFile, isUpdateMode }) => {
-
+export const FormCheckpoint = ({
+    onChangeHandler,
+    data,
+    handleFileChange,
+    selectedFile,
+    handleAudioChange,
+    selectedAudio,
+    isUpdateMode,
+}) => {
     return (
         <>
-        <h1 className="text-xl font-bold mb-3 text-center">
+            <h1 className="text-xl font-bold mb-3 text-center">
                 Do you want to {isUpdateMode ? "update" : "add"} Checkpoint?
             </h1>
-            {/* <!-- checkpoint Image Input --> */}
+
+            {/* Checkpoint Image Input */}
             <div className="my-3 flex justify-center">
-                {/* Hidden file input */}
+                {/* Hidden file input for Image */}
                 <input
                     type="file"
                     id="fileInput"
@@ -494,91 +545,155 @@ export const FormCheckpoint = ({ onChangeHandler, data, handleFileChange, select
                     htmlFor="fileInput"
                     className="cursor-pointer bg-gray-300 p-4 rounded-md hover:bg-gray-400"
                 >
+                    {/* Display selected image or placeholder */}
                     {selectedFile ? (
                         <img
                             src={URL.createObjectURL(selectedFile)}
                             alt="Selected"
-                            className="w-100 h-50 object-cover" // This style will be overridden
-                            style={{ width: '200px', height: '10px', objectFit: 'cover' }}
+                            className="w-100 h-50 object-cover"
+                            style={{ width: "200px", height: "10px", objectFit: "cover" }}
+                        />
+                    ) : data && data.image_path ? (
+                        <img
+                            src={data.image_path}
+                            alt="Selected"
+                            className="w-100 h-50 object-cover"
+                            style={{ width: "400px", height: "250px", objectFit: "cover" }}
                         />
                     ) : (
-                        data && data.path ? (
-                            <img
-                                src={data.path}
-                                alt="Selected"
-                                className="w-100 h-50 object-cover" // This style will be overridden
-                                style={{ width: '400px', height: '250px', objectFit: 'cover' }}
-                            />
-                        ) : (
-                            <div style={{ width: '200px', height: '100px', border: '1px solid #ccc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                No Image Selected
-                            </div>
-                        )
+                        <div
+                            style={{
+                                width: "200px",
+                                height: "100px",
+                                border: "1px solid #ccc",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                            }}
+                        >
+                            No Image Selected
+                        </div>
                     )}
                 </label>
             </div>
+            {/* number and name */}
+            <div className="flex justify-between  gap-2">
+                {/* Checkpoint Number Input */}
+                <div className="mt-4 ">
+                    <label
+                        htmlFor="checkpoint_number"
+                        className="block text-sm font-medium text-gray-700"
+                    >
+                        Checkpoint Number
+                    </label>
+                    <input
+                        type="number"
+                        id="checkpoint_number"
+                        onChange={onChangeHandler}
+                        value={data ? data.point_number : ""}
+                        name="point_number"
+                        className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+                        inputMode="numeric"
+                    />
+                </div>
 
-            <div className="mt-4">
-                <label
-                    htmlFor="number"
-                    className="block text-sm font-medium text-gray-700"
-                >
-                    Checkpoint Number
-                </label>
-                <input
-                    type="text"
-                    id="checkpoint_number"
-                    onChange={onChangeHandler}
-                    value={data ? data.point_number : ""}
-                    name="checkpoint_number"
-                    className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
-                />
+                {/* Checkpoint Name Input */}
+                <div className="mt-4 w-96">
+                    <label
+                        htmlFor="checkpoint_name"
+                        className="block text-sm font-medium text-gray-700"
+                    >
+                        Checkpoint Name
+                    </label>
+                    <input
+                        type="text"
+                        id="checkpoint_name"
+                        onChange={onChangeHandler}
+                        value={data ? data.point_name : ""}
+                        name="point_name"
+                        className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+                    />
+                </div>
             </div>
 
-            <div className="mt-4">
-
-                <label
-                    htmlFor="checkpointName"
-                    className="block text-sm font-medium text-gray-700"
-                >
-                    Checkpoint Name
-                </label>
-                <input
-                    type="text"
-                    id="checkpoint_name"
-                    onChange={onChangeHandler}
-                    value={data ? data.point_name : ""}
-                    name="checkpoint_name"
-                    className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
-                />
-            </div>
-
-            <div className="mt-4 mb-2">
+            {/* Checkpoint Description Textarea */}
+            <div className="mt-4 ">
                 <label
                     htmlFor="point_descp"
                     className="block text-sm font-medium text-gray-700"
                 >
                     Checkpoint Description
                 </label>
-                <input
-                    type="text"
+                <textarea
+                    placeholder="Feel free to use copy-paste to enter the content and avoid manual typing."
                     id="point_descp"
                     value={data ? data.point_descp : ""}
                     name="point_descp"
                     onChange={onChangeHandler}
-
                     className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
                 />
             </div>
 
+            {/* Checkpoint Audio Input */}
+            <div className="my-3 flex justify-center">
+                {/* Hidden file input for Audio */}
+                <input
+                    type="file"
+                    id="audioInput"
+                    className="hidden"
+                    onChange={handleAudioChange}
+                    accept="audio/*"
+                />
+
+                {/* Audio icon that acts as a file input */}
+                <label
+                    htmlFor="audioInput"
+                    className="cursor-pointer bg-gray-300 p-4 rounded-md hover:bg-gray-400"
+                >
+                    {/* Display selected audio or placeholder */}
+                    {selectedAudio ? (
+                        <audio controls className="w-100">
+                            <source
+                                src={URL.createObjectURL(selectedAudio)}
+                                type="audio/mp3"
+                            />
+                            Your browser does not support the audio element.
+                        </audio>
+                    ) : data && data.audio_path ? (
+                        <audio controls className="w-100">
+                            <source src={data.audio_path} type="audio/mp3" />
+                            Your browser does not support the audio element.
+                        </audio>
+                    ) : (
+                        <div
+                            style={{
+                                width: "200px",
+                                height: "100px",
+                                border: "1px solid #ccc",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                            }}
+                        >
+                            No Audio Selected
+                        </div>
+                    )}
+                </label>
+            </div>
         </>
     );
 };
 
-export const FormArtist = ({ onChangeHandler, data, handleFileChange, selectedFile,isUpdateMode }) => {
+export const FormArtist = ({
+    onChangeHandler,
+    data,
+    handleFileChange,
+    selectedFile,
+    isUpdateMode,
+}) => {
     return (
         <>
-        <h1 className="text-xl font-bold mb-3 text-center">
+            <h1 className="text-xl font-bold mb-3 text-center">
                 Do you want to {isUpdateMode ? "update" : "add"} Artist?
             </h1>
             {/* Image Input */}
@@ -587,8 +702,7 @@ export const FormArtist = ({ onChangeHandler, data, handleFileChange, selectedFi
                 <input
                     type="file"
                     id="fileInput"
-                    required
-                    className="hidden"
+                    className="absolute left-[-9999px] invisible"
                     onChange={handleFileChange}
                 />
                 {/* Image that acts as a file input */}
@@ -601,21 +715,28 @@ export const FormArtist = ({ onChangeHandler, data, handleFileChange, selectedFi
                             src={URL.createObjectURL(selectedFile)}
                             alt="Selected"
                             className="w-100 h-50 object-cover"
-                            style={{ width: '200px', height: '100px', objectFit: 'cover' }}
+                            style={{ width: "200px", height: "100px", objectFit: "cover" }}
+                        />
+                    ) : data && data.path ? (
+                        <img
+                            src={data.path}
+                            alt="Selected"
+                            className="w-100 h-50 object-cover"
+                            style={{ width: "400px", height: "250px", objectFit: "cover" }}
                         />
                     ) : (
-                        data && data.path ? (
-                            <img
-                                src={data.path}
-                                alt="Selected"
-                                className="w-100 h-50 object-cover"
-                                style={{ width: '400px', height: '250px', objectFit: 'cover' }}
-                            />
-                        ) : (
-                            <div style={{ width: '200px', height: '100px', border: '1px solid #ccc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                No Image Selected
-                            </div>
-                        )
+                        <div
+                            style={{
+                                width: "200px",
+                                height: "100px",
+                                border: "1px solid #ccc",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                            }}
+                        >
+                            No Image Selected
+                        </div>
                     )}
                 </label>
             </div>
@@ -855,7 +976,6 @@ export const FormPlaceSummary = ({
         </>
     );
 };
-
 
 const ImageInput = ({ image_url }) => {
     const [selectedFile, setSelectedFile] = useState(null);

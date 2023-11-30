@@ -3,7 +3,7 @@ import DataTable from 'react-data-table-component';
 import { AddButton } from '../../components/CustomButtons';
 import { Modal } from 'antd';
 
-const CustomTable = ({ onSubmitHandler, data,handleFileChange, selectedFile,setSelectedFile, onChangeHandler, columns, addform, initialData, setFormData, title, fetchData, searchfield, setFilterRecords, filterRecords, setRecords, records }) => {
+const CustomTable = ({ selectedAudio,handleAudioChange,onSubmitHandler, data,handleFileChange, selectedFile,setSelectedFile, onChangeHandler, columns, addform, initialData, setFormData, title, fetchData, searchfield, setFilterRecords, filterRecords, setRecords, records }) => {
   const customStyles = {
     rows: {
       style: {
@@ -11,11 +11,13 @@ const CustomTable = ({ onSubmitHandler, data,handleFileChange, selectedFile,setS
       },
     },
     headRow: {
-      style: {
-        maxHeight: '48px',
-        backgroundColor: '#000D27',
-      },
-    },
+  style: {
+    maxHeight: '48px',
+    backgroundColor: '#000D27',
+    textAlign: 'center', // Add this line to center the text
+  },
+}
+,
     headCells: {
       style: {
         fontSize: '14px',
@@ -49,7 +51,8 @@ const CustomTable = ({ onSubmitHandler, data,handleFileChange, selectedFile,setS
 
   useEffect(() => {
     fetchData();
-  }, [fetchData]);
+    // eslint-disable-next-line
+  }, []);
 
   function handleFilter(event) {
     const newData = filterRecords.filter((row) => {
@@ -82,12 +85,19 @@ const CustomTable = ({ onSubmitHandler, data,handleFileChange, selectedFile,setS
         />
         <Modal onCancel={() => onCancel()} footer={null} open={visible}>
           <form>
-            {React.cloneElement(addform, { onChangeHandler, data, handleFileChange,selectedFile })} {/* Pass necessary props */}
+            {React.cloneElement(addform, { onChangeHandler, data, handleFileChange,selectedFile,handleAudioChange,selectedAudio})} {/* Pass necessary props */}
             <AddButton form_type={title} onClickfun={onSubmitHandler}/>
           </form>
         </Modal>
+        {
+          title === 'Order'
+          ?
+           null 
+          :
+          <AddButton onClickfun={modalOpenClose} form_type={title} />
+        }
+        
 
-        <AddButton onClickfun={modalOpenClose} form_type={title} />
       </div>
 
       <DataTable

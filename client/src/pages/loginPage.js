@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Toaster, toast } from 'react-hot-toast';
-import { loginDOM } from "../services/authication";
+import { loginDOM, loginMinistry } from "../services/authication";
 
 export default function LoginPage() {
   const [loginData, setLoginData] = useState({
@@ -47,7 +47,27 @@ export default function LoginPage() {
     const loadingToast = toast.loading("Processing...");
   
     try {
-      const res = await loginDOM({ ...loginData, role: selectedRole });
+      console.log(selectedRole)
+      if(selectedRole === 'ministry'){
+        const res = await loginMinistry({ ...loginData, role: selectedRole });
+  
+        if (res.status === 200) {
+          const loginData = JSON.stringify(res.data.user);
+          setLogin(true);
+          toast.success("Login Successfully");
+          localStorage.setItem("user", loginData);
+          setTimeout(() => {
+            Navigate("/");
+          }, 1000);
+        } else if (res.status === 202) {
+          toast.error('Login failed');
+        }
+      }
+      else if(selectedRole === 'superadmin'){
+
+      }
+      else if(selectedRole === 'destinationorganization'){
+        const res = await loginDOM({ ...loginData, role: selectedRole });
   
       if (res.status === 200) {
         const loginData = JSON.stringify(res.data.user);
@@ -60,6 +80,8 @@ export default function LoginPage() {
       } else if (res.status === 202) {
         toast.error('Login failed');
       }
+      }
+      
     } catch (error) {
       console.error('Error during login:', error);
       toast.error('An error occurred during login');

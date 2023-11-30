@@ -2,7 +2,6 @@ const CheckpointSchema = require("../models/Checkpoints");
 const { asyncParse, UploadMultipleFiles,deleteFileByUrl } = require("./FileUpload")
 const PlaceAdmin = require("../models/placeAdminModal");
 
-
 const getCheckpoint = async (req, res) => {
   const dest_id = req.params.dest_id;
 
@@ -34,6 +33,7 @@ const getCheckpoint = async (req, res) => {
 const updateCheckpoint = async (req, res) => {
   try {
     const data = req.body;
+    console.log(data);
 
     // Find and update the checkpoint by ID
     const updatedCheckpoint = await CheckpointSchema.findByIdAndUpdate(
@@ -115,7 +115,6 @@ const deleteCheckpoint = async (req, res) => {
     return res.status(500).json({ success: false, error: `Error deleting checkpoint: ${error}` });
   }
 };
-
 
 const addCheckpoint = async (req, res) => {
   try {
