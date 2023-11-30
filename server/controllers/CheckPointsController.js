@@ -33,7 +33,6 @@ const getCheckpoint = async (req, res) => {
 const updateCheckpoint = async (req, res) => {
   try {
     const data = req.body;
-    console.log(data);
 
     // Find and update the checkpoint by ID
     const updatedCheckpoint = await CheckpointSchema.findByIdAndUpdate(

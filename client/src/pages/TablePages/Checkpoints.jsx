@@ -15,7 +15,7 @@ const StyledImage = styled.img`
 
 export const Checkpoints = () => {
   const AudioColumn = ({ audioPath }) => (
-    <audio controls style={{ width: '240px' }}>
+    <audio controls className="w-[240px]">
       <source src={audioPath} type="audio/mp3" />
       Your browser does not support the audio element.
     </audio>
@@ -134,6 +134,11 @@ export const Checkpoints = () => {
 
         if (updateRes.status === 200) {
           toast.success("Checkpoint updated successfully");
+          // Refresh the page with a delay
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+
         } else {
           toast.error("Failed to update checkpoint");
         }
@@ -142,6 +147,10 @@ export const Checkpoints = () => {
 
         if (deleteRes.status === 200) {
           toast.success("Checkpoint deleted successfully");
+          // Refresh the page with a delay
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
         } else {
           toast.error("Failed to delete checkpoint");
         }
@@ -157,6 +166,10 @@ export const Checkpoints = () => {
 
         if (res.status === 200) {
           toast.success("Checkpoint added successfully");
+          // Refresh the page with a delay
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
         } else {
           toast.error("Failed to add checkpoint");
         }
@@ -177,6 +190,7 @@ export const Checkpoints = () => {
       // 
       setSelectedAudio(null);
       setSelectedFile(null);
+
     }
   };
 

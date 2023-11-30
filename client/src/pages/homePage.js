@@ -14,13 +14,11 @@ function HomePage() {
 const [userData , setUser] = useState(false)
   useEffect(() => {
     const user = localStorage.getItem("user");
-    console.log("local store")
-    console.log("User:", user);
     if (!user) {
-      console.log("Redirecting to login page");
-      // window.location.assign("/login");
+      
       navigate('/login');
     } else{
+      
       setUser(true)
     }
     // eslint-disable-next-line

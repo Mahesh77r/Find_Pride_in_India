@@ -104,6 +104,10 @@ export const ArtistTable = () => {
 
         if (updateRes.status === 200) {
           toast.success("Artist updated successfully");
+          // Refresh the page with a delay
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
         } else {
           toast.error("Failed to update artist");
         }
@@ -112,6 +116,10 @@ export const ArtistTable = () => {
 
         if (deleteRes.status === 200) {
           toast.success("Artist deleted successfully");
+          // Refresh the page with a delay
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
         } else {
           toast.error("Failed to delete artist");
         }
@@ -120,9 +128,17 @@ export const ArtistTable = () => {
         setDeleteModalVisible(false);
       } else {
         const addRes = await addArtist(artistData);
+        if (addRes.status === 202) {
+          toast.error("Checkpoint already exists");
+        }
 
         if (addRes.status === 200) {
           toast.success("Artist added successfully");
+          toast.dismiss(loadingToast);
+          // Refresh the page with a delay
+          setTimeout(() => {
+            window.location.reload();
+          }, 1.2*1000);
         } else {
           toast.error("Failed to add artist");
         }
@@ -215,7 +231,7 @@ export const ArtistTable = () => {
 
             <div className="mb-4">
               <p className="text-lg">Do you want to delete the Artist named:</p>
-              <h4 className="text-xl font-semibold mt-2">{ deleteModalVisible ? formData.artist_name : ''}</h4>
+              <h4 className="text-xl font-semibold mt-2">{deleteModalVisible ? formData.artist_name : ''}</h4>
             </div>
 
             <div className="flex justify-end">

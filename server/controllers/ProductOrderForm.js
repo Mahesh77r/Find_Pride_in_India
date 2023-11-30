@@ -228,7 +228,8 @@ const deleteOrderAndNotify = async (req, res) => {
     if (!orderId || !cancellation_reason) {
       return res.status(400).json({ success: false, error: 'Missing required parameters' });
     }
-
+    const reason = cancellation_reason.cancellation_reason;
+    
     const deletedOrder = await Order.findByIdAndDelete(orderId);
 
     if (!deletedOrder) {
@@ -250,7 +251,7 @@ const deleteOrderAndNotify = async (req, res) => {
       text: `
         Hello from Finding Pride in India!
         We regret to inform you that your order has been canceled due to the following reason:
-        ${cancellation_reason}
+        ${reason}
         If you have any concerns or need further assistance, please contact our support team.
         We apologize for any inconvenience caused.
         Happy exploring,

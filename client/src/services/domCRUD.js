@@ -15,13 +15,17 @@ export const addDOM = async(file,inputformData) => {
           "Content-Type": "multipart/form-data",
         },
       });
-      alert("Form uploaded successfully");
     } catch (error) {
       console.error("Error uploading file:", error);
     }
 };
-
-
+export const getDOM = async() =>{
+  try {
+    return await axios.get(`${URL}/dom/getplaces/`)
+  } catch (error) {
+    console.log(`Error occur during fetching destination ${error}`)
+  }
+}
 // product Crud
 
 export const addProduct = async(formdata) =>{

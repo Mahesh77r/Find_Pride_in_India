@@ -64,7 +64,7 @@ export const OrderTable = () => {
         </>
       ),
     }
-    
+
     ,
   ];
 
@@ -126,62 +126,73 @@ export const OrderTable = () => {
     setViewModalVisible(false);
   };
 
-const onSubmitHandler = async (e) => {
-  e.preventDefault();
-  let loadingToast;
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+    let loadingToast;
 
-  try {
-    // Validate delivery date
-    const today = new Date();
-    const selectedDate = new Date(formData.deliveryDate);
+    try {
+      // Validate delivery date
+      const today = new Date();
+      const selectedDate = new Date(formData.deliveryDate);
 
-    if (selectedDate < today) {
-      // If the selected date is before today, show an error toast
-      toast.error('Delivery date must be greater than or equal to today.');
-      return;
-    }
-
-    // Show a loading toast
-    loadingToast = toast.loading('Processing...');
-
-    if (isUpdateMode) {
-      // Log the expected date for update mode
-      const shippedData = {
-        delivery_date: formData.deliveryDate,
-        tourist_email: formData.tourist_email
-      };
-      console.log("Expected Date:", formData.deliveryDate);
-      console.log("Expected Date:", formData._id);
-      const res = await updateShippedStatus(formData._id, shippedData);
-      // Other update logic goes here
-      res.status === 200 ? toast.success('Order Shipped!') : toast.error('Order is not Shipped, try agian !!!');
-      // Show success toast
-      
-    } else if (deleteMode) {
-      // Uncomment the following line if deletemsg is defined
-      const Msg = {
-        cancellation_reason :deletemsg.deletemsg
+      if (selectedDate < today) {
+        // If the selected date is before today, show an error toast
+        toast.error('Delivery date must be greater than or equal to today.');
+        return;
       }
-      console.log(Msg)
-      const res = await deleteOrder(formData._id, Msg);
-      // Other delete logic goes here
-      res.status === 200 ? toast.success('Order Canceled successfully!') : toast.error('Order is not canceled, try agian !!!');
+
+      // Show a loading toast
+      loadingToast = toast.loading('Processing...');
+
+      if (isUpdateMode) {
+        // Log the expected date for update mode
+        const shippedData = {
+          delivery_date: formData.deliveryDate,
+          tourist_email: formData.tourist_email
+        };
+        console.log("Expected Date:", formData.deliveryDate);
+        console.log("Expected Date:", formData._id);
+        const res = await updateShippedStatus(formData._id, shippedData);
+        // Other update logic goes here
+        res.status === 200 ? toast.success('Order Shipped!') : toast.error('Order is not Shipped, try agian !!!');
+        // Show success toast
+
+      } else if (deleteMode) {
+        // Uncomment the following line if deletemsg is defined
+        // Uncomment the following line if deletemsg is defined
+        const Msg = {
+          cancellation_reason: deletemsg?.deletemsg || "Default cancellation reason", // Use deletemsg if defined, otherwise use a default value
+        };
+        console.log(Msg);
+
+        const res = await deleteOrder(formData._id, Msg);
+
+        // Other delete logic goes here
+
+        if (res.status === 200) {
+          toast.success('Order Canceled successfully!');
+          setTimeout(() => { window.location.reload(); }, 500);
+        } else {
+          toast.error('Order is not canceled, try again !!!');
+          setTimeout(() => { window.location.reload(); }, 500);
+        }
+        
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      // Show error toast
+      toast.error('An error occurred. Please try again.');
+    } finally {
+      // Dismiss the loading toast
+      toast.dismiss(loadingToast);
+      setVisible(false);
+      setFormData(initialData);
+      setDeleteModalVisible(false);
+      setDeletemsg('');
+      setDeleteMode(false);
+      setIsUpdateMode(false);
     }
-  } catch (error) {
-    console.error("Error:", error);
-    // Show error toast
-    toast.error('An error occurred. Please try again.');
-  } finally {
-    // Dismiss the loading toast
-    toast.dismiss(loadingToast);
-    setVisible(false);
-    setFormData(initialData);
-    setDeleteModalVisible(false);
-    setDeletemsg('');
-    setDeleteMode(false);
-    setIsUpdateMode(false);
-  }
-};
+  };
 
 
 
