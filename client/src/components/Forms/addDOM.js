@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { addDOM } from '../../services/domCRUD';
+import { Toaster, toast } from 'react-hot-toast'
 
 export default function AddDOM() {
-  const [file, setFile] = useState(null);
   const [formData, setFormData] = useState({
     adminName: '',
     email: '',
@@ -20,26 +20,45 @@ export default function AddDOM() {
   // form data
   const handleChange = (e) => {
     const { name, value } = e.target;
-
       setFormData({ ...formData, [name]: value });
-    
   };
   // file
-  const handleFileChange = (event) => {
-    console.log(event.target.files);
-    setFile(event.target.files[0]);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const handleFileChange = (e) => {
+    setSelectedFile(e.target.files[0]);
   };
 
   const handleSubmit = async (e) => {
+    
     e.preventDefault();
-    // Handle form submission here  console.log(file ,formData)
-    console.log(file ,formData);
-    await addDOM(file,formData);
-    console.log(file ,formData);
+    // Handle form submission here  
+    let loadingToast
+    try {
+      loadingToast = toast.loading("Processing...");
+      const DOMData = {
+        ...formData,
+        image:selectedFile
+      }
+      console.log(DOMData)
+      const res = await addDOM(DOMData);
+      if(res.status === 200){
+        toast.success("Destination Register successfully");
+      }
+      else{
+        toast.error("Failed to Register");
+      }
+    } catch (error) {
+      
+    }finally{
+      toast.dismiss(loadingToast);
+    }
+    
+
   };
 
   return (
     <>
+    <Toaster position='top-center'/>
       <h2 className="md:text-4xl text-xl my-3 text-center font-semibold mb-4">
         Register <span className='text-indigo-500'>Destination Organization Management</span>
       </h2>
@@ -153,25 +172,12 @@ export default function AddDOM() {
             </div>
           </div>
 
-          {/* hidden inputs */}
-          {/* destination_id */}
-          {/* <div >
-            <input
-              type="destination_id"
-              name="destination_id"
-              hidden
-              value={formData.destination_id}
-              onChange={handleChange}
-              className="mt-2 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
-              required
-            />
-          </div> */}
-
           <div className="mb-4">
             <label htmlFor="placeImages" className="block text-gray-600">Place Images</label>
             <input
               type="file"
               onChange={handleFileChange}
+              name='image'
               className="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
             />
           </div>

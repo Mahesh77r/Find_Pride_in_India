@@ -5,10 +5,8 @@ const LOCALURL = 'http://localhost:8080/dom';
 
 
 // DOM Register
-export const addDOM = async(file,inputformData) => {
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("data", JSON.stringify(inputformData));
+export const addDOM = async(formData) => {
+  
     try {
      return await axios.post(`${LOCALURL}/register`, formData, {
         headers: {

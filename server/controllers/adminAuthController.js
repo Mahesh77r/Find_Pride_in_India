@@ -9,65 +9,63 @@ const jwt = require("jsonwebtoken");
 //  Register function to register user
 const placeAdminRegister = async (req, res) => {
   try {
-    let parseData = await asyncParse(req)
-    let ImageInformation = parseData.files.image
-    let data = JSON.parse(parseData.fields.data)
+    let parseData = await asyncParse(req);
+    let ImageInformation = parseData.files.image;
+    let data = parseData.fields;
     if (!parseData) {
       return res.status(400).json({ success: false, message: "Missing request data" });
     }
-    
 
-    const { adminName, email, mobileNumber, destinationName, state, city, summary, imagePath , address } = data;
+    const { adminName, email, mobileNumber, destinationName, state, city, summary, address } = data;
 
     // Validate user input
     if (!(adminName && email && mobileNumber && destinationName)) {
       return res.status(400).json({ success: false, message: "All input fields are required" });
     }
 
-    
-    
-
     try {
       // Check if user with the same email or destination name already exists
-    const existingUser = await User.findOne({ $or: [{ email: email }, { destinationName: destinationName }] });
-    if (existingUser) {
-      return res.status(400).json({ success: false, message: "Email or Destination Name already exists" });
-    }
-      //   uploading Images
-      await UploadMultipleFiles(ImageInformation, 'doms').then((response) => { data.imagePath = response })
+      const existingUser = await User.findOne({ $or: [{ email: email }, { destinationName: destinationName }] });
+      if (existingUser) {
+        return res.status(400).json({ success: false, message: "Email or Destination Name already exists" });
+      }
 
+      //   uploading Images
+      await UploadMultipleFiles(ImageInformation, 'doms').then((response) => { data.imagePath = response });
 
     } catch (error) {
       return res.status(400).json({ success: false, error: `Image not uploaded : ${error}` });
     }
+
     // Hash the password
-    let password= "admin1234";
+    let password = "admin1234";
     const salt = await bcrypt.genSalt(10);
     const encryptedPassword = await bcrypt.hash(password, salt);
 
     // Create a new user
     const newUser = new User({
-      adminName: adminName,
-      email: email.toLowerCase(), // Sanitize email to lowercase
-      password:encryptedPassword,
-      mobileNumber: mobileNumber,
-      destinationName: destinationName,
-      state: state,
-      city: city,
-      summary: summary,
-      address:address,
+      adminName: adminName[0],
+      email: email[0], // Sanitize email to lowercase
+      password: encryptedPassword,
+      mobileNumber: mobileNumber[0],
+      destinationName: destinationName[0],
+      state: state[0],
+      city: city[0],
+      summary: summary[0],
+      address: address[0],
       path: data.imagePath,
     });
 
     // Save the new user
     await newUser.save();
 
-    return res.status(201).json({ success: true, data: newUser, message: "Registration successful" });
+    return res.status(200).json({ success: true, data: newUser, message: "Registration successful" });
   } catch (error) {
     console.error("Error in placeAdminRegister:", error);
     return res.status(500).json({ success: false, message: "Registration failed" });
   }
 };
+
 
 //login functonality to login user
 const placeAdminlogin = async (req, res, next) => {

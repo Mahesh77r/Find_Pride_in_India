@@ -51,7 +51,7 @@ export const ProfilePage = () => {
         <div key={index} className="my-4 p-4  rounded-2xl">
           <div className="flex items-center justify-center">
             <p className="ms-3 text-4xl text-center font-bold my-3 font-serif me-5">
-              Place Summary
+              Place Summary 
             </p>
             <UpdateButton update_title={"Place Summary"} updateform={<FormPlaceSummary admin_name={data.adminName}
               address={data.address}
@@ -66,7 +66,7 @@ export const ProfilePage = () => {
 
             <img
               className="max-h-56 max-w-full rounded-xl"
-              src={data.path[1]}
+              src={data.path}
               alt="Place"
             />
             {/*  */}
