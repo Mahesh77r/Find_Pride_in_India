@@ -1,10 +1,10 @@
 
-  # Finding Pride in India( Tourist Destination Administrator ) 🧭
+  # Finding Pride in India( Tourist Destination Administrator Website ) 🌐
   
   ## Installation Guide 🚀  
   There are two folders `client` and `server`
 
-  - client : It contains React App 
+  - client : It contains React App
   - server : It contains Express server 
 
   ## How to start
