@@ -30,7 +30,7 @@ export const addProduct = async(formdata) =>{
   try{
     console.log(formdata)
 
-    return await axios.post(`${LOCALURL}/addproducts`,formdata)
+    return await axios.post(`${URL}/addproducts`,formdata)
   }
   catch(err){
       console.log(formdata)
@@ -52,7 +52,7 @@ export const updateProduct = async(id,formdata) =>{
   try{
     id = id || '';
     console.log(id)
-    return await axios.put(`${LOCALURL}/updateproducts/${id}`,formdata)
+    return await axios.put(`${URL}/updateproducts/${id}`,formdata)
     
   }
   catch(err){
@@ -75,7 +75,7 @@ export const addGuide = async(formdata) =>{
   try{
     console.log(formdata)
 
-    return await axios.post(`${LOCALURL}/addguides`,formdata)
+    return await axios.post(`${URL}/addguides`,formdata)
   }
   catch(err){
       console.log(formdata)
@@ -97,7 +97,7 @@ export const updateGuide = async(id,formdata) =>{
   try{
     id = id || '';
     console.log(id)
-    return await axios.put(`${LOCALURL}/updateguides/${id}`,formdata)
+    return await axios.put(`${URL}/updateguides/${id}`,formdata)
     
   }
   catch(err){
@@ -121,7 +121,7 @@ export const addFacility = async(formdata) =>{
   try{
     console.log(formdata)
 
-   return await axios.post(`${LOCALURL}/addfacilities`,formdata)
+   return await axios.post(`${URL}/addfacilities`,formdata)
   }
   catch(err){
       console.log(formdata)
@@ -143,7 +143,7 @@ export const updateFacility = async(id,formdata) =>{
   try{
     id = id || '';
     console.log(id)
-    return await axios.put(`${LOCALURL}/updatefacilities/${id}`,formdata)
+    return await axios.put(`${URL}/updatefacilities/${id}`,formdata)
     
   }
   catch(err){
@@ -154,7 +154,7 @@ export const deleteFacility = async(id,formdata) =>{
   try{
     id = id || '';
     console.log(id)
-    return await axios.put(`${LOCALURL}/deletefacilities/${id}`,formdata)
+    return await axios.put(`${URL}/deletefacilities/${id}`,formdata)
     
   }
   catch(err){
@@ -168,7 +168,7 @@ export const addEvent = async(formdata) =>{
   try{
     console.log(formdata)
 
-    return await axios.post(`${LOCALURL}/addevents`,formdata)
+    return await axios.post(`${URL}/addevents`,formdata)
   }
   catch(err){
       console.log(formdata)
@@ -190,7 +190,7 @@ export const updateEvents = async(id,formdata) =>{
   try{
     id = id || '';
     console.log(id)
-    return await axios.put(`${LOCALURL}/updateevents/${id}`,formdata)
+    return await axios.put(`${URL}/updateevents/${id}`,formdata)
     
   }
   catch(err){
@@ -212,7 +212,7 @@ export const deleteEvents = async(id) =>{
 
 export const addArtist = async(formdata) =>{
   try{
-    return await axios.post(`${LOCALURL}/addartists`,formdata);
+    return await axios.post(`${URL}/addartists`,formdata);
   }
   catch(err){
       console.log(formdata)
@@ -233,7 +233,7 @@ export const updateArtist = async(id,formdata) =>{
   try{
     id = id || '';
     console.log(id)
-    return await axios.put(`${LOCALURL}/updateartists/${id}`,formdata)
+    return await axios.put(`${URL}/updateartists/${id}`,formdata)
     
   }
   catch(err){
@@ -257,7 +257,7 @@ export const fetchOrder = async(id) =>{
   // id can be null if we need to view all user
   id = id || '';
   try{
-     return await axios.get(`${LOCALURL}/getorderfordest/${id}`);
+     return await axios.get(`${URL}/getorderfordest/${id}`);
   }
   catch(err){
       console.log("Error occurs while running fetching orders function",err);
@@ -267,7 +267,7 @@ export const updateShippedStatus = async(id,formdata) =>{
   try{
     id = id || '';
     console.log(id)
-    return await axios.put(`${LOCALURL}/ordershipped/${id}`,formdata)
+    return await axios.put(`${URL}/ordershipped/${id}`,formdata)
     
   }
   catch(err){
@@ -280,7 +280,7 @@ export const deleteOrder = async (id, cancellation_reason) => {
   console.log(cancellation_reason);
 
   try {
-    return await axios.delete(`${LOCALURL}/ordercancle/${id}`, {
+    return await axios.delete(`${URL}/ordercancle/${id}`, {
       data: { cancellation_reason }, // Include the data in the request body
     });
   } catch (err) {
