@@ -98,7 +98,7 @@ export default function LoginPage() {
 
       <div className="flex h-screen bg-orange-100 overflow-y-hidden">
         <div className="m-auto p-6 bg-white rounded-lg shadow-lg w-96">
-          <img src="dom.png" alt="Logo" className="mx-auto w-20  mb-6" />
+          <img src="https://firebasestorage.googleapis.com/v0/b/finding-pride-in-india-9035a.appspot.com/o/DOM.png?alt=media&token=f3bb9eaa-de1e-4af7-a7bb-e1860e0a8357" alt="Logo" className="mx-auto w-20  mb-6" />
           <h2 className="text-2xl text-center font-semibold mb-4">Sign in</h2>
           <form onSubmit={(e) => loginHandler(e)}>
             <div className="mb-4">
