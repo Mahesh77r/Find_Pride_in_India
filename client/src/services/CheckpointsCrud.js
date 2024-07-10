@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// const URL = 'https://finding-pride-in-india.onrender.com/dom';
-const URL = 'http://localhost:8080/dom';
+const URL = 'https://finding-pride-in-india.onrender.com/dom';
+// const LOCALURL = 'http://localhost:8080/dom';
 
 
 export const fetchCheckpoints = async (id) => {

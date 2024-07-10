@@ -209,6 +209,20 @@ export default function LoginPage() {
               Login
             </button>
           </form>
+          <div className="mt-2">
+          <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="password"
+              >
+                Email : co.gggolhar@bitwardha.ac.in
+              </label>
+          <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="password"
+              >
+                Password : admin 1234
+              </label>
+          </div>
         </div>
       </div>
     </>
