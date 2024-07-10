@@ -158,6 +158,7 @@ export const ArtistTable = () => {
       const storedUser = JSON.parse(storedUserJSON);
       const res = await fetchArtist(storedUser.destinationName);
       const data = res.data.data;
+      console.log(data)
       setRecords(data);
       setFilterRecords(data);
     } catch (error) {

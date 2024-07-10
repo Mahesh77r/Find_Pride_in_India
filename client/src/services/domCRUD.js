@@ -1,14 +1,14 @@
 import axios from 'axios';
 
-const URL = 'https://finding-pride-in-india.onrender.com/dom';
-const LOCALURL = 'http://localhost:8080/dom';
+// const URL = 'https://finding-pride-in-india.onrender.com/dom';
+const URL = 'http://localhost:8080/dom';
 
 
 // DOM Register
 export const addDOM = async(formData) => {
   
     try {
-     return await axios.post(`${LOCALURL}/register`, formData, {
+     return await axios.post(`${URL}/register`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -69,6 +69,48 @@ export const deleteProduct = async(id) =>{
       console.log("Error occurs while running fetching products function",err);
   }
 };
+
+export const addClue = async(formdata) =>{
+  try{
+    return await axios.post(`${URL}/addclues`,formdata);
+  }
+  catch(err){
+      console.log(formdata)
+    console.log(`Error occur during adding clues ${err}`)
+  }
+}
+export const fetchClue = async(id) =>{
+  // id can be null if we need to view all user
+  id = id || '';
+  try{
+     return await axios.get(`${URL}/getclues/${id}`);
+  }
+  catch(err){
+      console.log("Error occurs while running fetching artists function",err);
+  }
+};
+export const updateclue = async(id,formdata) =>{
+  try{
+    id = id || '';
+    console.log(id)
+    return await axios.put(`${URL}/updateclues/${id}`,formdata)
+    
+  }
+  catch(err){
+    console.log(`Error occur during updating clues ${err}`)
+  }
+};
+export const deleteClue = async(id) =>{
+  // id can be null if we need to view all user
+  id = id || '';
+  try{
+     return await axios.delete(`${URL}/deleteclues/${id}`);
+  }
+  catch(err){
+      console.log("Error occurs while running deleting clues function",err);
+  }
+};
+
 
 // guide CRUD
 export const addGuide = async(formdata) =>{

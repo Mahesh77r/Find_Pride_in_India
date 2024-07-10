@@ -74,9 +74,11 @@ export default function LoginPage() {
         setLogin(true);
         toast.success("Login Successfully");
         localStorage.setItem("user", loginData);
+        localStorage.setItem("auth", true);
         setTimeout(() => {
-          Navigate("/");
+          window.location.href = "/";
         }, 1000);
+        
       } else if (res.status === 202) {
         toast.error('Login failed');
       }

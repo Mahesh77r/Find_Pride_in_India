@@ -13,6 +13,7 @@ export const SideNavbar = ({ navigation, isSideNavbarOpen, toggleSideNavbar }) =
   const handleLogout = () => {
     // Clear the access_token from localStorage when logging out
     localStorage.removeItem("user");
+    localStorage.removeItem("auth");
     window.location.assign("/login");
     LogoutMsg()
   };

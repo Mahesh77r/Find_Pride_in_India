@@ -11,7 +11,6 @@ const getHello = async (req, res) => {
     message: 'User Already Exists. Please verify OTP',
   });
 };
-
 const touristRegister = async (req, res, next) => {
   try {
     const {
@@ -85,7 +84,6 @@ const touristRegister = async (req, res, next) => {
 const generateOTP = () => {
   return Math.floor(100000 + Math.random() * 900000).toString();
 };
-
 const sendOtp = async (req, res) => {
   try {
     const { tourist_email } = req.body;
@@ -133,7 +131,6 @@ const sendOtp = async (req, res) => {
     return -1;
   }
 };
-
 const verifyOtp = async (req, res) => {
   const { otp, tourist_email } = req.body;
 
@@ -168,7 +165,6 @@ const verifyOtp = async (req, res) => {
     });
   }
 };
-
 const touristLogin = async (req, res, next) => {
   try {
     const { tourist_email, tourist_password } = req.body;

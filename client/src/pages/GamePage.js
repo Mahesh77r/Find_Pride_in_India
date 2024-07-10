@@ -1,62 +1,65 @@
 import React, { useState, useEffect } from "react";
-import CustomTable from "../../components/Table/Table";
-import { addEvent, deleteEvents, fetchEvents, updateEvents } from "../../services/domCRUD";
-import { AddButton, UpdateButton, DeleButton, UpdateDeletebuttons } from "../../components/CustomButtons";
+import CustomTable from "../components/Table/Table";
+import { addClue, fetchClue, updateclue, deleteClue } from "../services/domCRUD";
+import { AddButton, DeleButton, UpdateButton, UpdateDeletebuttons } from "../components/CustomButtons";
 import { Toaster, toast } from 'react-hot-toast'
 import { Modal } from 'antd';
 import { styled } from 'styled-components';
-import { FormEvents } from "../../components/Forms/ManagementsForms";
-
+import { FormArtist, FormGame } from "../components/Forms/ManagementsForms";
+import {ClueAnsData} from '../components/DemoData'
 const StyledImage = styled.img`
-  width: 70px; 
-  height: 50px; 
+  width: 70px;
+  height: 50px;
   border-radius: 50%;
 `;
 
-
-export const EventTable = () => {
+export const GamePage = () => {
   const columns = [
     {
-      name: 'Image',
-      selector: (row) => <StyledImage src={row.path} alt="Product" />,
-      sortable: true,
-      maxWidth: '100px', // Adjust the maximum width as needed
-    },
-    {
-      name: "Event Name",
-      selector: (row) => row.event_name,
+      name: "Clue Name",
+      selector: (row) => row.clue_name,
       sortable: true,
     },
     {
-      name: "Event Date",
-      selector: (row) => row.event_date.substring(0, 10),
+      name: "Clue Question",
+      selector: (row) => row.clue_que,
       sortable: true,
     },
     {
-      name: "Event Description",
-      selector: (row) => row.event_des,
+      name: "Clue Answer",
+      selector: (row) => row.clue_ans,
       sortable: true,
-    },
+    },{
+        name: "Clue Option 2",
+        selector: (row) => row.clue_opt_b,
+        sortable: true,
+      },{
+        name: "Clue Option 3",
+        selector: (row) => row.clue_opt_c,
+        sortable: true,
+      },
     {
       name: "Actions",
       cell: (row) => (
-        <UpdateDeletebuttons form_type={` event ${row.event_name} `} onClickUpdate={() => modalOpenClose('update', row)} onClickDelete={() => openDeleteModal('delete', row)} />
+        <UpdateDeletebuttons form_type={` artist ${row.clue_name} `} onClickUpdate={() => modalOpenClose('update', row)} onClickDelete={() => openDeleteModal('delete', row)} />
       ),
     },
   ];
-  const [selectedFile, setSelectedFile] = useState(null);
-  const storedUserJSON = localStorage.getItem("user");
+
+   const storedUserJSON = localStorage.getItem("user");
   const user = JSON.parse(storedUserJSON);
 
   const initialData = {
-    event_name: "",
-    event_date: "",
-    event_des: "",
+    clue_name: "",
+    clue_ans: "",
+    clue_opt_b:"",
+    clue_opt_c:"",
+    clue_que: "",
     state: user.state,
     city: user.city,
     dest_name: user.destinationName,
     dest_id: user._id,
-  }
+  };
 
   const [records, setRecords] = useState([]);
   const [filterRecords, setFilterRecords] = useState([]);
@@ -86,63 +89,60 @@ export const EventTable = () => {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     let loadingToast;
+
     try {
-      const eventData = new FormData();
+      const ClueData = new FormData();
 
       if (isUpdateMode) {
-        eventData.append('data', JSON.stringify(formData));
+        ClueData.append('data', JSON.stringify(formData));
       } else {
-        eventData.append('data', JSON.stringify(formData));
-        eventData.append('image', selectedFile);
+        ClueData.append('data', JSON.stringify(formData));
       }
 
       loadingToast = toast.loading("Processing...");
 
       if (isUpdateMode) {
-        const updateRes = await updateEvents(formData._id, formData);
+        const updateRes = await updateclue(formData._id, formData);
 
         if (updateRes.status === 200) {
-          toast.success("Event updated successfully");
+          toast.success("Artist updated successfully");
           // Refresh the page with a delay
           setTimeout(() => {
             window.location.reload();
           }, 1000);
         } else {
-          toast.error("Failed to update event");
+          toast.error("Failed to update artist");
         }
-      }
-      else if (deleteMode) {
-        const deleteRes = await deleteEvents(formData._id);
+      } else if (deleteMode) {
+        const deleteRes = await deleteClue(formData._id);
 
         if (deleteRes.status === 200) {
-          toast.success("Event deleted successfully");
+          toast.success("Artist deleted successfully");
           // Refresh the page with a delay
           setTimeout(() => {
             window.location.reload();
           }, 1000);
         } else {
-          toast.error("Failed to delete event");
+          toast.error("Failed to delete artist");
         }
 
         setDeleteMode(false);
         setDeleteModalVisible(false);
-      }
-      
-      else {
-        const addRes = await addEvent(eventData);
+      } else {
+        const addRes = await addClue(ClueData);
         if (addRes.status === 202) {
-          toast.error("Event already exists");
+          toast.error("Checkpoint already exists");
         }
 
         if (addRes.status === 200) {
-          toast.success("Event added successfully");
+          toast.success("Artist added successfully");
           toast.dismiss(loadingToast);
           // Refresh the page with a delay
           setTimeout(() => {
             window.location.reload();
           }, 1.2*1000);
         } else {
-          toast.error("Failed to add event");
+          toast.error("Failed to add artist");
         }
       }
     } catch (error) {
@@ -153,34 +153,31 @@ export const EventTable = () => {
       setVisible(false);
     }
   };
-  const getEvents = async () => {
+
+  const getArtist = async () => {
     try {
       const storedUserJSON = localStorage.getItem("user");
       const storedUser = JSON.parse(storedUserJSON);
-      const res = await fetchEvents(storedUser.destinationName);
-      const data = res.data.data;
-      console.log(data)
+    //   const res = await fetchClue(storedUser.destinationName);
+    //   const data = res.data.data;
+    const data = ClueAnsData[0]
+    console.log(data)
       setRecords(data);
       setFilterRecords(data);
     } catch (error) {
-      console.error("Error fetching checkpoints:", error);
+      console.error("Error fetching artists:", error);
     }
   };
 
   useEffect(() => {
-    getEvents();
+    getArtist();
   }, []);
 
   const onChangeHandler = (e) => {
-    // setData({ ...data, [e.target.name]: e.target.value });
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    console.log(formData)
   };
 
-  // Function to handle file selection
-  const handleFileChange = (e) => {
-    setSelectedFile(e.target.files[0]);
-  };
+  
 
   return (
     <>
@@ -191,38 +188,38 @@ export const EventTable = () => {
         open={visible}
       >
         <form onSubmit={onSubmitHandler}>
-          <FormEvents
-            selectedFile={selectedFile}
-            handleFileChange={handleFileChange}
+          <FormGame
             onChangeHandler={onChangeHandler}
             data={formData}
             isUpdateMode={isUpdateMode}
           />
           {isUpdateMode ? (
-            <UpdateButton title={"Event"} />
+            <UpdateButton title={"Clue"} />
           ) : (
-            <AddButton form_type={"Event"} />
+            <AddButton form_type={"Clue"} onClickfun={""} />
           )}
         </form>
       </Modal>
       <CustomTable
         onSubmitHandler={onSubmitHandler}
-        setSelectedFile={setSelectedFile}
-        handleFileChange={handleFileChange}
         onChangeHandler={onChangeHandler}
         setFormData={setFormData}
+        // handleAudioChange={}
+        handleFileChange={null}
+        selectedAudio={null}
+        selectedFile={null}
+        setSelectedFile={null}
         data={formData}
-        selectedFile={selectedFile}
         initialData={initialData}
         columns={columns}
-        addform={<FormEvents />}
-        title={'Event'}
-        searchfield={'event_name'}
+        addform={<FormGame />}
+        title={'Clue'}
+        searchfield={'clue_name'}
         records={records}
         setRecords={setRecords}
         filterRecords={filterRecords}
         setFilterRecords={setFilterRecords}
-        fetchData={getEvents}
+        fetchData={getArtist}
         modalOpenClose={modalOpenClose}
       />
       <Modal
@@ -231,12 +228,12 @@ export const EventTable = () => {
         open={deleteModalVisible}
       >
         <div className="p-6 bg-white rounded-md">
-          <h2 className="text-2xl font-bold mb-4">Delete Event</h2>
+          <h2 className="text-2xl font-bold mb-4">Delete Clue</h2>
           <form onSubmit={onSubmitHandler}>
 
             <div className="mb-4">
-              <p className="text-lg">Do you want to delete the Event named:</p>
-              <h4 className="text-xl font-semibold mt-2">{deleteModalVisible ? formData.event_name : ''}</h4>
+              <p className="text-lg">Do you want to delete the Clue named:</p>
+              <h4 className="text-xl font-semibold mt-2">{deleteModalVisible ? formData.clue_name : ''}</h4>
             </div>
 
             <div className="flex justify-end">
@@ -247,13 +244,12 @@ export const EventTable = () => {
               >
                 Cancel
               </button>
-              <DeleButton title={'Artist'} />
+              <DeleButton title={'Clue'} />
             </div>
 
           </form>
         </div>
       </Modal>
-    
     </>
   );
 };

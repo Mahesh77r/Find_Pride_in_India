@@ -801,6 +801,114 @@ export const FormArtist = ({
     );
 };
 
+export const FormGame = ({
+    onChangeHandler,
+    data,
+    isUpdateMode,
+}) => {
+    return (
+        <>
+            <h1 className="text-xl font-bold mb-3 text-center">
+                Do you want to {isUpdateMode ? "update" : "add"} Clue?
+            </h1>
+            
+
+            {/* Clue Name Input */}
+            <div className="mt-4">
+                <label
+                    htmlFor="clueName"
+                    className="block text-sm font-medium text-gray-700"
+                >
+                    Clue Name
+                </label>
+                <input
+                    type="text"
+                    id="clue_name"
+                    onChange={onChangeHandler}
+                    value={data ? data.clue_name : ""}
+                    name="clue_name"
+                    className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+                    required
+                />
+            </div>
+
+            {/* Artist Contact Input */}
+            <div className="mt-4">
+                <label
+                    htmlFor="artistContact"
+                    className="block text-sm font-medium text-gray-700"
+                >
+                    Clue Question
+                </label>
+                <input
+                    type="text"
+                    id="clue_que"
+                    onChange={onChangeHandler}
+                    value={data ? data.clue_que : ""}
+                    name="clue_que"
+                    className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+                    required
+                />
+            </div>
+
+            {/* Artist Address Input */}
+            <div className="mt-4 mb-2">
+                <label
+                    htmlFor="artistAddress"
+                    className="block text-sm font-medium text-gray-700"
+                >
+                    Clue Answer
+                </label>
+                <input
+                    type="text"
+                    id="clue_ans"
+                    value={data ? data.clue_ans : ""}
+                    name="clue_ans"
+                    onChange={onChangeHandler}
+                    className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+                    required
+                />
+            </div>
+            {/*  */}
+            <div className="mt-4 mb-2">
+                <label
+                    htmlFor="artistAddress"
+                    className="block text-sm font-medium text-gray-700"
+                >
+                    Clue Option 2
+                </label>
+                <input
+                    type="text"
+                    id="clue_ans"
+                    value={data ? data.clue_opt_b : ""}
+                    name="clue_opt_b"
+                    onChange={onChangeHandler}
+                    className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+                    required
+                />
+            </div>
+            {/*  */}
+            <div className="mt-4 mb-2">
+                <label
+                    htmlFor="artistAddress"
+                    className="block text-sm font-medium text-gray-700"
+                >
+                    Clue Answer
+                </label>
+                <input
+                    type="text"
+                    id="clue_ans"
+                    value={data ? data.clue_opt_c : ""}
+                    name="clue_opt_c"
+                    onChange={onChangeHandler}
+                    className="mt-1 p-2 block w-full border border-gray-300 rounded-md"
+                    required
+                />
+            </div>
+        </>
+    );
+};
+
 export const FormPlaceSummary = ({
     destination_name,
     admin_name,

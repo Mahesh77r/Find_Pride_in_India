@@ -15,22 +15,28 @@ import { Chart } from './components/Charts/Chart';
 import { ChartPlaceAdmin } from './components/Charts/ChartPlaceAdmin';
 import { Checkpoints } from './pages/TablePages/Checkpoints';
 import { ProfilePage } from './pages/ProfilePage';
+import { GamePage } from './pages/GamePage';
 
 function App() {
   const [isSideNavbarOpen, setIsSideNavbarOpen] = useState(true);
-  const [login,setLogin ] = useState(false);
+        
+        const [login,setLogin ] = useState(false ||  localStorage.getItem("auth"));
+        // const [login, setLogin] = useState(() => localStorage.getItem("auth") !== null);
+
   const toggleSideNavbar = () => {
     setIsSideNavbarOpen(!isSideNavbarOpen);
   };
   
   const {user} = useUser();
   console.log(user.adminName)
+
   useEffect(() => {
     // Check if there is a user in local storage and set the login state accordingly
-    if (localStorage.getItem("user")) {
+    if (localStorage.getItem("auth")) {
+      console.log("first")
       setLogin(true); // Set to true if a user is found in local storage
     }
-  }, [user]);
+  }, [localStorage.getItem("auth")]);
   
   
   console.log(login)
@@ -42,6 +48,7 @@ return (
     <TopNavbar />
       <div className="flex">
         {/* Display the side navbar if user is logged in */}
+        
         {login && (
           <SideNavbar
             navigation={navForDOM}
@@ -59,6 +66,7 @@ return (
             <Route path="/form" element={<AddDOM />} />
             <Route path="/resetpassword/:token" element={<ResetPassword />} />
             <Route path="/order" element={<OrderTable />} />
+            <Route path="/games" element={<GamePage />} />
             <Route path="/chart" element={<Chart/>}/>
             <Route path="/chart1" element={<ChartPlaceAdmin/>}/>
           </Routes>
