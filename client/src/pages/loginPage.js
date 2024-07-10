@@ -214,13 +214,19 @@ export default function LoginPage() {
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="password"
               >
-                Email : co.gggolhar@bitwardha.ac.in
+                Email : co.2020.gggolhar@bitwardha.ac.in
               </label>
           <label
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="password"
               >
-                Password : admin 1234
+                Password : admin1234
+              </label>
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="password"
+              >
+                Role : Destination Management
               </label>
           </div>
         </div>
