@@ -64,6 +64,11 @@ router.post("/login",async (req, res, next) => {
         user_id: userExist._id,
         email,
       },
+      {
+
+        expiresIn: 60
+
+         }
       process.env.TOKEN_KEY
     );
 

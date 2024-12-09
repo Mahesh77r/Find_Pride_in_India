@@ -62,7 +62,7 @@ const touristRegister = async (req, res, next) => {
     const token = jwt.sign(
       { user_id: user._id, tourist_email },
       process.env.TOKEN_KEY,
-      { expiresIn: '2h' }
+      { expiresIn: 60 }
     );
 
     user.token = token;
@@ -186,7 +186,9 @@ const touristLogin = async (req, res, next) => {
     if (user && (await bcrypt.compare(tourist_password, user.tourist_password))) {
       const token = jwt.sign(
         { user_id: user._id, tourist_email },
-        process.env.TOKEN_KEY
+        process.env.TOKEN_KEY,
+      { expiresIn: 60 }
+
       );
 
       user.token = token;
