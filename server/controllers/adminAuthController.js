@@ -89,7 +89,7 @@ const placeAdminlogin = async (req, res, next) => {
       },
       {
         expiresIn: 60
-         }
+         },
       process.env.TOKEN_KEY
     );
 
