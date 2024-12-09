@@ -68,7 +68,7 @@ router.post("/login",async (req, res, next) => {
 
         expiresIn: 60
 
-         }
+         },
       process.env.TOKEN_KEY
     );
 
