@@ -64,12 +64,8 @@ router.post("/login",async (req, res, next) => {
         user_id: userExist._id,
         email,
       },
-      {
-
-        expiresIn: 60
-
-         },
-      process.env.TOKEN_KEY
+      process.env.TOKEN_KEY,
+      { expiresIn: 60 }
     );
 
     // save user token
