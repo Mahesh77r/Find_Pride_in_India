@@ -33,16 +33,16 @@ router.delete("/deleteproducts/:id",deleteProduct);
 
 // CRUD Guide
 router.post("/addguides",addTouristGuide);
-router.get("/getguides/:dest_name",getTouristGuide);
-router.get("/getguides/",getTouristGuide);
+router.get("/getguides/:dest_name",auth,getTouristGuide);
+router.get("/getguides/",auth,getTouristGuide);
 router.put("/updateguides/:id",updateGuide);
 router.delete("/deleteguides/:id",deleteGuide);
 
 // CRUD Event
 router.post("/addevents",addEvent);
 router.get("/getevents/:dest_name",getEvent);
-router.get("/getevents/",getEvent);
-router.put("/updateevents/:id",updateEvent);
+router.get("/getevents/",auth,getEvent);
+router.put("/updateevents/:id",auth,updateEvent);
 router.delete("/deleteevents/:id",deleteEvent);
 
 // CRUD Facility
